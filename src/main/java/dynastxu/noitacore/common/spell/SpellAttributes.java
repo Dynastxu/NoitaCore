@@ -7,40 +7,39 @@ import lombok.Builder;
 import lombok.NonNull;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import org.jspecify.annotations.Nullable;
+
+import java.util.Optional;
 
 /**
  * @see <a href="https://noita.wiki.gg/wiki/Spells">wiki</a>
  */
 @Builder
 public record SpellAttributes(
-        BaseAttributes base,
-        Modifications modifications,
-        Damage damage,
-        Time time,
-        Suffix suffix,
-        Motion motion,
-        Other other
+        @NonNull BaseAttributes base,
+        @Nullable Modifications modifications,
+        @Nullable Damage damage,
+        @Nullable Time time,
+        @Nullable Suffix suffix,
+        @Nullable Motion motion,
+        @Nullable Other other
 ) {
     public static final Codec<SpellAttributes> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             BaseAttributes.CODEC.fieldOf("base").forGetter(SpellAttributes::base),
-            Modifications.CODEC.fieldOf("modifications").forGetter(SpellAttributes::modifications),
-            Damage.CODEC.fieldOf("damage").forGetter(SpellAttributes::damage),
-            Time.CODEC.fieldOf("time").forGetter(SpellAttributes::time),
-            Suffix.CODEC.fieldOf("suffix").forGetter(SpellAttributes::suffix),
-            Motion.CODEC.fieldOf("motion").forGetter(SpellAttributes::motion),
-            Other.CODEC.fieldOf("other").forGetter(SpellAttributes::other)
-    ).apply(instance, SpellAttributes::new));
-
-    public static final StreamCodec<ByteBuf, SpellAttributes> STREAM_CODEC = StreamCodec.composite(
-            BaseAttributes.STREAM_CODEC, SpellAttributes::base,
-            Modifications.STREAM_CODEC, SpellAttributes::modifications,
-            Damage.STREAM_CODEC, SpellAttributes::damage,
-            Time.STREAM_CODEC, SpellAttributes::time,
-            Suffix.STREAM_CODEC, SpellAttributes::suffix,
-            Motion.STREAM_CODEC, SpellAttributes::motion,
-            Other.STREAM_CODEC, SpellAttributes::other,
-            SpellAttributes::new
-    );
+            Modifications.CODEC.optionalFieldOf("modifications").forGetter(sa -> Optional.ofNullable(sa.modifications)),
+            Damage.CODEC.optionalFieldOf("damage").forGetter(sa -> Optional.ofNullable(sa.damage)),
+            Time.CODEC.optionalFieldOf("time").forGetter(sa -> Optional.ofNullable(sa.time)),
+            Suffix.CODEC.optionalFieldOf("suffix").forGetter(sa -> Optional.ofNullable(sa.suffix)),
+            Motion.CODEC.optionalFieldOf("motion").forGetter(sa -> Optional.ofNullable(sa.motion)),
+            Other.CODEC.optionalFieldOf("other").forGetter(sa -> Optional.ofNullable(sa.other))
+    ).apply(instance, (base, mod, dmg, time, sfx, motion, other) ->
+            new SpellAttributes(base,
+                    mod.orElse(null),
+                    dmg.orElse(null),
+                    time.orElse(null),
+                    sfx.orElse(null),
+                    motion.orElse(null),
+                    other.orElse(null))));
 
     public boolean isModifier() {
         return base.type == SpellType.Modifier;
@@ -50,10 +49,9 @@ public record SpellAttributes(
         return base.type == SpellType.Multicast;
     }
 
-    @Builder
     public record BaseAttributes(
             @NonNull SpellType type,
-            Uses uses,
+            @NonNull Uses uses,
             int manaDrain,
             int castDelayTick,
             int rechargeTick,
@@ -79,7 +77,6 @@ public record SpellAttributes(
         );
     }
 
-    @Builder
     public record Uses(
             int uses,
             boolean mustConsume
@@ -94,30 +91,30 @@ public record SpellAttributes(
                 ByteBufCodecs.BOOL, Uses::mustConsume,
                 Uses::new
         );
+
+        public static final Uses UNRESTRICTED = new Uses(0, false);
     }
 
 
-    @Builder
     public record Suffix(
             int num,
-            SuffixType triggerType,
+            @NonNull SuffixType type,
             int timerLifeTick
     ) {
         public static final Codec<Suffix> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.INT.fieldOf("num").forGetter(Suffix::num),
-                SuffixType.CODEC.fieldOf("trigger_type").forGetter(Suffix::triggerType),
+                SuffixType.CODEC.fieldOf("type").forGetter(Suffix::type),
                 Codec.INT.fieldOf("timer_life_tick").forGetter(Suffix::timerLifeTick)
         ).apply(instance, Suffix::new));
 
         public static final StreamCodec<ByteBuf, Suffix> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.VAR_INT, Suffix::num,
-                SuffixType.STREAM_CODEC, Suffix::triggerType,
+                SuffixType.STREAM_CODEC, Suffix::type,
                 ByteBufCodecs.VAR_INT, Suffix::timerLifeTick,
                 Suffix::new
         );
     }
 
-    @Builder
     public record Modifications(
             float speedMultiplier,
             float recoil,
@@ -137,18 +134,21 @@ public record SpellAttributes(
         );
     }
 
-    @Builder
     public record Damage(
             float projectile,
             float explosion,
             float explosionRadius,
-            boolean friendlyFire
+            boolean friendlyFire,
+            boolean piercing,
+            boolean penetrating
     ) {
         public static final Codec<Damage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.FLOAT.fieldOf("projectile").forGetter(Damage::projectile),
                 Codec.FLOAT.fieldOf("explosion").forGetter(Damage::explosion),
                 Codec.FLOAT.fieldOf("explosion_radius").forGetter(Damage::explosionRadius),
-                Codec.BOOL.fieldOf("friendly_fire").forGetter(Damage::friendlyFire)
+                Codec.BOOL.fieldOf("friendly_fire").forGetter(Damage::friendlyFire),
+                Codec.BOOL.fieldOf("piercing").forGetter(Damage::piercing),
+                Codec.BOOL.fieldOf("penetrating").forGetter(Damage::penetrating)
         ).apply(instance, Damage::new));
 
         public static final StreamCodec<ByteBuf, Damage> STREAM_CODEC = StreamCodec.composite(
@@ -156,11 +156,12 @@ public record SpellAttributes(
                 ByteBufCodecs.FLOAT, Damage::explosion,
                 ByteBufCodecs.FLOAT, Damage::explosionRadius,
                 ByteBufCodecs.BOOL, Damage::friendlyFire,
+                ByteBufCodecs.BOOL, Damage::piercing,
+                ByteBufCodecs.BOOL, Damage::penetrating,
                 Damage::new
         );
     }
 
-    @Builder
     public record Time(
             int lifeTick
     ) {
@@ -179,7 +180,6 @@ public record SpellAttributes(
      * @param initialSpeed 初始化速度（米 / 刻）
      * @see <a href="https://tieba.baidu.com/p/9226674208?share=9105&fr=sharewise&see_lz=0&share_from=post&sfc=qqfriend&client_type=2&client_version=12.78.1.1&st=1785852329&is_video=false&unique=D2D580009B0D306C2D9848EB3725962D&source=12_16_sharecard_a">关于重力修正与 noita 运动学</a>
      */
-    @Builder
     public record Motion(
             float initialSpeed,
             float spread,
@@ -211,7 +211,6 @@ public record SpellAttributes(
         );
     }
 
-    @Builder
     public record Other(
             int basePrice
     ) {

@@ -17,9 +17,9 @@ public final class CreativeTabs {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> NOITA_SPELL_TAB =
             CREATIVE_MODE_TABS.register("noita_spell_tab", () -> CreativeModeTab.builder()
                     .title(ModLanguageProvider.getTranslatable("noita_spell_tab"))
-                    .icon(() -> new ItemStack(Items.BOUNCING_BURST_SPELL.get()))
+                    .icon(() -> new ItemStack(Items.SPELL_RUBBER_BALL.get()))
                     .displayItems((_, output) -> {
-                        output.accept(Items.BOUNCING_BURST_SPELL.get());
+                        output.accept(Items.SPELL_RUBBER_BALL.get());
                     })
                     .build()
             );

@@ -2,11 +2,12 @@ package dynastxu.noitacore.common.wand;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dynastxu.noitacore.common.spell.SpellAttributes;
-import io.netty.buffer.ByteBuf;
 import lombok.NonNull;
+import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.Item;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public record WandStatistics(
         int manaChargeSpeed,
         int capacity,
         float spread,
-        @NonNull List<SpellAttributes> alwaysCasts,
+        @NonNull List<Holder<Item>> alwaysCasts,
         float speedMultiplier
 ) {
     public static final int MAX_CAPACITY = 66;
@@ -33,13 +34,13 @@ public record WandStatistics(
                             Codec.INT.fieldOf("mana_charge_speed").forGetter(WandStatistics::manaChargeSpeed),
                             Codec.INT.fieldOf("capacity").forGetter(WandStatistics::capacity),
                             Codec.FLOAT.fieldOf("spread").forGetter(WandStatistics::spread),
-                            Codec.list(SpellAttributes.CODEC).fieldOf("always_casts").forGetter(WandStatistics::alwaysCasts),
+                            Codec.list(Item.CODEC).fieldOf("always_casts").forGetter(WandStatistics::alwaysCasts),
                             Codec.FLOAT.fieldOf("speed_multiplier").forGetter(WandStatistics::speedMultiplier)
                     )
                     .apply(instance, WandStatistics::new)
     );
 
-    public static final StreamCodec<ByteBuf, WandStatistics> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, WandStatistics> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.BOOL, WandStatistics::shuffle,
             ByteBufCodecs.VAR_INT, WandStatistics::spellsPerCast,
             ByteBufCodecs.VAR_INT, WandStatistics::castDelayTick,
@@ -48,7 +49,7 @@ public record WandStatistics(
             ByteBufCodecs.VAR_INT, WandStatistics::manaChargeSpeed,
             ByteBufCodecs.VAR_INT, WandStatistics::capacity,
             ByteBufCodecs.FLOAT, WandStatistics::spread,
-            ByteBufCodecs.<ByteBuf, SpellAttributes>list().apply(SpellAttributes.STREAM_CODEC), WandStatistics::alwaysCasts,
+            ByteBufCodecs.<RegistryFriendlyByteBuf, Holder<Item>>list().apply(Item.STREAM_CODEC), WandStatistics::alwaysCasts,
             ByteBufCodecs.FLOAT, WandStatistics::speedMultiplier,
             WandStatistics::new
     );

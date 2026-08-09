@@ -1,9 +1,6 @@
 package dynastxu.noitacore.menu;
 
-import dynastxu.noitacore.MenuTypes;
 import dynastxu.noitacore.common.wand.WandContainer;
-import dynastxu.noitacore.components.DataComponents;
-import dynastxu.noitacore.components.WandData;
 import dynastxu.noitacore.item.SpellItem;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
@@ -94,11 +91,17 @@ public class WandMenu extends AbstractContainerMenu {
         ItemStack result = ItemStack.EMPTY;
 
         final ItemStack originalItem = item.copy();
-        if (slot.container instanceof WandContainer) {
-            if (moveItemStackTo(item, 0, wandContainer.getContainerSize(), false)) {
+        if (slot.container instanceof Inventory) {
+            // FIXME 在第二页快速移动时，会在第二页闪一下然后跑到第一页
+            final int startSlot = SLOTS_PER_PAGE * currentPage.get();
+            final int slotsOnPage = currentPage.get() == totalPages - 1
+                    ? wandContainer.getContainerSize() % SLOTS_PER_PAGE
+                    : SLOTS_PER_PAGE;
+            final int endSlot = startSlot + slotsOnPage;
+            if (moveItemStackTo(item, startSlot, endSlot, false)) {
                 result = originalItem;
             }
-        } else if (slot.container instanceof Inventory) {
+        } else if (slot.container instanceof WandContainer) {
             if (moveItemStackTo(item, wandContainer.getContainerSize(), wandContainer.getContainerSize() + playerInventory.getContainerSize(), false)) {
                 result = originalItem;
             }
@@ -121,15 +124,5 @@ public class WandMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(@NonNull Player player) {
         return player.getMainHandItem() == wand;
-    }
-
-    @Override
-    public void removed(@NonNull Player player) {
-        super.removed(player);
-        ItemStack carried = this.getCarried();
-        if (!carried.isEmpty()) {
-            player.drop(carried, false);
-            this.setCarried(ItemStack.EMPTY);
-        }
     }
 }

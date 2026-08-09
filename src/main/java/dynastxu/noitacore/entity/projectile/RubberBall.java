@@ -1,0 +1,23 @@
+package dynastxu.noitacore.entity.projectile;
+
+import dynastxu.noitacore.particle.ParticleUtils;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+
+public class RubberBall extends SpellProjectile {
+    public RubberBall(EntityType<? extends Projectile> type, Level level) {
+        super(type, level);
+    }
+
+    @Override
+    public void tick() {
+        Vec3 originalPos = this.position();
+        super.tick();
+        Vec3 newPos = this.position();
+        if (this.level().isClientSide()) {
+            ParticleUtils.spawnPixelParticles(this.level(), originalPos, newPos, 1d/7, 1, 0.025f, 0x8000ff00, 20, 40);
+        }
+    }
+}

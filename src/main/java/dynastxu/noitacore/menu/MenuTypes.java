@@ -1,7 +1,6 @@
-package dynastxu.noitacore;
+package dynastxu.noitacore.menu;
 
 import dynastxu.noitacore.common.wand.WandStatistics;
-import dynastxu.noitacore.menu.WandMenu;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
@@ -22,8 +21,8 @@ public final class MenuTypes {
 
     static {
         final List<Supplier<MenuType<WandMenu>>> wandMenus = new ArrayList<>();
-        for (int i = 0; i < WandStatistics.MAX_CAPACITY; i++) {
-            final int containerSize = i + 1;
+        for (int i = 1; i <= WandStatistics.MAX_CAPACITY; i++) {
+            final int containerSize = i;
             wandMenus.add(
                     MENU_TYPES.register("wand_menu_" + containerSize, () -> new MenuType<>(
                             (containerId, playerInventory) -> new WandMenu(containerId, playerInventory, containerSize),

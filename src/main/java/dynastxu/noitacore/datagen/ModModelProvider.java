@@ -22,7 +22,7 @@ public final class ModModelProvider extends ModelProvider {
 
     @Override
     protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
-        spellItem(Items.BOUNCING_BURST_SPELL.get(), itemModels, SpellType.Projectile);
+        spellItem(Items.SPELL_RUBBER_BALL.get(), itemModels, SpellType.Projectile);
 
         wandItem(Items.WAND_SMC_SC_NS.get(), itemModels);
         wandItem(Items.WAND_LC_SC_S.get(), itemModels);

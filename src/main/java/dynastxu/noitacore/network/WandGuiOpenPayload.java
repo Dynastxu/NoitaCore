@@ -26,7 +26,6 @@ public record WandGuiOpenPayload() implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<WandGuiOpenPayload> TYPE =
             new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(MODID, "wand_gui_open"));
     public static final StreamCodec<ByteBuf, WandGuiOpenPayload> STREAM_CODEC = StreamCodec.unit(new WandGuiOpenPayload());
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public static void handle(final WandGuiOpenPayload ignoredPayload, final @NonNull IPayloadContext context) {
         Player player = context.player();

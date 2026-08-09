@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dynastxu.noitacore.common.spell.Spell;
 import dynastxu.noitacore.common.wand.WandStatistics;
-import io.netty.buffer.ByteBuf;
 import lombok.Builder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -40,8 +39,8 @@ public record WandData(
     public static final StreamCodec<RegistryFriendlyByteBuf, WandData> STREAM_CODEC = StreamCodec.composite(
             WandStatistics.STREAM_CODEC, WandData::statistics,
             ByteBufCodecs.INT, WandData::mana,
-            ByteBufCodecs.<ByteBuf, Spell>list().apply(Spell.STREAM_CODEC), WandData::drawStack,
-            ByteBufCodecs.<ByteBuf, Spell>list().apply(Spell.STREAM_CODEC), WandData::discardStack,
+            ByteBufCodecs.<RegistryFriendlyByteBuf, Spell>list().apply(Spell.STREAM_CODEC), WandData::drawStack,
+            ByteBufCodecs.<RegistryFriendlyByteBuf, Spell>list().apply(Spell.STREAM_CODEC), WandData::discardStack,
             ByteBufCodecs.VAR_INT, WandData::castDelayTick,
             ByteBufCodecs.VAR_INT, WandData::rechargeTick,
             ByteBufCodecs.<RegistryFriendlyByteBuf, ItemStack>list().apply(ItemStack.OPTIONAL_STREAM_CODEC), WandData::inventory,
@@ -86,9 +85,21 @@ public record WandData(
         if (--rechargeTick < 0) {
             rechargeTick = 0;
         }
+
         return this.toBuilder()
                 .castDelayTick(castDelayTick)
                 .rechargeTick(rechargeTick).build();
+    }
+
+    public WandData chargeMana() {
+        if (mana >= statistics.manaMax()) return this;
+        int manaCharged = mana + statistics.manaChargeSpeed();
+        if (manaCharged > statistics.manaMax()) {
+            manaCharged = statistics.manaMax();
+        }
+        return this.toBuilder()
+                .mana(manaCharged)
+                .build();
     }
 }
 

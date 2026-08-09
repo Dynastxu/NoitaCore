@@ -3,7 +3,7 @@ package dynastxu.noitacore.common.wand;
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.components.WandData;
 import dynastxu.noitacore.item.SpellItem;
-import dynastxu.noitacore.utils.NonNullListUtils;
+import dynastxu.noitacore.utils.Utils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +17,7 @@ public class WandContainer implements Container {
 
     public WandContainer(int capacity, NonNullList<ItemStack> inventory, ItemStack wand) {
         this.capacity = capacity;
-        this.inventory = NonNullListUtils.copy(inventory, ItemStack.EMPTY);
+        this.inventory = Utils.copy(inventory);
         this.wand = wand;
     }
 
@@ -84,7 +84,7 @@ public class WandContainer implements Container {
 
         WandData wandData = wand.get(DataComponents.WAND_DATA);
         if (wandData != null) {
-            wand.set(DataComponents.WAND_DATA.get(), wandData.toBuilder().inventory(NonNullListUtils.copy(inventory, ItemStack.EMPTY)).build());
+            wand.set(DataComponents.WAND_DATA.get(), wandData.toBuilder().inventory(Utils.copy(inventory)).build());
         }
     }
 

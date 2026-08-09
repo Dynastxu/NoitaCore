@@ -26,8 +26,4 @@ public record SpellData(
             ByteBufCodecs.INT, SpellData::remainingUses,
             SpellData::new
     );
-
-    public SpellData() {
-        this(0);
-    }
 }
