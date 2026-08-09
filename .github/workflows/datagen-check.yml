@@ -2,12 +2,12 @@ name: DataGen Check
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ main, dev ]
     paths:
       - 'src/main/java/dynastxu/noitacore/datagen/**'
       - 'src/generated/**'
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
     paths:
       - 'src/main/java/dynastxu/noitacore/datagen/**'
       - 'src/generated/**'
