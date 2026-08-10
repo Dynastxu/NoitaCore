@@ -4,6 +4,7 @@
   "package": "dynastxu.noitacore.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "ProjectileMixin"
   ],
   "client": [
   ],

@@ -1,5 +1,12 @@
 package dynastxu.noitacore.datagen;
 
+import dynastxu.noitacore.DamageTypes;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.damagesource.DamageEffects;
+import net.minecraft.world.damagesource.DamageScaling;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DeathMessageType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -16,6 +23,15 @@ public final class DataGen {
         event.createProvider(ModModelProvider::new);
         event.createProvider(ModDataMapProvider::new);
         event.createProvider(ModParticleDescriptionProvider::new);
+
+        event.createDatapackRegistryObjects(new RegistrySetBuilder()
+                .add(Registries.DAMAGE_TYPE, bootstrap -> {
+                    bootstrap.register(DamageTypes.SPELL_PROJECTILE, new DamageType("spell_projectile",
+                            DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER,
+                            0f,
+                            DamageEffects.HURT,
+                            DeathMessageType.DEFAULT));
+                }));
     }
 
     @SubscribeEvent

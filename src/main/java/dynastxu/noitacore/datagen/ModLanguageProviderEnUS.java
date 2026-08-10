@@ -10,12 +10,6 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
     }
 
     @Override
-    protected void addTranslations() {
-        addCreativeTabs();
-        addItems();
-    }
-
-    @Override
     protected void addCreativeTabs() {
         add(CreativeTabs.NOITA_SPELL_TAB, "Noita Spells");
         add(CreativeTabs.NOITA_WAND_TAB, "Noita Wands");
@@ -26,5 +20,10 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         add(Items.SPELL_RUBBER_BALL.get(), "Bouncing Burst Spell");
         add(Items.WAND_SMC_SC_NS.get(), "Wand - Small/Med Capacity - Single Cast - No-shuffle");
         add(Items.WAND_LC_SC_S.get(), "Wand - Large Capacity - Single Cast - Shuffle");
+    }
+
+    @Override
+    protected void addDamageTypes() {
+        addDamageTypeDefault("spell_projectile", "%1$s was killed by %2$s's spell projectiles", "%1$s was assassinated by spell projectile", "%1$s was killed by spell projectiles fired by %3$s from %2$s");
     }
 }
