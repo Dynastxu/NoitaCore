@@ -14,6 +14,13 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
         super(output, MODID, locale);
     }
 
+    @Override
+    protected void addTranslations() {
+        addCreativeTabs();
+        addItems();
+        addDamageTypes();
+    }
+
     public static @NonNull Component getTranslatable(String path) {
         return Component.translatable("itemGroup." + MODID + "." + path);
     }
@@ -22,7 +29,15 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
         add("itemGroup." + MODID + "." + tab.getId().getPath(), value);
     }
 
+    protected void addDamageTypeDefault(String msgId, String msg, String msgByPlayer, String msgByItem) {
+        add("death.attack." + msgId, msg);
+        add("death.attack." + msgId + ".player", msgByPlayer);
+        add("death.attack." + msgId + ".item", msgByItem);
+    }
+
     protected abstract void addCreativeTabs();
 
     protected abstract void addItems();
+
+    protected abstract void addDamageTypes();
 }

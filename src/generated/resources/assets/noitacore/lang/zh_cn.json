@@ -1,4 +1,7 @@
 {
+  "death.attack.spell_projectile": "%1$s死于%2$s的弹射物",
+  "death.attack.spell_projectile.item": "%1$s死于%2$s使用%3$s发射的弹射物",
+  "death.attack.spell_projectile.player": "%1$s被弹射物暗杀",
   "item.noitacore.spell_rubber_ball": "弹跳爆发",
   "item.noitacore.wand_lc_sc_s": "法杖 - 大容量 - 单施法 - 无序",
   "item.noitacore.wand_smc_sc_ns": "法杖 - 小/中容量 - 单施法 - 有序",

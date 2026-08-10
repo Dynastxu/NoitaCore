@@ -4,15 +4,9 @@ import dynastxu.noitacore.CreativeTabs;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.data.PackOutput;
 
-public final class  ModLanguageProviderZhCN extends ModLanguageProvider {
+public final class ModLanguageProviderZhCN extends ModLanguageProvider {
     public ModLanguageProviderZhCN(PackOutput output) {
         super(output, "zh_cn");
-    }
-
-    @Override
-    protected void addTranslations() {
-        addCreativeTabs();
-        addItems();
     }
 
     @Override
@@ -26,5 +20,10 @@ public final class  ModLanguageProviderZhCN extends ModLanguageProvider {
         add(Items.SPELL_RUBBER_BALL.get(), "弹跳爆发");
         add(Items.WAND_SMC_SC_NS.get(), "法杖 - 小/中容量 - 单施法 - 有序");
         add(Items.WAND_LC_SC_S.get(), "法杖 - 大容量 - 单施法 - 无序");
+    }
+
+    @Override
+    protected void addDamageTypes() {
+        addDamageTypeDefault("spell_projectile", "%1$s死于%2$s的弹射物", "%1$s被弹射物暗杀", "%1$s死于%2$s使用%3$s发射的弹射物");
     }
 }

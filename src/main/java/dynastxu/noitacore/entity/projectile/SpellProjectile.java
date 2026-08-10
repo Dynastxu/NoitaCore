@@ -3,6 +3,7 @@ package dynastxu.noitacore.entity.projectile;
 import com.mojang.logging.LogUtils;
 import dynastxu.noitacore.DamageTypes;
 import dynastxu.noitacore.DataMaps;
+import dynastxu.noitacore.accessor.ProjectileAccessor;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.spell.SuffixType;
 import dynastxu.noitacore.common.spell.UnitSpellChain;
@@ -56,8 +57,11 @@ public abstract class SpellProjectile extends Projectile {
      * 可对同一实体重复伤害
      */
     protected boolean isPiercing;
+    protected boolean isFriendlyFire;
     protected float gravity;
     protected float friction;
+    protected float damage;
+    protected float dieSpeedThreshold;
 
     public SpellProjectile(EntityType<? extends Projectile> type, Level level) {
         super(type, level);
@@ -74,11 +78,14 @@ public abstract class SpellProjectile extends Projectile {
             if (spellAttributes.damage() != null) {
                 state.penetrating = spellAttributes.damage().penetrating();
                 state.piercing = spellAttributes.damage().piercing();
+                state.friendlyFire = spellAttributes.damage().friendlyFire();
+                state.damage = spellAttributes.damage().projectile();
             }
             if (spellAttributes.motion() != null) {
                 state.gravity = spellAttributes.motion().gravity();
                 state.bounces = spellAttributes.motion().bounces();
                 state.friction = spellAttributes.motion().friction();
+                state.dieSpeedThreshold = spellAttributes.motion().dieSpeedThreshold();
             }
             if (spellAttributes.time() != null) {
                 state.lifeTick = spellAttributes.time().lifeTick();
@@ -94,11 +101,14 @@ public abstract class SpellProjectile extends Projectile {
                 if (modifierAttributes.damage() != null) {
                     state.penetrating = state.penetrating || modifierAttributes.damage().penetrating();
                     state.piercing = state.piercing || modifierAttributes.damage().piercing();
+                    state.friendlyFire = state.friendlyFire || modifierAttributes.damage().friendlyFire();
+                    state.damage += modifierAttributes.damage().projectile();
                 }
                 if (modifierAttributes.motion() != null) {
                     state.gravity += modifierAttributes.motion().gravity();
                     state.bounces += modifierAttributes.motion().bounces();
                     state.friction += modifierAttributes.motion().friction();
+                    state.dieSpeedThreshold += modifierAttributes.motion().dieSpeedThreshold();
                 }
                 if (modifierAttributes.time() != null) {
                     state.lifeTick += modifierAttributes.time().lifeTick();
@@ -125,8 +135,11 @@ public abstract class SpellProjectile extends Projectile {
 
         this.isPiercing = state.penetrating;
         this.isPenetrating = state.penetrating;
+        this.isFriendlyFire = state.friendlyFire;
         this.gravity = state.gravity;
         this.friction = state.friction;
+        this.damage = state.damage;
+        this.dieSpeedThreshold = state.dieSpeedThreshold;
 
         this.entityData.set(REMAINING_BOUNCES, state.bounces);
         this.entityData.set(REMAINING_LIFE_TICK, state.lifeTick);
@@ -205,9 +218,9 @@ public abstract class SpellProjectile extends Projectile {
         var faz = 0d;
         if (isInLiquid()) {
             var fluidHeight = getFluidHeight();
-            fax = -(friction / 8400) * getDeltaMovement().x * getDeltaMovement().x;
-            fay = -(friction / 8400) * getDeltaMovement().y * getDeltaMovement().y;
-            faz = -(friction / 8400) * getDeltaMovement().z * getDeltaMovement().z;
+            fax = -(friction / 10.5) * getDeltaMovement().x * getDeltaMovement().x;
+            fay = -(friction / 10.5) * getDeltaMovement().y * getDeltaMovement().y;
+            faz = -(friction / 10.5) * getDeltaMovement().z * getDeltaMovement().z;
         } else {
             fax = -(friction / 8400) * getDeltaMovement().x;
             fay = -(friction / 8400) * getDeltaMovement().y;
@@ -222,13 +235,20 @@ public abstract class SpellProjectile extends Projectile {
 
     @Override
     public void tick() {
+        if (dieSpeedThreshold > 0) {
+            if (getDeltaMovement().length() <= dieSpeedThreshold) {
+                onWillDiscard();
+                discard();
+            }
+        }
+
         Vec3 movement = this.getDeltaMovement();
         Vec3 originalPosition = this.position();
         BlockHitResult blockHitResult = this.level()
                 .clipIncludingBorder(
                         new ClipContext(originalPosition, originalPosition.add(movement), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)
                 );
-        this.stepMoveAndHit(blockHitResult);
+        this.stepMoveAndHit(blockHitResult, true);
 
         applyPhysics();
 
@@ -285,7 +305,7 @@ public abstract class SpellProjectile extends Projectile {
         return ProjectileDeflection.NONE;
     }
 
-    protected void stepMoveAndHit(BlockHitResult blockHitResult) {
+    protected void stepMoveAndHit(BlockHitResult blockHitResult, boolean applyEffectsFromBlocks) {
         while (this.isAlive()) {
             Vec3 initialPosition = this.position();
             ArrayList<EntityHitResult> entitiesHit = new ArrayList<>(this.findHitEntities(initialPosition, blockHitResult.getLocation()));
@@ -295,7 +315,9 @@ public abstract class SpellProjectile extends Projectile {
             Vec3 nextLocation = Objects.requireNonNullElse(firstEntityHit, blockHitResult).getLocation();
 
             this.setPos(nextLocation);
-            this.applyEffectsFromBlocks(initialPosition, nextLocation);
+            if (applyEffectsFromBlocks) {
+                this.applyEffectsFromBlocks(initialPosition, nextLocation);
+            }
             if (this.portalProcess != null && this.portalProcess.isInsidePortalThisTick()) {
                 this.handlePortal();
             }
@@ -321,21 +343,28 @@ public abstract class SpellProjectile extends Projectile {
         }
     }
 
-    @Override
-    public boolean isPassengerOfSameVehicle(@NonNull Entity other) {
-        return false;
-    }
-
+    @SuppressWarnings("RedundantIfStatement")
     @Override
     protected boolean canHitEntity(@NonNull Entity entity) {
-        if (entity == getOwner()) {
-            final SpellAttributes spellAttributes = getMainSpellAttributes();
-            if (spellAttributes != null && spellAttributes.damage() != null && !spellAttributes.damage().friendlyFire()) {
-                return false;
-            }
+        if (!entity.canBeHitByProjectile()) {
+            return false;
         }
 
-        return super.canHitEntity(entity);
+        Entity owner = this.getOwner();
+        if (entity == owner && !canHitOwner()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @SuppressWarnings("RedundantIfStatement")
+    protected boolean canHitOwner() {
+        if (!isFriendlyFire) return false;
+        if (!((ProjectileAccessor) this).noitaCore$isLeftOwner()) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -350,7 +379,7 @@ public abstract class SpellProjectile extends Projectile {
         final SpellAttributes spellAttributes = getMainSpellAttributes();
 
         if (spellAttributes != null && spellAttributes.damage() != null) {
-            onHurtEntity(hitResult.getEntity(), spellAttributes.damage().projectile());
+            hurtEntity(hitResult.getEntity(), spellAttributes.damage().projectile());
         }
 
         if (spellAttributes != null && spellAttributes.damage() != null && !spellAttributes.damage().penetrating() && !spellAttributes.damage().piercing()) {
@@ -359,7 +388,8 @@ public abstract class SpellProjectile extends Projectile {
         }
     }
 
-    protected void onHurtEntity(Entity entity, float damage) {
+    protected void hurtEntity(Entity entity, float damage) {
+        if (damage == 0) return;
         if (level() instanceof ServerLevel serverLevel) {
             DamageSource damageSource = serverLevel.damageSources().source(
                     DamageTypes.SPELL_PROJECTILE,
@@ -367,13 +397,8 @@ public abstract class SpellProjectile extends Projectile {
                     getOwner()
             );
             entity.hurtServer(serverLevel, damageSource, damage);
+            entity.invulnerableTime = 0;
         }
-    }
-
-    @Override
-    protected void onHit(@NonNull HitResult hitResult) {
-        super.onHit(hitResult);
-        needsSync = true;
     }
 
     @Override
@@ -383,23 +408,27 @@ public abstract class SpellProjectile extends Projectile {
         int remainingBounces = entityData.get(REMAINING_BOUNCES);
         if (remainingBounces > 0) {
             entityData.set(REMAINING_BOUNCES, remainingBounces - 1);
-
-            Vec3 motion = getDeltaMovement();
-            Direction dir = hitResult.getDirection();
-            Vec3 normal = Vec3.atLowerCornerOf(dir.getUnitVec3i());
-            double dot = motion.dot(normal);
-
-            if (dot < 0) {
-                // 先把位置推到方块外，避免卡住
-                Vec3 newPos = position().add(normal.scale(0.1));
-                setPos(newPos);
-
-                setDeltaMovement(motion.subtract(normal.scale(2 * dot)));
-                setDeltaMovement(getDeltaMovement().scale(0.5));
-            }
+            bounce(hitResult);
+            onBounced(hitResult);
         } else {
+            bounce(hitResult);
             onWillDiscard();
             discard();
+        }
+    }
+
+    protected void onBounced(BlockHitResult hitResult) {
+    }
+
+    protected void bounce(@NonNull BlockHitResult hitResult) {
+        Vec3 motion = getDeltaMovement();
+        Direction dir = hitResult.getDirection();
+        Vec3 normal = Vec3.atLowerCornerOf(dir.getUnitVec3i());
+        double dot = motion.dot(normal);
+
+        if (dot < 0) {
+            setDeltaMovement(motion.subtract(normal.scale(2 * dot)));
+            setDeltaMovement(getDeltaMovement().scale(0.5));
         }
     }
 
@@ -425,18 +454,22 @@ public abstract class SpellProjectile extends Projectile {
     }
 
     public static class InitialState {
-        public int bounces = 0;
-        public int lifeTick = 0;
-        public int suffixTimer = 0;
-        public float gravity = 0;
-        public float friction = 0;
-        public boolean penetrating = false;
-        public boolean piercing = false;
+        public int bounces;
+        public int lifeTick;
+        public int suffixTimer;
+        public float gravity;
+        public float friction;
+        public float damage;
+        public float dieSpeedThreshold;
+        public boolean penetrating;
+        public boolean piercing;
+        public boolean friendlyFire;
 
         public void setValid() {
             bounces = Math.max(bounces, 0);
             lifeTick = Math.max(lifeTick, 0);
             suffixTimer = Math.max(suffixTimer, 0);
+            dieSpeedThreshold = Math.max(dieSpeedThreshold, 0);
         }
     }
 }

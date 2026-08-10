@@ -70,11 +70,11 @@ public record UnitSpellChain(
                     }
 
                     projectile.setPos(pos);
-                    level.addFreshEntity(projectile);
                     projectile.setOwner(caster);
-
                     projectile.set(mainSpell, modifiers);
                     projectile.setSuffixes(suffixes);
+
+                    level.addFreshEntity(projectile);
 
                     initialSpeed *= speedModifier;
 
