@@ -1,13 +1,18 @@
 package dynastxu.noitacore.entity.projectile;
 
 import com.mojang.logging.LogUtils;
+import com.mojang.serialization.Codec;
 import dynastxu.noitacore.DamageTypes;
 import dynastxu.noitacore.DataMaps;
+import dynastxu.noitacore.DataSerializers;
 import dynastxu.noitacore.accessor.ProjectileAccessor;
+import dynastxu.noitacore.common.explosion.ExplosionManager;
+import dynastxu.noitacore.common.explosion.SpellExplosion;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.spell.SuffixType;
 import dynastxu.noitacore.common.spell.UnitSpellChain;
 import dynastxu.noitacore.item.SpellItem;
+import dynastxu.noitacore.particle.explosion.ExplosionParticleOptions;
 import lombok.Setter;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -18,7 +23,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -44,6 +51,11 @@ public abstract class SpellProjectile extends Projectile {
             SynchedEntityData.defineId(SpellProjectile.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> SUFFIX_TIMER =
             SynchedEntityData.defineId(SpellProjectile.class, EntityDataSerializers.INT);
+    /**
+     * 伤害过的实体
+     */
+    protected static final EntityDataAccessor<List<EntityReference<Entity>>> HURT_ENTITIES =
+            SynchedEntityData.defineId(SpellProjectile.class, DataSerializers.HURT_ENTITIES_SERIALIZER.get());
     private static final Logger LOGGER = LogUtils.getLogger();
     protected Holder<Item> spellItem;
     protected List<Holder<Item>> modifiers;
@@ -62,14 +74,19 @@ public abstract class SpellProjectile extends Projectile {
     protected float friction;
     protected float damage;
     protected float dieSpeedThreshold;
+    protected float initialSpeed;
+    protected float explosion;
+    protected float explosionRadius;
+    protected float diggingPower;
 
-    public SpellProjectile(EntityType<? extends Projectile> type, Level level) {
+    public SpellProjectile(EntityType<? extends SpellProjectile> type, Level level) {
         super(type, level);
     }
 
-    public void set(@NonNull Holder<Item> spellItem, @NonNull List<Holder<Item>> modifiers) {
+    public void set(@NonNull Holder<Item> spellItem, @NonNull List<Holder<Item>> modifiers, float initialSpeed) {
         this.spellItem = spellItem;
         this.modifiers = modifiers;
+        this.initialSpeed = Math.max(initialSpeed, 0);
 
         InitialState state = new InitialState();
 
@@ -80,6 +97,8 @@ public abstract class SpellProjectile extends Projectile {
                 state.piercing = spellAttributes.damage().piercing();
                 state.friendlyFire = spellAttributes.damage().friendlyFire();
                 state.damage = spellAttributes.damage().projectile();
+                state.explosion = spellAttributes.damage().explosion();
+                state.explosionRadius = spellAttributes.damage().explosionRadius();
             }
             if (spellAttributes.motion() != null) {
                 state.gravity = spellAttributes.motion().gravity();
@@ -93,6 +112,9 @@ public abstract class SpellProjectile extends Projectile {
             if (spellAttributes.suffix() != null) {
                 state.suffixTimer = spellAttributes.suffix().timerLifeTick();
             }
+            if (spellAttributes.other() != null) {
+                state.diggingPower = spellAttributes.other().diggingPower();
+            }
         }
 
         for (Holder<Item> modifier : modifiers) {
@@ -103,6 +125,8 @@ public abstract class SpellProjectile extends Projectile {
                     state.piercing = state.piercing || modifierAttributes.damage().piercing();
                     state.friendlyFire = state.friendlyFire || modifierAttributes.damage().friendlyFire();
                     state.damage += modifierAttributes.damage().projectile();
+                    state.explosion += modifierAttributes.damage().explosion();
+                    state.explosionRadius += modifierAttributes.damage().explosionRadius();
                 }
                 if (modifierAttributes.motion() != null) {
                     state.gravity += modifierAttributes.motion().gravity();
@@ -115,6 +139,9 @@ public abstract class SpellProjectile extends Projectile {
                 }
                 if (modifierAttributes.suffix() != null) {
                     state.suffixTimer += modifierAttributes.suffix().timerLifeTick();
+                }
+                if (modifierAttributes.other() != null) {
+                    state.diggingPower += modifierAttributes.other().diggingPower();
                 }
             }
         }
@@ -130,7 +157,7 @@ public abstract class SpellProjectile extends Projectile {
         this.needsSync = true;
     }
 
-    public void apply(@NonNull InitialState state) {
+    protected void apply(@NonNull InitialState state) {
         state.setValid();
 
         this.isPiercing = state.penetrating;
@@ -140,6 +167,9 @@ public abstract class SpellProjectile extends Projectile {
         this.friction = state.friction;
         this.damage = state.damage;
         this.dieSpeedThreshold = state.dieSpeedThreshold;
+        this.diggingPower = state.diggingPower;
+        this.explosion = state.explosion;
+        this.explosionRadius = state.explosionRadius;
 
         this.entityData.set(REMAINING_BOUNCES, state.bounces);
         this.entityData.set(REMAINING_LIFE_TICK, state.lifeTick);
@@ -151,6 +181,7 @@ public abstract class SpellProjectile extends Projectile {
         entityData.define(REMAINING_BOUNCES, 0);
         entityData.define(REMAINING_LIFE_TICK, 0);
         entityData.define(SUFFIX_TIMER, 0);
+        entityData.define(HURT_ENTITIES, new ArrayList<>());
     }
 
     @Override
@@ -161,8 +192,17 @@ public abstract class SpellProjectile extends Projectile {
         output.putInt("SuffixTimer", entityData.get(SUFFIX_TIMER));
         output.putFloat("Gravity", gravity);
         output.putFloat("Friction", friction);
+        output.putFloat("Damage", damage);
+        output.putFloat("DieSpeedThreshold", dieSpeedThreshold);
+        output.putFloat("InitialSpeed", initialSpeed);
+        output.putFloat("Explosion", explosion);
+        output.putFloat("ExplosionRadius", explosionRadius);
         output.putBoolean("IsPenetrating", isPenetrating);
         output.putBoolean("IsPiercing", isPiercing);
+        output.putBoolean("IsFriendlyFire", isFriendlyFire);
+        if (!entityData.get(HURT_ENTITIES).isEmpty()) {
+            output.store("HurtEntities", Codec.list(EntityReference.codec()), entityData.get(HURT_ENTITIES));
+        }
         if (spellItem != null) {
             output.store("SpellItem", Item.CODEC, spellItem);
         }
@@ -184,8 +224,16 @@ public abstract class SpellProjectile extends Projectile {
         entityData.set(SUFFIX_TIMER, input.getInt("SuffixTimer").orElse(0));
         gravity = input.getFloatOr("Gravity", 0);
         friction = input.getFloatOr("Friction", 0);
+        damage = input.getFloatOr("Damage", 0);
+        dieSpeedThreshold = input.getFloatOr("DieSpeedThreshold", 0);
+        initialSpeed = input.getFloatOr("InitialSpeed", 0);
+        explosion = input.getFloatOr("Explosion", 0);
+        explosionRadius = input.getFloatOr("ExplosionRadius", 0);
         isPenetrating = input.getBooleanOr("IsPenetrating", false);
         isPiercing = input.getBooleanOr("IsPiercing", false);
+        isFriendlyFire = input.getBooleanOr("IsFriendlyFire", false);
+        //noinspection unchecked
+        entityData.set(HURT_ENTITIES, (List<EntityReference<Entity>>) (Object) input.read("HurtEntities", Codec.list(EntityReference.codec())).orElse(new ArrayList<>()));
         spellItem = input.read("SpellItem", Item.CODEC).orElse(null);
         input.listOrEmpty("Modifiers", Item.CODEC).forEach(modifier -> modifiers.add(modifier));
         input.listOrEmpty("Suffixes", UnitSpellChain.CODEC).forEach(suffix -> suffixes.add(suffix));
@@ -233,6 +281,10 @@ public abstract class SpellProjectile extends Projectile {
         );
     }
 
+    protected void spawnStepMoveParticle(Vec3 lastPosition) {
+        // FIXME 服务端销毁实体后，客户端无法渲染最后一刻粒子效果 在服务端计算粒子会消耗性能，需要其他解决方案
+    }
+
     @Override
     public void tick() {
         if (dieSpeedThreshold > 0) {
@@ -249,6 +301,8 @@ public abstract class SpellProjectile extends Projectile {
                         new ClipContext(originalPosition, originalPosition.add(movement), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)
                 );
         this.stepMoveAndHit(blockHitResult, true);
+
+        spawnStepMoveParticle(originalPosition);
 
         applyPhysics();
 
@@ -343,7 +397,6 @@ public abstract class SpellProjectile extends Projectile {
         }
     }
 
-    @SuppressWarnings("RedundantIfStatement")
     @Override
     protected boolean canHitEntity(@NonNull Entity entity) {
         if (!entity.canBeHitByProjectile()) {
@@ -353,6 +406,15 @@ public abstract class SpellProjectile extends Projectile {
         Entity owner = this.getOwner();
         if (entity == owner && !canHitOwner()) {
             return false;
+        }
+
+        if (!this.isPiercing) {
+            List<EntityReference<Entity>> hurtEntities = entityData.get(HURT_ENTITIES);
+            for (EntityReference<Entity> e : hurtEntities) {
+                if (e.matches(entity)) {
+                    return false;
+                }
+            }
         }
 
         return true;
@@ -389,16 +451,42 @@ public abstract class SpellProjectile extends Projectile {
     }
 
     protected void hurtEntity(Entity entity, float damage) {
+        damage = onWillHurtEntity(entity, damage);
         if (damage == 0) return;
+
+        List<EntityReference<Entity>> hurtEntities = entityData.get(HURT_ENTITIES);
+        hurtEntities.add(EntityReference.of(entity));
+        entityData.set(HURT_ENTITIES, hurtEntities);
+
         if (level() instanceof ServerLevel serverLevel) {
-            DamageSource damageSource = serverLevel.damageSources().source(
-                    DamageTypes.SPELL_PROJECTILE,
-                    this,
-                    getOwner()
-            );
-            entity.hurtServer(serverLevel, damageSource, damage);
-            entity.invulnerableTime = 0;
+            if (damage > 0) {
+                DamageSource damageSource = serverLevel.damageSources().source(
+                        DamageTypes.SPELL_PROJECTILE,
+                        this,
+                        getOwner()
+                );
+                entity.hurtServer(serverLevel, damageSource, damage);
+                entity.invulnerableTime = 0;
+
+            } else if (entity instanceof LivingEntity livingEntity) {
+                livingEntity.heal(-damage + Float.MIN_NORMAL);
+                DamageSource damageSource = serverLevel.damageSources().source(
+                        DamageTypes.SPELL_PROJECTILE,
+                        this,
+                        getOwner()
+                );
+                livingEntity.hurtServer(serverLevel, damageSource, Float.MIN_NORMAL);
+                livingEntity.invulnerableTime = 0;
+            }
         }
+    }
+
+    /**
+     *
+     * @return 修改后的伤害，返回 0 来取消伤害
+     */
+    protected float onWillHurtEntity(Entity entity, float damage) {
+        return damage;
     }
 
     @Override
@@ -433,14 +521,37 @@ public abstract class SpellProjectile extends Projectile {
     }
 
     protected void onWillDiscard() {
+        applyExplosion();
+
         final SpellAttributes spellAttributes = getMainSpellAttributes();
-        if (spellAttributes == null) return;
-        SuffixType suffixType = null;
-        if (spellAttributes.suffix() != null) {
-            suffixType = spellAttributes.suffix().type();
+        if (spellAttributes != null) {
+            SuffixType suffixType = null;
+            if (spellAttributes.suffix() != null) {
+                suffixType = spellAttributes.suffix().type();
+            }
+            if (suffixType == SuffixType.Trigger) {
+                castSuffixes();
+            }
         }
-        if (suffixType == SuffixType.Trigger) {
-            castSuffixes();
+    }
+
+    protected void applyExplosion() {
+        if (level() instanceof ServerLevel serverLevel) {
+            if (explosionRadius >= 1 && explosion > 0) {
+                DamageSource damageSource = serverLevel.damageSources().source(
+                        DamageTypes.SPELL_PROJECTILE,
+                        this,
+                        getOwner()
+                );
+                ExplosionManager.add(serverLevel, new SpellExplosion(
+                        serverLevel, this, damageSource, this.position(), explosionRadius, false, diggingPower, explosion, this::canHitEntity
+                ));
+            } else if (explosionRadius > 0) {
+                serverLevel.sendParticles(
+                        new ExplosionParticleOptions(explosionRadius),
+                        position().x, position().y, position().z,
+                        1, 0, 0, 0, 0);
+            }
         }
     }
 
@@ -453,6 +564,15 @@ public abstract class SpellProjectile extends Projectile {
         }
     }
 
+    protected float calculateDamageDependsOnSpeed() {
+        if (initialSpeed > 0) {
+            float speed = (float) getDeltaMovement().length();
+            return damage * speed / initialSpeed;
+        } else {
+            return Float.MAX_VALUE;
+        }
+    }
+
     public static class InitialState {
         public int bounces;
         public int lifeTick;
@@ -461,6 +581,9 @@ public abstract class SpellProjectile extends Projectile {
         public float friction;
         public float damage;
         public float dieSpeedThreshold;
+        public float explosion;
+        public float explosionRadius;
+        public float diggingPower;
         public boolean penetrating;
         public boolean piercing;
         public boolean friendlyFire;
@@ -470,6 +593,8 @@ public abstract class SpellProjectile extends Projectile {
             lifeTick = Math.max(lifeTick, 0);
             suffixTimer = Math.max(suffixTimer, 0);
             dieSpeedThreshold = Math.max(dieSpeedThreshold, 0);
+            explosionRadius = Math.max(explosionRadius, 0);
+            diggingPower = Math.max(diggingPower, 0);
         }
     }
 }

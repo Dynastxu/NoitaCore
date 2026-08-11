@@ -1,5 +1,6 @@
 package dynastxu.noitacore.entity;
 
+import dynastxu.noitacore.entity.projectile.LightBullet;
 import dynastxu.noitacore.entity.projectile.RubberBall;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -14,6 +15,9 @@ import java.util.function.Supplier;
 import static dynastxu.noitacore.NoitaCore.MODID;
 
 public final class EntityTypes {
+    private static final int SPELL_PROJECTILE_CLIENT_TRACKING_RANGE = 4;
+    private static final int SPELL_PROJECTILE_UPDATE_INTERVAL = 10;
+
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, MODID);
 
@@ -21,8 +25,17 @@ public final class EntityTypes {
             ENTITY_TYPES.register("rubber_ball", () -> EntityType.Builder
                     .of(RubberBall::new, MobCategory.MISC)
                     .sized(0.25f, 0.25f)
-                    .clientTrackingRange(4)
-                    .updateInterval(10)
+                    .clientTrackingRange(SPELL_PROJECTILE_CLIENT_TRACKING_RANGE)
+                    .updateInterval(SPELL_PROJECTILE_UPDATE_INTERVAL)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE,
                             Identifier.fromNamespaceAndPath(MODID, "rubber_ball"))));
+
+    public static final Supplier<EntityType<LightBullet>> LIGHT_BULLET =
+            ENTITY_TYPES.register("light_bullet", () -> EntityType.Builder
+                    .of(LightBullet::new, MobCategory.MISC)
+                    .sized(1f/7, 1f/7)
+                    .clientTrackingRange(SPELL_PROJECTILE_CLIENT_TRACKING_RANGE)
+                    .updateInterval(SPELL_PROJECTILE_UPDATE_INTERVAL)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE,
+                            Identifier.fromNamespaceAndPath(MODID, "light_bullet"))));
 }

@@ -20,6 +20,7 @@ public final class CreativeTabs {
                     .icon(() -> new ItemStack(Items.SPELL_RUBBER_BALL.get()))
                     .displayItems((_, output) -> {
                         output.accept(Items.SPELL_RUBBER_BALL.get());
+                        output.accept(Items.SPELL_LIGHT_BULLET.get());
                     })
                     .build()
             );

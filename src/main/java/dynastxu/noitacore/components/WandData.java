@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dynastxu.noitacore.common.spell.Spell;
 import dynastxu.noitacore.common.wand.WandStatistics;
+import dynastxu.noitacore.item.SpellItem;
 import lombok.Builder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -100,6 +101,27 @@ public record WandData(
         return this.toBuilder()
                 .mana(manaCharged)
                 .build();
+    }
+
+    private @NonNull List<Spell> getSpells() {
+        return getSpells(statistics.capacity(), inventory);
+    }
+
+    public static @NonNull List<Spell> getSpells(int capacity, NonNullList<ItemStack> inventory) {
+        List<Spell> result = new ArrayList<>();
+
+        for (int i = 0; i < capacity; i++) {
+            ItemStack itemStack = inventory.get(i);
+            if (!itemStack.isEmpty() && itemStack.getItem() instanceof SpellItem) {
+                result.add(new Spell(itemStack.typeHolder(), i, false));
+            }
+        }
+
+        return result;
+    }
+
+    public WandData reload() {
+        return this.toBuilder().drawStack(getSpells()).discardStack(new ArrayList<>()).build();
     }
 }
 

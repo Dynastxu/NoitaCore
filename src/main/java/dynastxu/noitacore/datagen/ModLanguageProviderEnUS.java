@@ -17,7 +17,8 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
 
     @Override
     protected void addItems() {
-        add(Items.SPELL_RUBBER_BALL.get(), "Bouncing Burst Spell");
+        add(Items.SPELL_RUBBER_BALL.get(), "Bouncing Burst");
+        add(Items.SPELL_LIGHT_BULLET.get(), "Spark Bolt");
         add(Items.WAND_SMC_SC_NS.get(), "Wand - Small/Med Capacity - Single Cast - No-shuffle");
         add(Items.WAND_LC_SC_S.get(), "Wand - Large Capacity - Single Cast - Shuffle");
     }

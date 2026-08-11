@@ -1,4 +1,4 @@
-package dynastxu.noitacore.particle;
+package dynastxu.noitacore.particle.pixel;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SingleQuadParticle;
@@ -17,7 +17,8 @@ public class PixelParticle extends SingleQuadParticle {
     }
     public PixelParticle(ClientLevel level, double x, double y, double z, double xa, double ya, double za, TextureAtlasSprite sprite,
                          float r, float g, float b, float a, int lifeTime, float size) {
-        super(level, x, y, z, xa, ya, za, sprite);
+        super(level, x, y, z, sprite);
+        this.setParticleSpeed(xa, ya, za);
         this.setColor(r, g, b);
         this.setAlpha(a);
         this.setLifetime(lifeTime);

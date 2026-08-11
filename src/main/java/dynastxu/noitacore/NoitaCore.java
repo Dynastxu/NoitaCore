@@ -21,5 +21,7 @@ public final class NoitaCore {
         EntityTypes.ENTITY_TYPES.register(modEventBus);
         DamageTypes.DAMAGE_TYPES.register(modEventBus);
         ParticleTypes.PARTICLE_TYPES.register(modEventBus);
+        Attachments.ATTACHMENT_TYPES.register(modEventBus);
+        DataSerializers.ENTITY_DATA_SERIALIZERS.register(modEventBus);
     }
 }

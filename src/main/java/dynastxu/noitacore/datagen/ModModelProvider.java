@@ -1,11 +1,13 @@
 package dynastxu.noitacore.datagen;
 
-import dynastxu.noitacore.item.Items;
 import dynastxu.noitacore.common.spell.SpellType;
+import dynastxu.noitacore.item.Items;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
@@ -23,6 +25,7 @@ public final class ModModelProvider extends ModelProvider {
     @Override
     protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
         spellItem(Items.SPELL_RUBBER_BALL.get(), itemModels, SpellType.Projectile);
+        spellItem(Items.SPELL_LIGHT_BULLET.get(), itemModels, SpellType.Projectile);
 
         wandItem(Items.WAND_SMC_SC_NS.get(), itemModels);
         wandItem(Items.WAND_LC_SC_S.get(), itemModels);
