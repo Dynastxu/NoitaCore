@@ -1,7 +1,6 @@
-package dynastxu.noitacore;
+package dynastxu.noitacore.item;
 
 import dynastxu.noitacore.datagen.ModLanguageProvider;
-import dynastxu.noitacore.item.Items;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -19,8 +18,11 @@ public final class CreativeTabs {
                     .title(ModLanguageProvider.getTranslatable("noita_spell_tab"))
                     .icon(() -> new ItemStack(Items.SPELL_RUBBER_BALL.get()))
                     .displayItems((_, output) -> {
+                        // Projectile
                         output.accept(Items.SPELL_RUBBER_BALL.get());
                         output.accept(Items.SPELL_LIGHT_BULLET.get());
+                        // Multicast
+                        output.accept(Items.SPELL_BURST_2.get());
                     })
                     .build()
             );

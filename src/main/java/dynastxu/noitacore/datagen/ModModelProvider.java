@@ -26,6 +26,7 @@ public final class ModModelProvider extends ModelProvider {
     protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
         spellItem(Items.SPELL_RUBBER_BALL.get(), itemModels, SpellType.Projectile);
         spellItem(Items.SPELL_LIGHT_BULLET.get(), itemModels, SpellType.Projectile);
+        spellItem(Items.SPELL_BURST_2.get(), itemModels, SpellType.Multicast);
 
         wandItem(Items.WAND_SMC_SC_NS.get(), itemModels);
         wandItem(Items.WAND_LC_SC_S.get(), itemModels);

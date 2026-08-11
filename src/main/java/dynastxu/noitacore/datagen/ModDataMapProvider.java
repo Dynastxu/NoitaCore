@@ -21,6 +21,7 @@ public final class ModDataMapProvider extends DataMapProvider {
     protected void gather(HolderLookup.@NonNull Provider provider) {
         Builder<SpellAttributes, Item> spellBuilder = builder(DataMaps.SPELL_ATTRIBUTES);
 
+        // Projectile
         spellBuilder.add(
                 Items.SPELL_RUBBER_BALL.getKey(),
                 SpellAttributes.builder()
@@ -68,6 +69,19 @@ public final class ModDataMapProvider extends DataMapProvider {
                         .other(SpellAttributes.Other.builder()
                                 .basePrice(60).diggingStrength(8).diggingPower(40).build()
                         ).build(),
+                true
+        );
+        // Multicast
+        spellBuilder.add(
+                Items.SPELL_BURST_2.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Multicast,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                0, 0, 0, 2
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(140).build()).build(),
                 true
         );
     }

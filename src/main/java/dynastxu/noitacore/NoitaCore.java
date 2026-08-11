@@ -2,6 +2,7 @@ package dynastxu.noitacore;
 
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.entity.EntityTypes;
+import dynastxu.noitacore.item.CreativeTabs;
 import dynastxu.noitacore.item.Items;
 import dynastxu.noitacore.menu.MenuTypes;
 import dynastxu.noitacore.particle.ParticleTypes;
