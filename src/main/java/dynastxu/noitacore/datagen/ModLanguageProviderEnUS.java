@@ -1,6 +1,6 @@
 package dynastxu.noitacore.datagen;
 
-import dynastxu.noitacore.CreativeTabs;
+import dynastxu.noitacore.item.CreativeTabs;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.data.PackOutput;
 
@@ -17,8 +17,13 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
 
     @Override
     protected void addItems() {
+        // Spells
+        // Projectile
         add(Items.SPELL_RUBBER_BALL.get(), "Bouncing Burst");
         add(Items.SPELL_LIGHT_BULLET.get(), "Spark Bolt");
+        // Multicast
+        add(Items.SPELL_BURST_2.get(), "Double Spell");
+        // Wands
         add(Items.WAND_SMC_SC_NS.get(), "Wand - Small/Med Capacity - Single Cast - No-shuffle");
         add(Items.WAND_LC_SC_S.get(), "Wand - Large Capacity - Single Cast - Shuffle");
     }

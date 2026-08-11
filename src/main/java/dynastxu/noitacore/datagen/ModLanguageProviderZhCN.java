@@ -1,6 +1,6 @@
 package dynastxu.noitacore.datagen;
 
-import dynastxu.noitacore.CreativeTabs;
+import dynastxu.noitacore.item.CreativeTabs;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.data.PackOutput;
 
@@ -17,8 +17,13 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
 
     @Override
     protected void addItems() {
+        // Spells
+        // Projectile
         add(Items.SPELL_RUBBER_BALL.get(), "弹跳爆发");
         add(Items.SPELL_LIGHT_BULLET.get(), "火花弹");
+        // Multicast
+        add(Items.SPELL_BURST_2.get(), "二重施法");
+        // Wands
         add(Items.WAND_SMC_SC_NS.get(), "法杖 - 小/中容量 - 单施法 - 有序");
         add(Items.WAND_LC_SC_S.get(), "法杖 - 大容量 - 单施法 - 无序");
     }
