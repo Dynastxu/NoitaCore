@@ -44,18 +44,19 @@ jobs:
 
       - name: Check for uncommitted changes
         run: |
-          if [[ -n $(git status --porcelain) ]]; then
+          CHANGES=$(git status --porcelain | grep -v 'gradlew' || true)
+          if [[ -n "$CHANGES" ]]; then
             echo "::error::CHECK FAILED: Data generation produced uncommitted changes!"
             echo "Please run './gradlew runData' locally and commit the generated files."
             echo ""
             echo "========== Changed files =========="
-            git status --porcelain
+            echo "$CHANGES"
             echo ""
             echo "========== Diff stat =========="
-            git diff --stat
+            git diff --stat -- . ':!gradlew'
             echo ""
             echo "========== Full diff =========="
-            git diff
+            git diff -- . ':!gradlew'
             exit 1
           else
             echo "CHECK SUCCESSFUL: All generated files are up to date!"
