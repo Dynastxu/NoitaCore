@@ -84,7 +84,7 @@ public class WandContainer implements Container {
 
         WandData wandData = wand.get(DataComponents.WAND_DATA);
         if (wandData != null) {
-            wand.set(DataComponents.WAND_DATA.get(), wandData.toBuilder().inventory(Utils.copy(inventory)).build());
+            wand.set(DataComponents.WAND_DATA.get(), wandData.toBuilder().inventory(Utils.copy(inventory)).build().reload());
         }
     }
 

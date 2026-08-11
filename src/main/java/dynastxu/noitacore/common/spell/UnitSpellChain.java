@@ -69,14 +69,14 @@ public record UnitSpellChain(
                         initialSpeed += spellAttributes.motion().initialSpeed();
                     }
 
+                    initialSpeed *= speedModifier;
+
                     projectile.setPos(pos);
                     projectile.setOwner(caster);
-                    projectile.set(mainSpell, modifiers);
+                    projectile.set(mainSpell, modifiers, initialSpeed);
                     projectile.setSuffixes(suffixes);
 
                     level.addFreshEntity(projectile);
-
-                    initialSpeed *= speedModifier;
 
                     projectile.shoot(direction.x, direction.y, direction.z, initialSpeed, spread);
                 }

@@ -1,4 +1,4 @@
-package dynastxu.noitacore.particle;
+package dynastxu.noitacore.particle.pixel;
 
 import com.mojang.serialization.MapCodec;
 import io.netty.buffer.ByteBuf;
@@ -7,7 +7,7 @@ import net.minecraft.network.codec.StreamCodec;
 import org.jspecify.annotations.NonNull;
 
 public class PixelParticleType extends ParticleType<PixelParticleOptions> {
-    protected PixelParticleType(boolean overrideLimiter) {
+    public PixelParticleType(boolean overrideLimiter) {
         super(overrideLimiter);
     }
 

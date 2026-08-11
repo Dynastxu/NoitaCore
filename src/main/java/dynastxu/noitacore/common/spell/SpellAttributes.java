@@ -118,18 +118,21 @@ public record SpellAttributes(
     public record Modifications(
             float speedMultiplier,
             float recoil,
-            float spread
+            float spread,
+            float criticalChance
     ) {
         public static final Codec<Modifications> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.FLOAT.fieldOf("speed_multiplier").forGetter(Modifications::speedMultiplier),
                 Codec.FLOAT.fieldOf("recoil").forGetter(Modifications::recoil),
-                Codec.FLOAT.fieldOf("spread").forGetter(Modifications::spread)
+                Codec.FLOAT.fieldOf("spread").forGetter(Modifications::spread),
+                Codec.FLOAT.fieldOf("critical_chance").forGetter(Modifications::criticalChance)
         ).apply(instance, Modifications::new));
 
         public static final StreamCodec<ByteBuf, Modifications> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.FLOAT, Modifications::speedMultiplier,
                 ByteBufCodecs.FLOAT, Modifications::recoil,
                 ByteBufCodecs.FLOAT, Modifications::spread,
+                ByteBufCodecs.FLOAT, Modifications::criticalChance,
                 Modifications::new
         );
     }
@@ -211,15 +214,22 @@ public record SpellAttributes(
         );
     }
 
+    @Builder
     public record Other(
-            int basePrice
+            int basePrice,
+            int diggingStrength,
+            float diggingPower
     ) {
         public static final Codec<Other> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.INT.fieldOf("base_price").forGetter(Other::basePrice)
+                Codec.INT.fieldOf("base_price").forGetter(Other::basePrice),
+                Codec.INT.fieldOf("digging_strength").forGetter(Other::diggingStrength),
+                Codec.FLOAT.fieldOf("digging_power").forGetter(Other::diggingPower)
         ).apply(instance, Other::new));
 
         public static final StreamCodec<ByteBuf, Other> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.VAR_INT, Other::basePrice,
+                ByteBufCodecs.VAR_INT, Other::diggingStrength,
+                ByteBufCodecs.FLOAT, Other::diggingPower,
                 Other::new
         );
     }

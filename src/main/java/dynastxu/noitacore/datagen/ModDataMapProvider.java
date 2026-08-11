@@ -30,18 +30,45 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 5, -1, 0, 0
                         ))
                         .modifications(new SpellAttributes.Modifications(
-                                1, 0, -1
+                                1, 0, -1, 0
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0.6f, 0, 1, false, false, false
+                                0.6f, 0, 1f/7, false, false, false
                         ))
                         .time(new SpellAttributes.Time(
                                 250
                         ))
                         .motion(new SpellAttributes.Motion(
                                 5, 0.6f, 250, 0.6f, 0.03f, 1f / 28, 10
-                        )).build(),
-                false
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(60).build()).build(),
+                true
+        );
+        spellBuilder.add(
+                Items.SPELL_LIGHT_BULLET.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                5, 1, 0, 0
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1, 0, -1, 0.05f
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0.6f, 0, 2f/7, false, false, false
+                        ))
+                        .time(new SpellAttributes.Time(
+                                13
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                40f/7, 0, 200, 1.7f, 0.04f, 0, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(60).diggingStrength(8).diggingPower(40).build()
+                        ).build(),
+                true
         );
     }
 }

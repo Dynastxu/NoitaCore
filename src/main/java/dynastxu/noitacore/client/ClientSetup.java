@@ -1,11 +1,13 @@
 package dynastxu.noitacore.client;
 
+import dynastxu.noitacore.client.renderer.EmptyRenderer;
 import dynastxu.noitacore.client.renderer.RubberBallRenderer;
 import dynastxu.noitacore.entity.EntityTypes;
 import dynastxu.noitacore.menu.MenuTypes;
 import dynastxu.noitacore.menu.WandMenu;
 import dynastxu.noitacore.particle.ParticleTypes;
-import dynastxu.noitacore.particle.PixelParticleProvider;
+import dynastxu.noitacore.particle.explosion.ExplosionParticleProvider;
+import dynastxu.noitacore.particle.pixel.PixelParticleProvider;
 import dynastxu.noitacore.screen.WandScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -34,10 +36,12 @@ public final class ClientSetup {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.@NonNull RegisterRenderers event) {
         event.registerEntityRenderer(EntityTypes.RUBBER_BALL.get(), RubberBallRenderer::new);
+        event.registerEntityRenderer(EntityTypes.LIGHT_BULLET.get(), EmptyRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerParticles(@NonNull RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ParticleTypes.PIXEL_PARTICLE.get(), PixelParticleProvider::new);
+        event.registerSpriteSet(ParticleTypes.EXPLOSION_PARTICLE.get(), ExplosionParticleProvider::new);
     }
 }

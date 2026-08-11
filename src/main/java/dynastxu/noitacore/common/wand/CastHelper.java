@@ -8,7 +8,6 @@ import dynastxu.noitacore.common.spell.UnitSpellChain;
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.components.SpellData;
 import dynastxu.noitacore.components.WandData;
-import dynastxu.noitacore.item.SpellItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.Entity;
@@ -92,16 +91,7 @@ public class CastHelper {
     }
 
     protected @NonNull List<Spell> getSpells() {
-        List<Spell> result = new ArrayList<>();
-
-        for (int i = 0; i < statistics.capacity(); i++) {
-            ItemStack itemStack = inventory.get(i);
-            if (!itemStack.isEmpty() && itemStack.getItem() instanceof SpellItem) {
-                result.add(new Spell(itemStack.typeHolder(), i, false));
-            }
-        }
-
-        return result;
+        return WandData.getSpells(statistics.capacity(), inventory);
     }
 
     protected @NonNull List<UnitSpellChain> getNextCast(Caster<?> caster) {

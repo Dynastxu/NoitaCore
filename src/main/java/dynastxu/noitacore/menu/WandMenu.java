@@ -62,12 +62,6 @@ public class WandMenu extends AbstractContainerMenu {
                 public boolean isActive() {
                     return page == currentPage.get();
                 }
-
-                @Override
-                public void setChanged() {
-                    super.setChanged();
-
-                }
             });
         }
     }

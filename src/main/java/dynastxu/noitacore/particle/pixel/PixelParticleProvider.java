@@ -1,4 +1,4 @@
-package dynastxu.noitacore.particle;
+package dynastxu.noitacore.particle.pixel;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
