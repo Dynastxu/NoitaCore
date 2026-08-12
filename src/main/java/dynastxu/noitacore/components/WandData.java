@@ -3,6 +3,8 @@ package dynastxu.noitacore.components;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dynastxu.noitacore.common.spell.Spell;
+import dynastxu.noitacore.common.wand.CastHelper;
+import dynastxu.noitacore.common.wand.Caster;
 import dynastxu.noitacore.common.wand.WandStatistics;
 import dynastxu.noitacore.item.SpellItem;
 import lombok.Builder;
@@ -11,6 +13,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
@@ -24,7 +28,9 @@ public record WandData(
         List<Spell> drawStack,
         List<Spell> discardStack,
         int castDelayTick,
-        int rechargeTick
+        int rechargeTick,
+        int lastCastDelayTick,
+        int lastRechargeTick
 ) {
     public static final Codec<WandData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     WandStatistics.CODEC.fieldOf("wand_statistics").forGetter(WandData::statistics),
@@ -33,7 +39,9 @@ public record WandData(
                     Codec.list(Spell.CODEC).fieldOf("draw_stack").forGetter(WandData::drawStack),
                     Codec.list(Spell.CODEC).fieldOf("discard_stack").forGetter(WandData::discardStack),
                     Codec.INT.fieldOf("cast_delay_tick").forGetter(WandData::castDelayTick),
-                    Codec.INT.fieldOf("recharge_tick").forGetter(WandData::rechargeTick)
+                    Codec.INT.fieldOf("recharge_tick").forGetter(WandData::rechargeTick),
+                    Codec.INT.fieldOf("last_cast_delay_tick").forGetter(WandData::lastCastDelayTick),
+                    Codec.INT.fieldOf("last_recharge_tick").forGetter(WandData::lastRechargeTick)
             ).apply(instance, WandData::new)
     );
 
@@ -45,21 +53,23 @@ public record WandData(
             ByteBufCodecs.VAR_INT, WandData::castDelayTick,
             ByteBufCodecs.VAR_INT, WandData::rechargeTick,
             ByteBufCodecs.<RegistryFriendlyByteBuf, ItemStack>list().apply(ItemStack.OPTIONAL_STREAM_CODEC), WandData::inventory,
+            ByteBufCodecs.VAR_INT, WandData::lastCastDelayTick,
+            ByteBufCodecs.VAR_INT, WandData::lastRechargeTick,
             WandData::new
     );
 
     public WandData(@NonNull WandStatistics statistics) {
-        this(statistics, statistics.manaMax(), NonNullList.withSize(statistics.capacity(), ItemStack.EMPTY), new ArrayList<>(), new ArrayList<>(), 0, 0);
+        this(statistics, statistics.manaMax(), NonNullList.withSize(statistics.capacity(), ItemStack.EMPTY), new ArrayList<>(), new ArrayList<>(), 0, 0, 0, 0);
     }
 
-    public WandData(@NonNull WandStatistics statistics, Integer mana, List<Spell> drawStack, List<Spell> discardStack, Integer castDelayTick, Integer rechargeTick, List<ItemStack> inventory) {
+    public WandData(@NonNull WandStatistics statistics, int mana, List<Spell> drawStack, List<Spell> discardStack, int castDelayTick, int rechargeTick, List<ItemStack> inventory, int lastCastDelayTick, int lastCastRechargeTick) {
         NonNullList<ItemStack> list = NonNullList.withSize(statistics.capacity(), ItemStack.EMPTY);
 
         for (int i = 0; i < list.size(); i++) {
             list.set(i, inventory.get(i));
         }
 
-        this(statistics, mana, list, drawStack, discardStack, castDelayTick, rechargeTick);
+        this(statistics, mana, list, drawStack, discardStack, castDelayTick, rechargeTick, lastCastDelayTick, lastCastRechargeTick);
     }
 
     public boolean isCastDelaying() {
@@ -78,14 +88,8 @@ public record WandData(
         if (!isCooling()) {
             return this;
         }
-        int castDelayTick = this.castDelayTick;
-        if (--castDelayTick < 0) {
-            castDelayTick = 0;
-        }
-        int rechargeTick = this.rechargeTick;
-        if (--rechargeTick < 0) {
-            rechargeTick = 0;
-        }
+        int castDelayTick = Math.max(0, this.castDelayTick - 1);
+        int rechargeTick = Math.max(0, this.rechargeTick - 1);
 
         return this.toBuilder()
                 .castDelayTick(castDelayTick)
@@ -94,10 +98,7 @@ public record WandData(
 
     public WandData chargeMana() {
         if (mana >= statistics.manaMax()) return this;
-        int manaCharged = mana + statistics.manaChargeSpeed();
-        if (manaCharged > statistics.manaMax()) {
-            manaCharged = statistics.manaMax();
-        }
+        int manaCharged = Math.min(mana + statistics.manaChargeSpeed(), statistics.manaMax());
         return this.toBuilder()
                 .mana(manaCharged)
                 .build();
@@ -122,6 +123,14 @@ public record WandData(
 
     public WandData reload() {
         return this.toBuilder().drawStack(getSpells()).discardStack(new ArrayList<>()).build();
+    }
+
+    public int nextCastManaDrain(Caster<?> caster) {
+        CastHelper castHelper = new CastHelper(this, true);
+        Configurator.setLevel("dynastxu.noitacore.common.wand.CastHelper", Level.ERROR);
+        castHelper.getNextCast(caster);
+        Configurator.setLevel("dynastxu.noitacore.common.wand.CastHelper", Level.DEBUG);
+        return this.mana - castHelper.getWandDataAfterCast().mana;
     }
 }
 

@@ -22,6 +22,8 @@
   "item.noitacore.spell_burst_x.description": "Simultaneously casts as many spells as you have left uncast in your wand",
   "item.noitacore.spell_light_bullet": "Spark Bolt",
   "item.noitacore.spell_light_bullet.description": "A weak but enchanting sparkling projectile",
+  "item.noitacore.spell_mana_reduce": "Add Mana",
+  "item.noitacore.spell_mana_reduce.description": "Immediately adds 30 mana to the wand",
   "item.noitacore.spell_rubber_ball": "Bouncing Burst",
   "item.noitacore.spell_rubber_ball.description": "A very bouncy projectile",
   "item.noitacore.wand_lc_sc_s": "Wand - Large Capacity - Single Cast - Shuffle",

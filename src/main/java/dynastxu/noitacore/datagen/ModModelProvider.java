@@ -24,8 +24,14 @@ public final class ModModelProvider extends ModelProvider {
 
     @Override
     protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
+        // Projectile
         spellItem(Items.SPELL_RUBBER_BALL.get(), itemModels, SpellType.Projectile);
         spellItem(Items.SPELL_LIGHT_BULLET.get(), itemModels, SpellType.Projectile);
+
+        // Modifier
+        spellItem(Items.SPELL_MANA_REDUCE.get(), itemModels, SpellType.Modifier);
+
+        // Multicast
         spellItem(Items.SPELL_BURST_2.get(), itemModels, SpellType.Multicast);
         spellItem(Items.SPELL_BURST_3.get(), itemModels, SpellType.Multicast);
         spellItem(Items.SPELL_BURST_4.get(), itemModels, SpellType.Multicast);

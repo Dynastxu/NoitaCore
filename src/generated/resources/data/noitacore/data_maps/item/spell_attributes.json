@@ -153,6 +153,27 @@
         }
       }
     },
+    "noitacore:spell_mana_reduce": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Modifier",
+          "cast_delay_tick": 3,
+          "draws": 1,
+          "mana_drain": -30,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "other": {
+          "base_price": 250,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        }
+      }
+    },
     "noitacore:spell_rubber_ball": {
       "replace": true,
       "value": {
