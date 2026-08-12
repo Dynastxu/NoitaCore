@@ -1,6 +1,7 @@
 package dynastxu.noitacore.datagen;
 
 import dynastxu.noitacore.DataMaps;
+import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.spell.SpellType;
 import dynastxu.noitacore.item.Items;
@@ -34,7 +35,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 1, 0, -1, 0
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0.6f, 0, 1f/7, false, false, false
+                                0.6f, DamageType.Projectile, 0, 1f/7, false, false, false
                         ))
                         .time(new SpellAttributes.Time(
                                 250
@@ -58,7 +59,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 1, 0, -1, 0.05f
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0.6f, 0, 2f/7, false, false, false
+                                0.6f, DamageType.Projectile, 0, 2f/7, false, false, false
                         ))
                         .time(new SpellAttributes.Time(
                                 13

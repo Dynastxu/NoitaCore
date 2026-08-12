@@ -2,6 +2,7 @@ package dynastxu.noitacore.common.spell;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dynastxu.noitacore.utils.EnumCodecs;
 import io.netty.buffer.ByteBuf;
 import lombok.Builder;
 import lombok.NonNull;
@@ -58,7 +59,7 @@ public record SpellAttributes(
             int draws
     ) {
         public static final Codec<BaseAttributes> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                SpellType.CODEC.fieldOf("type").forGetter(BaseAttributes::type),
+                EnumCodecs.codec(SpellType.class).fieldOf("type").forGetter(BaseAttributes::type),
                 Uses.CODEC.fieldOf("uses").forGetter(BaseAttributes::uses),
                 Codec.INT.fieldOf("mana_drain").forGetter(BaseAttributes::manaDrain),
                 Codec.INT.fieldOf("cast_delay_tick").forGetter(BaseAttributes::castDelayTick),
@@ -67,7 +68,7 @@ public record SpellAttributes(
         ).apply(instance, BaseAttributes::new));
 
         public static final StreamCodec<ByteBuf, BaseAttributes> STREAM_CODEC = StreamCodec.composite(
-                SpellType.STREAM_CODEC, BaseAttributes::type,
+                EnumCodecs.streamCodec(SpellType.class),  BaseAttributes::type,
                 Uses.STREAM_CODEC, BaseAttributes::uses,
                 ByteBufCodecs.VAR_INT, BaseAttributes::manaDrain,
                 ByteBufCodecs.VAR_INT, BaseAttributes::castDelayTick,
@@ -103,13 +104,13 @@ public record SpellAttributes(
     ) {
         public static final Codec<Suffix> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.INT.fieldOf("num").forGetter(Suffix::num),
-                SuffixType.CODEC.fieldOf("type").forGetter(Suffix::type),
+                EnumCodecs.codec(SuffixType.class).fieldOf("type").forGetter(Suffix::type),
                 Codec.INT.fieldOf("timer_life_tick").forGetter(Suffix::timerLifeTick)
         ).apply(instance, Suffix::new));
 
         public static final StreamCodec<ByteBuf, Suffix> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.VAR_INT, Suffix::num,
-                SuffixType.STREAM_CODEC, Suffix::type,
+                EnumCodecs.streamCodec(SuffixType.class), Suffix::type,
                 ByteBufCodecs.VAR_INT, Suffix::timerLifeTick,
                 Suffix::new
         );
@@ -138,7 +139,8 @@ public record SpellAttributes(
     }
 
     public record Damage(
-            float projectile,
+            float damage,
+            @NonNull DamageType damageType,
             float explosion,
             float explosionRadius,
             boolean friendlyFire,
@@ -146,7 +148,8 @@ public record SpellAttributes(
             boolean penetrating
     ) {
         public static final Codec<Damage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.FLOAT.fieldOf("projectile").forGetter(Damage::projectile),
+                Codec.FLOAT.fieldOf("damage").forGetter(Damage::damage),
+                EnumCodecs.codec(DamageType.class).fieldOf("damage_type").forGetter(Damage::damageType),
                 Codec.FLOAT.fieldOf("explosion").forGetter(Damage::explosion),
                 Codec.FLOAT.fieldOf("explosion_radius").forGetter(Damage::explosionRadius),
                 Codec.BOOL.fieldOf("friendly_fire").forGetter(Damage::friendlyFire),
@@ -155,7 +158,8 @@ public record SpellAttributes(
         ).apply(instance, Damage::new));
 
         public static final StreamCodec<ByteBuf, Damage> STREAM_CODEC = StreamCodec.composite(
-                ByteBufCodecs.FLOAT, Damage::projectile,
+                ByteBufCodecs.FLOAT, Damage::damage,
+                EnumCodecs.streamCodec(DamageType.class), Damage::damageType,
                 ByteBufCodecs.FLOAT, Damage::explosion,
                 ByteBufCodecs.FLOAT, Damage::explosionRadius,
                 ByteBufCodecs.BOOL, Damage::friendlyFire,

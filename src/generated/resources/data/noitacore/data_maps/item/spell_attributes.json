@@ -120,12 +120,13 @@
           }
         },
         "damage": {
+          "damage": 0.6,
+          "damage_type": "Projectile",
           "explosion": 0.0,
           "explosion_radius": 0.2857143,
           "friendly_fire": false,
           "penetrating": false,
-          "piercing": false,
-          "projectile": 0.6
+          "piercing": false
         },
         "modifications": {
           "critical_chance": 0.05,
@@ -167,12 +168,13 @@
           }
         },
         "damage": {
+          "damage": 0.6,
+          "damage_type": "Projectile",
           "explosion": 0.0,
           "explosion_radius": 0.14285715,
           "friendly_fire": false,
           "penetrating": false,
-          "piercing": false,
-          "projectile": 0.6
+          "piercing": false
         },
         "modifications": {
           "critical_chance": 0.0,

@@ -1,5 +1,6 @@
 package dynastxu.noitacore.entity.projectile;
 
+import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.particle.ParticleUtils;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -29,7 +30,8 @@ public class RubberBall extends SpellProjectile {
     }
 
     @Override
-    protected float onWillHurtEntity(Entity entity, float damage) {
-        return calculateDamageDependsOnSpeed();
+    protected void onWillHurtEntity(Entity entity) {
+        float damage = damageMap.getOrDefault(DamageType.Projectile, 0f);
+        damageMap.put(DamageType.Projectile, calculateDamageDependsOnSpeed(damage));
     }
 }

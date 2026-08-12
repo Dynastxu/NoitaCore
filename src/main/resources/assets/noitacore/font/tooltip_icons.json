@@ -58,7 +58,7 @@
     },
     {
       "type": "bitmap",
-      "file": "noitacore:font/damage.png",
+      "file": "noitacore:font/projectile.png",
       "ascent": 7,
       "height": 9,
       "chars": ["\uE729"]
@@ -69,6 +69,13 @@
       "ascent": 7,
       "height": 9,
       "chars": ["\uE730"]
+    },
+    {
+      "type": "bitmap",
+      "file": "noitacore:font/none.png",
+      "ascent": 7,
+      "height": 9,
+      "chars": ["\uE731"]
     }
   ]
 }
