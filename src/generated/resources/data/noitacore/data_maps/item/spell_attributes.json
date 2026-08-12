@@ -21,6 +21,90 @@
         }
       }
     },
+    "noitacore:spell_burst_3": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Multicast",
+          "cast_delay_tick": 0,
+          "draws": 3,
+          "mana_drain": 2,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "other": {
+          "base_price": 160,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        }
+      }
+    },
+    "noitacore:spell_burst_4": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Multicast",
+          "cast_delay_tick": 0,
+          "draws": 4,
+          "mana_drain": 5,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "other": {
+          "base_price": 180,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        }
+      }
+    },
+    "noitacore:spell_burst_8": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Multicast",
+          "cast_delay_tick": 0,
+          "draws": 8,
+          "mana_drain": 30,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "other": {
+          "base_price": 300,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        }
+      }
+    },
+    "noitacore:spell_burst_x": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Multicast",
+          "cast_delay_tick": 0,
+          "draws": 99,
+          "mana_drain": 50,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 30
+          }
+        },
+        "other": {
+          "base_price": 500,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        }
+      }
+    },
     "noitacore:spell_light_bullet": {
       "replace": true,
       "value": {

@@ -19,10 +19,14 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
     protected void addItems() {
         // Spells
         // Projectile
-        add(Items.SPELL_RUBBER_BALL.get(), "弹跳爆发");
+        add(Items.SPELL_RUBBER_BALL.get(), "弹跳绿豆");
         add(Items.SPELL_LIGHT_BULLET.get(), "火花弹");
         // Multicast
         add(Items.SPELL_BURST_2.get(), "二重施法");
+        add(Items.SPELL_BURST_3.get(), "三重施法");
+        add(Items.SPELL_BURST_4.get(), "四重施法");
+        add(Items.SPELL_BURST_8.get(), "八重施法");
+        add(Items.SPELL_BURST_X.get(), "穷尽施法");
         // Wands
         add(Items.WAND_SMC_SC_NS.get(), "法杖 - 小/中容量 - 单施法 - 有序");
         add(Items.WAND_LC_SC_S.get(), "法杖 - 大容量 - 单施法 - 无序");
