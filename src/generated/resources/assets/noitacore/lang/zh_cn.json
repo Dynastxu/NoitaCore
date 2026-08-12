@@ -22,6 +22,8 @@
   "item.noitacore.spell_burst_x.description": "同时施放魔杖中剩余的所有法术",
   "item.noitacore.spell_light_bullet": "火花弹",
   "item.noitacore.spell_light_bullet.description": "弱小但带有迷人闪烁的投射物",
+  "item.noitacore.spell_mana_reduce": "额外法力",
+  "item.noitacore.spell_mana_reduce.description": "立即向魔杖注入30法力",
   "item.noitacore.spell_rubber_ball": "弹跳绿豆",
   "item.noitacore.spell_rubber_ball.description": "极具弹跳力的投射物",
   "item.noitacore.wand_lc_sc_s": "法杖 - 大容量 - 单施法 - 无序",

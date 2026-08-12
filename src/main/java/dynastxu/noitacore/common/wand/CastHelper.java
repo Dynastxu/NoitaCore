@@ -5,13 +5,13 @@ import dynastxu.noitacore.common.spell.Spell;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.spell.SpellType;
 import dynastxu.noitacore.common.spell.UnitSpellChain;
-import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.components.SpellData;
 import dynastxu.noitacore.components.WandData;
+import dynastxu.noitacore.utils.Utils;
+import lombok.Getter;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.NonNull;
@@ -34,16 +34,25 @@ public class CastHelper {
     protected int rechargeTick;
     private int preCastDelayTick;
     private int preRechargeTick;
+    @Getter
     private WandData wandDataAfterCast;
 
     public CastHelper(@NonNull WandData wandData) {
+        this(wandData, false);
+    }
+
+    public CastHelper(@NonNull WandData wandData, boolean cloneInventory) {
         this.statistics = wandData.statistics();
         this.mana = wandData.mana();
         this.drawStack = new ArrayList<>(wandData.drawStack());
         this.discardStack = new ArrayList<>(wandData.discardStack());
         this.castDelayTick = wandData.castDelayTick();
         this.rechargeTick = wandData.rechargeTick();
-        this.inventory = wandData.inventory();
+        if (cloneInventory) {
+            this.inventory = Utils.clone(wandData.inventory());
+        } else {
+            this.inventory = wandData.inventory();
+        }
 
         this.wandDataAfterCast = wandData;
         this.preLoadStack = new ArrayList<>();
@@ -55,27 +64,8 @@ public class CastHelper {
         }
     }
 
-    public static @NonNull List<UnitSpellChain> getNextCast(Entity entity, @NonNull ItemStack wand) {
-        Caster<Entity> caster = new Caster<>(entity);
-        return getNextCast(caster, wand);
-    }
-
-    public static @NonNull List<UnitSpellChain> getNextCast(Caster<?> caster, @NonNull ItemStack wand) {
-        WandData wandData = wand.get(DataComponents.WAND_DATA);
-        if (wandData == null) {
-            return new ArrayList<>();
-        }
-
-        CastHelper helper = new CastHelper(wandData);
-
-        List<UnitSpellChain> result = helper.getNextCast(caster);
-        wand.set(DataComponents.WAND_DATA, helper.wandDataAfterCast);
-
-        return result;
-    }
-
     protected void genWandDataAfterCast() {
-        wandDataAfterCast = new WandData(statistics, mana, inventory, drawStack, discardStack, castDelayTick, rechargeTick);
+        wandDataAfterCast = new WandData(statistics, mana, inventory, drawStack, discardStack, castDelayTick, rechargeTick, castDelayTick, rechargeTick);
     }
 
     protected boolean isCastDelaying() {
@@ -94,7 +84,11 @@ public class CastHelper {
         return WandData.getSpells(statistics.capacity(), inventory);
     }
 
-    protected @NonNull List<UnitSpellChain> getNextCast(Caster<?> caster) {
+    public @NonNull List<UnitSpellChain> getNextCast(Entity caster) {
+        return getNextCast(new Caster<>(caster));
+    }
+
+    public @NonNull List<UnitSpellChain> getNextCast(Caster<?> caster) {
         LOGGER.debug("开始获取施法内容");
         if (isCooling()) {
             LOGGER.debug("当前正在冷却中，无法施法");
@@ -150,6 +144,8 @@ public class CastHelper {
                 Collections.shuffle(drawStack);
             }
         }
+
+        mana = Math.min(mana, statistics.manaMax());
 
         applyCastDelay();
         genWandDataAfterCast();
@@ -229,10 +225,12 @@ public class CastHelper {
             drawCount--;
 
             if (spell.getAttributes().isModifier()) {
+                drawCount += spell.getAttributes().base().draws(); // 通常是 1
                 modifiers.add(spell.itemHolder());
             } else if (spell.getAttributes().isMulticast()) {
-                drawCount += spell.getAttributes().base().draws() - (spell.isAlwaysCast() ? 1 : 0);
+                drawCount += spell.getAttributes().base().draws() - (spell.isAlwaysCast() ? 1 : 0); // 始终施放需要 -1
             } else {
+                drawCount += spell.getAttributes().base().draws(); // 通常是 0
                 mainSpells.add(spell.itemHolder());
                 List<UnitSpellChain> suffix = new ArrayList<>();
                 if (spell.getAttributes().suffix() != null) {
@@ -300,16 +298,5 @@ public class CastHelper {
         if (isCooling()) return;
         applyCastDelay();
         applyRecharge();
-    }
-
-    public record Caster<T>(
-            T caster
-    ) {
-        boolean canSkipConsumeUses() {
-            if (caster instanceof Player player) {
-                return false;
-            }
-            return true;
-        }
     }
 }

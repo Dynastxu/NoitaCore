@@ -37,12 +37,15 @@ public class WandItem extends Item {
         super.inventoryTick(itemStack, level, owner, slot);
         WandData data = itemStack.get(DataComponents.WAND_DATA);
 
+
         if (data != null) {
             if (data.isCooling()) {
-                itemStack.set(DataComponents.WAND_DATA, data.cooldown());
+                data = data.cooldown();
+                itemStack.set(DataComponents.WAND_DATA, data);
             }
             if (data.mana() < data.statistics().manaMax()) {
-                itemStack.set(DataComponents.WAND_DATA, data.chargeMana());
+                data = data.chargeMana();
+                itemStack.set(DataComponents.WAND_DATA, data);
             }
         } else {
             LOGGER.error("法杖物品：未查找到法杖数据");
@@ -56,11 +59,9 @@ public class WandItem extends Item {
         if (data != null) {
             if (!data.isCooling()) {
                 player.startUsingItem(hand);
-                return InteractionResult.CONSUME;
+                return InteractionResult.SUCCESS;
             } else {
-                LOGGER.debug("法杖冷却中");
-                LOGGER.debug("延迟：{}", data.castDelayTick());
-                LOGGER.debug("充能: {}", data.rechargeTick());
+                LOGGER.debug("法杖冷却中， 延迟：{}， 充能: {}", data.castDelayTick(), data.rechargeTick());
             }
         }
         return InteractionResult.FAIL;
@@ -68,33 +69,39 @@ public class WandItem extends Item {
 
     @Override
     public int getUseDuration(@NonNull ItemStack stack, @NonNull LivingEntity entity) {
-        return Integer.MAX_VALUE;
+        return 20;
     }
 
     @Override
     public void onUseTick(@NonNull Level level, @NonNull LivingEntity livingEntity, @NonNull ItemStack itemStack, int ticksRemaining) {
         super.onUseTick(level, livingEntity, itemStack, ticksRemaining);
 
-        if (level instanceof ServerLevel serverLevel) {
-            WandData data = itemStack.get(DataComponents.WAND_DATA);
-            if (data != null && !data.isCooling()) {
-                List<UnitSpellChain> nextCast = CastHelper.getNextCast(livingEntity, itemStack);
-                Vec3 pos = getCastPosition(livingEntity);
-                Vec3 direction = livingEntity.getLookAngle();
-                float speedModifier = data.statistics().speedMultiplier();
-                nextCast.forEach(chain -> {
-                    float spread = data.statistics().spread();
-                    SpellAttributes spellAttributes = chain.mainSpell().getData(DataMaps.SPELL_ATTRIBUTES);
-                    if (spellAttributes != null) {
-                        if (spellAttributes.modifications() != null) {
-                            spread += spellAttributes.modifications().spread();
+        WandData data = itemStack.get(DataComponents.WAND_DATA);
+        if (data != null) {
+            if (level instanceof ServerLevel serverLevel) {
+                if (!data.isCooling()) {
+                    CastHelper castHelper = new CastHelper(data);
+                    List<UnitSpellChain> nextCast = castHelper.getNextCast(livingEntity);
+                    data = castHelper.getWandDataAfterCast();
+                    itemStack.set(DataComponents.WAND_DATA, data);
+                    Vec3 pos = getCastPosition(livingEntity);
+                    Vec3 direction = livingEntity.getLookAngle();
+                    float speedModifier = data.statistics().speedMultiplier();
+                    final var d = data;
+                    nextCast.forEach(chain -> {
+                        float spread = d.statistics().spread();
+                        SpellAttributes spellAttributes = chain.mainSpell().getData(DataMaps.SPELL_ATTRIBUTES);
+                        if (spellAttributes != null) {
+                            if (spellAttributes.modifications() != null) {
+                                spread += spellAttributes.modifications().spread();
+                            }
+                            if (spread < 0) {
+                                spread = 0;
+                            }
+                            chain.cast(serverLevel, pos, direction, spread, speedModifier, livingEntity, EntitySpawnReason.SPAWN_ITEM_USE);
                         }
-                        if (spread < 0) {
-                            spread = 0;
-                        }
-                        chain.cast(serverLevel, pos, direction, spread, speedModifier, livingEntity, EntitySpawnReason.SPAWN_ITEM_USE);
-                    }
-                });
+                    });
+                }
             }
         }
     }

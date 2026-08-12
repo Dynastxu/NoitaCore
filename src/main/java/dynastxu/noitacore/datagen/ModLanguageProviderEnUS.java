@@ -23,6 +23,8 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         // Projectile
         addSpell(Items.SPELL_RUBBER_BALL.get(), "Bouncing Burst", "A very bouncy projectile");
         addSpell(Items.SPELL_LIGHT_BULLET.get(), "Spark Bolt", "A weak but enchanting sparkling projectile");
+        // Modifier
+        addSpell(Items.SPELL_MANA_REDUCE.get(), "Add Mana", "Immediately adds 30 mana to the wand");
         // Multicast
         addSpell(Items.SPELL_BURST_2.get(), "Double Spell", "Simultaneously casts 2 spells");
         addSpell(Items.SPELL_BURST_3.get(), "Triple Spell", "Simultaneously casts 3 spells");

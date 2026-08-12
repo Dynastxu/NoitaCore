@@ -1,6 +1,7 @@
 package dynastxu.noitacore.utils;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
@@ -9,6 +10,14 @@ public class Utils {
     public static <T> @NonNull NonNullList<T> copy(@NonNull NonNullList<T> list) {
         NonNullList<T> copy = NonNullList.createWithCapacity(list.size());
         copy.addAll(list);
+        return copy;
+    }
+
+    public static @NonNull NonNullList<ItemStack> clone(@NonNull NonNullList<ItemStack> list) {
+        NonNullList<ItemStack> copy = NonNullList.createWithCapacity(list.size());
+        for (ItemStack stack : list) {
+            copy.add(stack.copy());
+        }
         return copy;
     }
 

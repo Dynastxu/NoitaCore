@@ -72,6 +72,22 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ).build(),
                 true
         );
+
+        // Modifier
+        spellBuilder.add(
+                Items.SPELL_MANA_REDUCE.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Modifier,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                -30, 3, 0, 1
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(250).build()).build(),
+                true
+        );
+
+
         // Multicast
         spellBuilder.add(
                 Items.SPELL_BURST_2.getKey(),
