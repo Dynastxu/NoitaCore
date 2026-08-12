@@ -1,8 +1,11 @@
 package dynastxu.noitacore.datagen;
 
+import dynastxu.noitacore.common.spell.SpellType;
 import dynastxu.noitacore.item.CreativeTabs;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.data.PackOutput;
+
+import java.util.Arrays;
 
 public final class ModLanguageProviderZhCN extends ModLanguageProvider {
     public ModLanguageProviderZhCN(PackOutput output) {
@@ -17,16 +20,16 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
 
     @Override
     protected void addItems() {
-        // Spells
         // Projectile
-        add(Items.SPELL_RUBBER_BALL.get(), "弹跳绿豆");
-        add(Items.SPELL_LIGHT_BULLET.get(), "火花弹");
+        addSpell(Items.SPELL_RUBBER_BALL.get(), "弹跳绿豆", "极具弹跳力的投射物");
+        addSpell(Items.SPELL_LIGHT_BULLET.get(), "火花弹", "弱小但带有迷人闪烁的投射物");
         // Multicast
-        add(Items.SPELL_BURST_2.get(), "二重施法");
-        add(Items.SPELL_BURST_3.get(), "三重施法");
-        add(Items.SPELL_BURST_4.get(), "四重施法");
-        add(Items.SPELL_BURST_8.get(), "八重施法");
-        add(Items.SPELL_BURST_X.get(), "穷尽施法");
+        addSpell(Items.SPELL_BURST_2.get(), "二重施法", "同时施放2个法术");
+        addSpell(Items.SPELL_BURST_3.get(), "三重施法", "同时施放3个法术");
+        addSpell(Items.SPELL_BURST_4.get(), "四重施法", "同时施放4个法术");
+        addSpell(Items.SPELL_BURST_8.get(), "八重施法", "同时施放8个法术");
+        addSpell(Items.SPELL_BURST_X.get(), "穷尽施法", "同时施放魔杖中剩余的所有法术");
+
         // Wands
         add(Items.WAND_SMC_SC_NS.get(), "法杖 - 小/中容量 - 单施法 - 有序");
         add(Items.WAND_LC_SC_S.get(), "法杖 - 大容量 - 单施法 - 无序");
@@ -35,5 +38,35 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
     @Override
     protected void addDamageTypes() {
         addDamageTypeDefault("spell_projectile", "%1$s死于%2$s的弹射物", "%1$s被弹射物暗杀", "%1$s死于%2$s使用%3$s发射的弹射物");
+    }
+
+    @Override
+    protected void addToolTips() {
+        addTooltip("spell_type", "类型");
+        addTooltip("mana_drain", "法力消耗");
+        addTooltip("cast_delay", "施法延迟");
+        addTooltip("uses", "使用次数");
+        addTooltip("spread_modification", "散射角度");
+        addTooltip("radius", "半径");
+        addTooltip("speed", "速度");
+        addTooltip("damage", "伤害");
+        addTooltip("recharge_time", "充能时间");
+        addTooltip("crit", "暴击率");
+    }
+
+    @Override
+    protected void addEnums() {
+        Arrays.stream(SpellType.values()).forEachOrdered(type -> {
+            switch (type) {
+                case Projectile -> add(type.getTranslationKey(), "投射物");
+                case Static -> add(type.getTranslationKey(), "静态投射物");
+                case Passive -> add(type.getTranslationKey(), "被动");
+                case Utility -> add(type.getTranslationKey(), "实用");
+                case Modifier -> add(type.getTranslationKey(), "投射修正");
+                case Material -> add(type.getTranslationKey(), "材料");
+                case Multicast -> add(type.getTranslationKey(), "多重释放");
+                case Other -> add(type.getTranslationKey(), "其他");
+            }
+        });
     }
 }
