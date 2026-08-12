@@ -1,8 +1,11 @@
 package dynastxu.noitacore.datagen;
 
+import dynastxu.noitacore.common.spell.SpellType;
 import dynastxu.noitacore.item.CreativeTabs;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.data.PackOutput;
+
+import java.util.Arrays;
 
 public final class ModLanguageProviderEnUS extends ModLanguageProvider {
     public ModLanguageProviderEnUS(PackOutput output) {
@@ -17,16 +20,16 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
 
     @Override
     protected void addItems() {
-        // Spells
         // Projectile
-        add(Items.SPELL_RUBBER_BALL.get(), "Bouncing Burst");
-        add(Items.SPELL_LIGHT_BULLET.get(), "Spark Bolt");
+        addSpell(Items.SPELL_RUBBER_BALL.get(), "Bouncing Burst", "A very bouncy projectile");
+        addSpell(Items.SPELL_LIGHT_BULLET.get(), "Spark Bolt", "A weak but enchanting sparkling projectile");
         // Multicast
-        add(Items.SPELL_BURST_2.get(), "Double Spell");
-        add(Items.SPELL_BURST_3.get(), "Triple Spell");
-        add(Items.SPELL_BURST_4.get(), "Quadruple Spell");
-        add(Items.SPELL_BURST_8.get(), "Octuple Spell");
-        add(Items.SPELL_BURST_X.get(), "Myriad Spell");
+        addSpell(Items.SPELL_BURST_2.get(), "Double Spell", "Simultaneously casts 2 spells");
+        addSpell(Items.SPELL_BURST_3.get(), "Triple Spell", "Simultaneously casts 3 spells");
+        addSpell(Items.SPELL_BURST_4.get(), "Quadruple Spell", "Simultaneously casts 4 spells");
+        addSpell(Items.SPELL_BURST_8.get(), "Octuple Spell", "Simultaneously cast 8 spells");
+        addSpell(Items.SPELL_BURST_X.get(), "Myriad Spell", "Simultaneously casts as many spells as you have left uncast in your wand");
+
         // Wands
         add(Items.WAND_SMC_SC_NS.get(), "Wand - Small/Med Capacity - Single Cast - No-shuffle");
         add(Items.WAND_LC_SC_S.get(), "Wand - Large Capacity - Single Cast - Shuffle");
@@ -35,5 +38,35 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
     @Override
     protected void addDamageTypes() {
         addDamageTypeDefault("spell_projectile", "%1$s was killed by %2$s's spell projectiles", "%1$s was assassinated by spell projectile", "%1$s was killed by spell projectiles fired by %3$s from %2$s");
+    }
+
+    @Override
+    protected void addToolTips() {
+        addTooltip("spell_type", "Type");
+        addTooltip("mana_drain", "Mana Drain");
+        addTooltip("cast_delay", "Cast Delay");
+        addTooltip("uses", "Uses");
+        addTooltip("spread_modification", "Spread Modification");
+        addTooltip("radius", "Radius");
+        addTooltip("speed", "Speed");
+        addTooltip("damage", "Damage");
+        addTooltip("recharge_time", "Recharge Time");
+        addTooltip("crit", "Crit Chance Bonus");
+    }
+
+    @Override
+    protected void addEnums() {
+        Arrays.stream(SpellType.values()).forEachOrdered(value -> {
+            switch (value) {
+                case Projectile -> add(value.getTranslationKey(), "Projectile");
+                case Static -> add(value.getTranslationKey(), "Static");
+                case Passive -> add(value.getTranslationKey(), "Passive");
+                case Utility -> add(value.getTranslationKey(), "Utility");
+                case Modifier -> add(value.getTranslationKey(), "Modifier");
+                case Material -> add(value.getTranslationKey(), "Material");
+                case Multicast -> add(value.getTranslationKey(), "Multicast");
+                case Other -> add(value.getTranslationKey(), "Other");
+            }
+        });
     }
 }

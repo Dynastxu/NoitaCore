@@ -2,13 +2,13 @@ package dynastxu.noitacore.client;
 
 import dynastxu.noitacore.client.renderer.EmptyRenderer;
 import dynastxu.noitacore.client.renderer.RubberBallRenderer;
+import dynastxu.noitacore.client.screen.WandScreen;
 import dynastxu.noitacore.entity.EntityTypes;
 import dynastxu.noitacore.menu.MenuTypes;
 import dynastxu.noitacore.menu.WandMenu;
 import dynastxu.noitacore.particle.ParticleTypes;
 import dynastxu.noitacore.particle.explosion.ExplosionParticleProvider;
 import dynastxu.noitacore.particle.pixel.PixelParticleProvider;
-import dynastxu.noitacore.screen.WandScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

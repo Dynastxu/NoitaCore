@@ -1,4 +1,4 @@
-package dynastxu.noitacore.screen;
+package dynastxu.noitacore.client.screen;
 
 import dynastxu.noitacore.common.wand.WandContainer;
 import dynastxu.noitacore.menu.WandMenu;
