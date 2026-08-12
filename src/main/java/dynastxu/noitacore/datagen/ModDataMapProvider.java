@@ -84,5 +84,53 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 .basePrice(140).build()).build(),
                 true
         );
+        spellBuilder.add(
+                Items.SPELL_BURST_3.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Multicast,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                2, 0, 0, 3
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(160).build()).build(),
+                true
+        );
+        spellBuilder.add(
+                Items.SPELL_BURST_4.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Multicast,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                5, 0, 0, 4
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(180).build()).build(),
+                true
+        );
+        spellBuilder.add(
+                Items.SPELL_BURST_8.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Multicast,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                30, 0, 0, 8
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(300).build()).build(),
+                true
+        );
+        spellBuilder.add(
+                Items.SPELL_BURST_X.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Multicast,
+                                new SpellAttributes.Uses(30, false),
+                                50, 0, 0, 99
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(500).build()).build(),
+                true
+        );
     }
 }

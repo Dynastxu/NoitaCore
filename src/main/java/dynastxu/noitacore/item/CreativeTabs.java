@@ -23,6 +23,10 @@ public final class CreativeTabs {
                         output.accept(Items.SPELL_LIGHT_BULLET.get());
                         // Multicast
                         output.accept(Items.SPELL_BURST_2.get());
+                        output.accept(Items.SPELL_BURST_3.get());
+                        output.accept(Items.SPELL_BURST_4.get());
+                        output.accept(Items.SPELL_BURST_8.get());
+                        output.accept(Items.SPELL_BURST_X.get());
                     })
                     .build()
             );

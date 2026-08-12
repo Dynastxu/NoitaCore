@@ -23,6 +23,10 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         add(Items.SPELL_LIGHT_BULLET.get(), "Spark Bolt");
         // Multicast
         add(Items.SPELL_BURST_2.get(), "Double Spell");
+        add(Items.SPELL_BURST_3.get(), "Triple Spell");
+        add(Items.SPELL_BURST_4.get(), "Quadruple Spell");
+        add(Items.SPELL_BURST_8.get(), "Octuple Spell");
+        add(Items.SPELL_BURST_X.get(), "Myriad Spell");
         // Wands
         add(Items.WAND_SMC_SC_NS.get(), "Wand - Small/Med Capacity - Single Cast - No-shuffle");
         add(Items.WAND_LC_SC_S.get(), "Wand - Large Capacity - Single Cast - Shuffle");

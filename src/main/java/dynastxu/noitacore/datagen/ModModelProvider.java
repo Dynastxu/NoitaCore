@@ -27,6 +27,10 @@ public final class ModModelProvider extends ModelProvider {
         spellItem(Items.SPELL_RUBBER_BALL.get(), itemModels, SpellType.Projectile);
         spellItem(Items.SPELL_LIGHT_BULLET.get(), itemModels, SpellType.Projectile);
         spellItem(Items.SPELL_BURST_2.get(), itemModels, SpellType.Multicast);
+        spellItem(Items.SPELL_BURST_3.get(), itemModels, SpellType.Multicast);
+        spellItem(Items.SPELL_BURST_4.get(), itemModels, SpellType.Multicast);
+        spellItem(Items.SPELL_BURST_8.get(), itemModels, SpellType.Multicast);
+        spellItem(Items.SPELL_BURST_X.get(), itemModels, SpellType.Multicast);
 
         wandItem(Items.WAND_SMC_SC_NS.get(), itemModels);
         wandItem(Items.WAND_LC_SC_S.get(), itemModels);

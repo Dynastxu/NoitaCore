@@ -30,6 +30,18 @@ public final class Items {
     public static final DeferredItem<Item> SPELL_BURST_2 = ITEMS.registerItem("spell_burst_2", properties -> SpellItem.builder()
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build())).build());
 
+    public static final DeferredItem<Item> SPELL_BURST_3 = ITEMS.registerItem("spell_burst_3", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build())).build());
+
+    public static final DeferredItem<Item> SPELL_BURST_4 = ITEMS.registerItem("spell_burst_4", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build())).build());
+
+    public static final DeferredItem<Item> SPELL_BURST_8 = ITEMS.registerItem("spell_burst_8", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build())).build());
+
+    public static final DeferredItem<Item> SPELL_BURST_X = ITEMS.registerItem("spell_burst_x", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(30).build())).build());
+
     // Wands
     public static final DeferredItem<Item> WAND_SMC_SC_NS = ITEMS.registerItem("wand_smc_sc_ns", properties -> new WandItem(
             properties.component(DataComponents.WAND_DATA.get(), new WandData(new WandStatistics(
