@@ -9,8 +9,9 @@ public enum Font {
     RADIUS('\uE726'),
     SPEED('\uE727'),
     CRIT('\uE728'),
-    DAMAGE('\uE729'),
-    USES('\uE730');
+    PROJECTILE('\uE729'),
+    USES('\uE730'),
+    NONE('\uE731');
 
     private final char c;
     Font(char c) {

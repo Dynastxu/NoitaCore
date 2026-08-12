@@ -2,6 +2,7 @@ package dynastxu.noitacore.item;
 
 import dynastxu.noitacore.DataMaps;
 import dynastxu.noitacore.client.font.Font;
+import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.components.SpellData;
@@ -20,7 +21,7 @@ import static dynastxu.noitacore.NoitaCore.MODID;
 @EventBusSubscriber(modid = MODID)
 public class ToolTips {
     @SubscribeEvent
-    public static void onItemTooltip(@NonNull ItemTooltipEvent event) {
+    public static void addTooltips(@NonNull ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
         if (stack.getItem() instanceof SpellItem spellItem) {
@@ -40,17 +41,17 @@ public class ToolTips {
                             .append(Component.translatable("tooltip.noitacore.uses"))
                             .append("    ");
                     if (spellData != null) {
-                        var u = Component.literal(String.valueOf(spellData.remainingUses()));
+                        var v = Component.literal(String.valueOf(spellData.remainingUses()));
 
                         if (spellData.remainingUses() == 0) {
-                            u.withStyle(ChatFormatting.RED);
+                            v.withStyle(ChatFormatting.RED);
                         } else if (spellData.remainingUses() < spellAttributes.base().uses().uses()) {
-                            u.withStyle(ChatFormatting.YELLOW);
+                            v.withStyle(ChatFormatting.YELLOW);
                         } else {
-                            u.withStyle(ChatFormatting.GREEN);
+                            v.withStyle(ChatFormatting.GREEN);
                         }
 
-                        c.append(u);
+                        c.append(v);
                     } else {
                         c.append(String.valueOf(spellAttributes.base().uses().uses()));
                     }
@@ -71,12 +72,23 @@ public class ToolTips {
                         .append(Component.translatable("tooltip.noitacore.recharge_time"))
                         .append("    ")
                         .append(String.format("%.2f", (float) spellAttributes.base().rechargeTick() / 20)));
-                // 散布
+                // 散射
                 if (spellAttributes.modifications() != null) {
                     tooltip.add(Component.literal(Font.SPREAD + " ")
                             .append(Component.translatable("tooltip.noitacore.spread_modification"))
                             .append("    ")
                             .append(String.format("%.2f", spellAttributes.modifications().spread())));
+                }
+                // 伤害
+                if (spellAttributes.damage() != null) {
+                    Font icon = switch (spellAttributes.damage().damageType()) {
+                        case DamageType.Projectile -> Font.PROJECTILE;
+                        default -> Font.NONE;
+                    };
+                    tooltip.add(Component.literal(icon + " ")
+                            .append(Component.translatable("tooltip.noitacore.damage"))
+                            .append("    ")
+                            .append(String.format("%.2f", spellAttributes.damage().damage())));
                 }
                 // 半径
                 if (spellAttributes.damage() != null && spellAttributes.damage().explosionRadius() > 0) {
@@ -92,6 +104,7 @@ public class ToolTips {
                             .append("    ")
                             .append(String.format("%.2f", spellAttributes.motion().initialSpeed() * 20)));
                 }
+                // 暴击率
                 if (spellAttributes.modifications() != null && spellAttributes.modifications().criticalChance() != 0) {
                     tooltip.add(Component.literal(Font.CRIT + " ")
                             .append(Component.translatable("tooltip.noitacore.crit"))

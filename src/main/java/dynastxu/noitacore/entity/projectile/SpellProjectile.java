@@ -1,5 +1,6 @@
 package dynastxu.noitacore.entity.projectile;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import dynastxu.noitacore.DamageTypes;
@@ -8,11 +9,13 @@ import dynastxu.noitacore.DataSerializers;
 import dynastxu.noitacore.accessor.ProjectileAccessor;
 import dynastxu.noitacore.common.explosion.ExplosionManager;
 import dynastxu.noitacore.common.explosion.SpellExplosion;
+import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.spell.SuffixType;
 import dynastxu.noitacore.common.spell.UnitSpellChain;
 import dynastxu.noitacore.item.SpellItem;
 import dynastxu.noitacore.particle.explosion.ExplosionParticleOptions;
+import dynastxu.noitacore.utils.EnumCodecs;
 import lombok.Setter;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -43,6 +46,7 @@ import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class SpellProjectile extends Projectile {
     protected static final EntityDataAccessor<Integer> REMAINING_BOUNCES =
@@ -72,7 +76,7 @@ public abstract class SpellProjectile extends Projectile {
     protected boolean isFriendlyFire;
     protected float gravity;
     protected float friction;
-    protected float damage;
+    protected Map<DamageType, Float> damageMap = new HashMap<>();
     protected float dieSpeedThreshold;
     protected float initialSpeed;
     protected float explosion;
@@ -96,7 +100,7 @@ public abstract class SpellProjectile extends Projectile {
                 state.penetrating = spellAttributes.damage().penetrating();
                 state.piercing = spellAttributes.damage().piercing();
                 state.friendlyFire = spellAttributes.damage().friendlyFire();
-                state.damage = spellAttributes.damage().projectile();
+                state.damageMap.merge(spellAttributes.damage().damageType(), spellAttributes.damage().damage(), Float::sum);
                 state.explosion = spellAttributes.damage().explosion();
                 state.explosionRadius = spellAttributes.damage().explosionRadius();
             }
@@ -124,7 +128,7 @@ public abstract class SpellProjectile extends Projectile {
                     state.penetrating = state.penetrating || modifierAttributes.damage().penetrating();
                     state.piercing = state.piercing || modifierAttributes.damage().piercing();
                     state.friendlyFire = state.friendlyFire || modifierAttributes.damage().friendlyFire();
-                    state.damage += modifierAttributes.damage().projectile();
+                    state.damageMap.merge(modifierAttributes.damage().damageType(), modifierAttributes.damage().damage(), Float::sum);
                     state.explosion += modifierAttributes.damage().explosion();
                     state.explosionRadius += modifierAttributes.damage().explosionRadius();
                 }
@@ -165,7 +169,7 @@ public abstract class SpellProjectile extends Projectile {
         this.isFriendlyFire = state.friendlyFire;
         this.gravity = state.gravity;
         this.friction = state.friction;
-        this.damage = state.damage;
+        this.damageMap = state.damageMap;
         this.dieSpeedThreshold = state.dieSpeedThreshold;
         this.diggingPower = state.diggingPower;
         this.explosion = state.explosion;
@@ -192,7 +196,13 @@ public abstract class SpellProjectile extends Projectile {
         output.putInt("SuffixTimer", entityData.get(SUFFIX_TIMER));
         output.putFloat("Gravity", gravity);
         output.putFloat("Friction", friction);
-        output.putFloat("Damage", damage);
+        if (!damageMap.isEmpty()) {
+            output.store("DamageMap",
+                    Codec.list(Codec.pair(EnumCodecs.codec(DamageType.class), Codec.FLOAT)),
+                    damageMap.entrySet().stream()
+                            .map(e -> Pair.of(e.getKey(), e.getValue()))
+                            .toList());
+        }
         output.putFloat("DieSpeedThreshold", dieSpeedThreshold);
         output.putFloat("InitialSpeed", initialSpeed);
         output.putFloat("Explosion", explosion);
@@ -224,7 +234,10 @@ public abstract class SpellProjectile extends Projectile {
         entityData.set(SUFFIX_TIMER, input.getInt("SuffixTimer").orElse(0));
         gravity = input.getFloatOr("Gravity", 0);
         friction = input.getFloatOr("Friction", 0);
-        damage = input.getFloatOr("Damage", 0);
+        damageMap = input.read("DamageMap", Codec.list(Codec.pair(EnumCodecs.codec(DamageType.class), Codec.FLOAT)))
+                .orElse(new ArrayList<>())
+                .stream()
+                .collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
         dieSpeedThreshold = input.getFloatOr("DieSpeedThreshold", 0);
         initialSpeed = input.getFloatOr("InitialSpeed", 0);
         explosion = input.getFloatOr("Explosion", 0);
@@ -441,7 +454,7 @@ public abstract class SpellProjectile extends Projectile {
         final SpellAttributes spellAttributes = getMainSpellAttributes();
 
         if (spellAttributes != null && spellAttributes.damage() != null) {
-            hurtEntity(hitResult.getEntity(), spellAttributes.damage().projectile());
+            hurtEntity(hitResult.getEntity());
         }
 
         if (spellAttributes != null && spellAttributes.damage() != null && !spellAttributes.damage().penetrating() && !spellAttributes.damage().piercing()) {
@@ -450,43 +463,48 @@ public abstract class SpellProjectile extends Projectile {
         }
     }
 
-    protected void hurtEntity(Entity entity, float damage) {
-        damage = onWillHurtEntity(entity, damage);
-        if (damage == 0) return;
+    protected void hurtEntity(Entity entity) {
+        onWillHurtEntity(entity);
 
         List<EntityReference<Entity>> hurtEntities = entityData.get(HURT_ENTITIES);
         hurtEntities.add(EntityReference.of(entity));
         entityData.set(HURT_ENTITIES, hurtEntities);
 
-        if (level() instanceof ServerLevel serverLevel) {
-            if (damage > 0) {
-                DamageSource damageSource = serverLevel.damageSources().source(
-                        DamageTypes.SPELL_PROJECTILE,
-                        this,
-                        getOwner()
-                );
-                entity.hurtServer(serverLevel, damageSource, damage);
-                entity.invulnerableTime = 0;
+        damageMap.forEach((type, damage) -> {
+            if (damage == 0) return;
+            if (level() instanceof ServerLevel serverLevel) {
+                var damageSourceKey = switch (type) {
+                    case Projectile -> DamageTypes.SPELL_PROJECTILE;
+                    default -> null;
+                };
+                if (damageSourceKey != null && damage > 0) {
+                    DamageSource damageSource = serverLevel.damageSources().source(
+                            damageSourceKey,
+                            this,
+                            getOwner()
+                    );
+                    entity.hurtServer(serverLevel, damageSource, damage);
+                    entity.invulnerableTime = 0;
 
-            } else if (entity instanceof LivingEntity livingEntity) {
-                livingEntity.heal(-damage + Float.MIN_NORMAL);
-                DamageSource damageSource = serverLevel.damageSources().source(
-                        DamageTypes.SPELL_PROJECTILE,
-                        this,
-                        getOwner()
-                );
-                livingEntity.hurtServer(serverLevel, damageSource, Float.MIN_NORMAL);
-                livingEntity.invulnerableTime = 0;
+                } else if (damageSourceKey != null && entity instanceof LivingEntity livingEntity) {
+                    livingEntity.heal(-damage + Float.MIN_NORMAL);
+                    DamageSource damageSource = serverLevel.damageSources().source(
+                            damageSourceKey,
+                            this,
+                            getOwner()
+                    );
+                    livingEntity.hurtServer(serverLevel, damageSource, Float.MIN_NORMAL);
+                    livingEntity.invulnerableTime = 0;
+                }
             }
-        }
+
+        });
     }
 
     /**
-     *
-     * @return 修改后的伤害，返回 0 来取消伤害
+     * 直接修改 {@link #damageMap}
      */
-    protected float onWillHurtEntity(Entity entity, float damage) {
-        return damage;
+    protected void onWillHurtEntity(Entity entity) {
     }
 
     @Override
@@ -564,7 +582,8 @@ public abstract class SpellProjectile extends Projectile {
         }
     }
 
-    protected float calculateDamageDependsOnSpeed() {
+    protected float calculateDamageDependsOnSpeed(float damage) {
+        if (damage == 0) return 0;
         if (initialSpeed > 0) {
             float speed = (float) getDeltaMovement().length();
             return damage * speed / initialSpeed;
@@ -579,7 +598,7 @@ public abstract class SpellProjectile extends Projectile {
         public int suffixTimer;
         public float gravity;
         public float friction;
-        public float damage;
+        public Map<DamageType, Float> damageMap = new HashMap<>();
         public float dieSpeedThreshold;
         public float explosion;
         public float explosionRadius;
