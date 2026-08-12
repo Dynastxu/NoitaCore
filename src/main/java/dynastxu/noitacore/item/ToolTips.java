@@ -6,6 +6,7 @@ import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.components.SpellData;
+import dynastxu.noitacore.components.WandData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +25,8 @@ public class ToolTips {
     public static void addTooltips(@NonNull ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
+
+        // Spells
         if (stack.getItem() instanceof SpellItem spellItem) {
             SpellData spellData = stack.get(DataComponents.SPELL_DATA);
             SpellAttributes spellAttributes = stack.getData(DataMaps.SPELL_ATTRIBUTES);
@@ -66,18 +69,18 @@ public class ToolTips {
                 tooltip.add(Component.literal(Font.CAST_DELAY + " ")
                         .append(Component.translatable("tooltip.noitacore.cast_delay"))
                         .append("    ")
-                        .append(String.format("%.2f", (float) spellAttributes.base().castDelayTick() / 20)));
+                        .append(String.format("%.2fs", (float) spellAttributes.base().castDelayTick() / 20)));
                 // 充能时间
                 tooltip.add(Component.literal(Font.RECHARGE + " ")
                         .append(Component.translatable("tooltip.noitacore.recharge_time"))
                         .append("    ")
-                        .append(String.format("%.2f", (float) spellAttributes.base().rechargeTick() / 20)));
+                        .append(String.format("%.2fs", (float) spellAttributes.base().rechargeTick() / 20)));
                 // 散射
                 if (spellAttributes.modifications() != null) {
                     tooltip.add(Component.literal(Font.SPREAD + " ")
                             .append(Component.translatable("tooltip.noitacore.spread_modification"))
                             .append("    ")
-                            .append(String.format("%.2f", spellAttributes.modifications().spread())));
+                            .append(String.format("%.2f°", spellAttributes.modifications().spread())));
                 }
                 // 伤害
                 if (spellAttributes.damage() != null) {
@@ -111,6 +114,50 @@ public class ToolTips {
                             .append("    ")
                             .append(String.format("%.2f%%", spellAttributes.modifications().criticalChance() * 100)));
                 }
+            }
+        }
+
+        // Wands
+        else if (stack.getItem() instanceof WandItem) {
+            WandData wandData = stack.get(DataComponents.WAND_DATA);
+            if (wandData != null) {
+                tooltip.add(Component.literal(""));
+                tooltip.add(Component.literal(Font.SHUFFLE + " ")
+                        .append(Component.translatable("tooltip.noitacore.shuffle"))
+                        .append("    ")
+                        .append(wandData.statistics().shuffle() ? Component.translatable("gui.yes") : Component.translatable("gui.no")));
+                tooltip.add(Component.literal(Font.SPELLS_PER_CAST + " ")
+                        .append(Component.translatable("tooltip.noitacore.spells_per_cast"))
+                        .append("    ")
+                        .append(String.valueOf(wandData.statistics().spellsPerCast())));
+                tooltip.add(Component.literal(Font.CAST_DELAY + " ")
+                        .append(Component.translatable("tooltip.noitacore.cast_delay"))
+                        .append("    ")
+                        .append(String.format("%.2fs", (float) wandData.statistics().castDelayTick() / 20)));
+                tooltip.add(Component.literal(Font.RECHARGE + " ")
+                        .append(Component.translatable("tooltip.noitacore.recharge_time"))
+                        .append("    ")
+                        .append(String.format("%.2fs", (float) wandData.statistics().rechargeTick() / 20)));
+                tooltip.add(Component.literal(Font.MANA + " ")
+                        .append(Component.translatable("tooltip.noitacore.mana_max"))
+                        .append("    ")
+                        .append(String.valueOf(wandData.statistics().manaMax())));
+                tooltip.add(Component.literal(Font.MANA_CHARGE + " ")
+                        .append(Component.translatable("tooltip.noitacore.mana_charge_speed"))
+                        .append("    ")
+                        .append(String.valueOf(wandData.statistics().manaChargeSpeed())));
+                tooltip.add(Component.literal(Font.CAPACITY + " ")
+                        .append(Component.translatable("tooltip.noitacore.capacity"))
+                        .append("    ")
+                        .append(String.valueOf(wandData.statistics().capacity())));
+                tooltip.add(Component.literal(Font.SPREAD + " ")
+                        .append(Component.translatable("tooltip.noitacore.spread"))
+                        .append("    ")
+                        .append(String.format("%.2f°", wandData.statistics().spread())));
+                tooltip.add(Component.literal(Font.SPEED + " ")
+                        .append(Component.translatable("tooltip.noitacore.speed"))
+                        .append("    ")
+                        .append(String.format("%.2f×", wandData.statistics().speedMultiplier())));
             }
         }
     }

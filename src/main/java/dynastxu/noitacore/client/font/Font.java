@@ -11,7 +11,12 @@ public enum Font {
     CRIT('\uE728'),
     PROJECTILE('\uE729'),
     USES('\uE730'),
-    NONE('\uE731');
+    NONE('\uE731'),
+    SHUFFLE('\uE732'),
+    SPELLS_PER_CAST('\uE733'),
+    MANA('\uE734'),
+    MANA_CHARGE('\uE735'),
+    CAPACITY('\uE736');
 
     private final char c;
     Font(char c) {

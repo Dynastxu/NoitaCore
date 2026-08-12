@@ -50,8 +50,14 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addTooltip("radius", "Radius");
         addTooltip("speed", "Speed");
         addTooltip("damage", "Damage");
-        addTooltip("recharge_time", "Recharge Time");
+        addTooltip("recharge_time", "Recharg. Time");
         addTooltip("crit", "Crit Chance Bonus");
+        addTooltip("shuffle", "Shuffle");
+        addTooltip("spells_per_cast", "Spells/Cast");
+        addTooltip("mana_max", "Mana max");
+        addTooltip("mana_charge_speed", "Mana Chg. Spd");
+        addTooltip("capacity", "Capacity");
+        addTooltip("spread", "Spread");
     }
 
     @Override

@@ -76,6 +76,41 @@
       "ascent": 7,
       "height": 9,
       "chars": ["\uE731"]
+    },
+    {
+      "type": "bitmap",
+      "file": "noitacore:font/shuffle.png",
+      "ascent": 7,
+      "height": 9,
+      "chars": ["\uE732"]
+    },
+    {
+      "type": "bitmap",
+      "file": "noitacore:font/spells_per_cast.png",
+      "ascent": 7,
+      "height": 9,
+      "chars": ["\uE733"]
+    },
+    {
+      "type": "bitmap",
+      "file": "noitacore:font/mana.png",
+      "ascent": 7,
+      "height": 9,
+      "chars": ["\uE734"]
+    },
+    {
+      "type": "bitmap",
+      "file": "noitacore:font/mana_charge.png",
+      "ascent": 7,
+      "height": 9,
+      "chars": ["\uE735"]
+    },
+    {
+      "type": "bitmap",
+      "file": "noitacore:font/capacity.png",
+      "ascent": 7,
+      "height": 9,
+      "chars": ["\uE736"]
     }
   ]
 }

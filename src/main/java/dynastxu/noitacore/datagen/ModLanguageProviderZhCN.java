@@ -44,7 +44,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
     protected void addToolTips() {
         addTooltip("spell_type", "类型");
         addTooltip("mana_drain", "法力消耗");
-        addTooltip("cast_delay", "施法延迟");
+        addTooltip("cast_delay", "施放延迟");
         addTooltip("uses", "使用次数");
         addTooltip("spread_modification", "散射角度");
         addTooltip("radius", "半径");
@@ -52,6 +52,12 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addTooltip("damage", "伤害");
         addTooltip("recharge_time", "充能时间");
         addTooltip("crit", "暴击率");
+        addTooltip("shuffle", "乱序");
+        addTooltip("spells_per_cast", "法术数/施放");
+        addTooltip("mana_max", "法力最大值");
+        addTooltip("mana_charge_speed", "法力充能速度");
+        addTooltip("capacity", "容量");
+        addTooltip("spread", "散射");
     }
 
     @Override
