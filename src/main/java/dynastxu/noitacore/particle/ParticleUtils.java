@@ -1,11 +1,11 @@
 package dynastxu.noitacore.particle;
 
 import dynastxu.noitacore.particle.pixel.PixelParticleOptions;
+import dynastxu.noitacore.utils.SmoothVectorField;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
 public class ParticleUtils {
     public static void spawnPixelParticles(Level level, Vec3 from, @NonNull Vec3 to, double interval, double speedRange, float size, int color, int minLifeTime, int maxLifeTime) {
@@ -45,102 +45,34 @@ public class ParticleUtils {
         }
     }
 
-    public static class Ribbon {
-        protected final Level level;
-        protected final double interval;
-        protected final double speedRange;
-        protected final float size;
-        protected final int color;
-        protected final int minLifeTime;
-        protected final int maxLifeTime;
-        protected final double rotationPeriod;
-        protected final double offsetPeriod;
-        protected final double initialAngle;
-        @Nullable
-        protected Vec3 perpDir;
-
-        public Ribbon(@NonNull Level level, double interval, double speedRange, float size, int color, int minLifeTime, int maxLifeTime, double rotationPeriod, double offsetPeriod) {
-            if (minLifeTime > maxLifeTime) {
-                throw new IllegalArgumentException("minLifeTime must be less than or equal to maxLifeTime");
-            }
-            this.level = level;
-            this.interval = interval;
-            this.speedRange = speedRange;
-            this.size = size;
-            this.color = color;
-            this.minLifeTime = minLifeTime;
-            this.maxLifeTime = maxLifeTime;
-            this.rotationPeriod = rotationPeriod;
-            this.offsetPeriod = offsetPeriod;
-            this.initialAngle = level.getRandom().nextDouble() * 2 * Math.PI;
+    public static void spawnFieldParticles(@NonNull Level level, @NonNull Vec3 from, @NonNull Vec3 to, double interval, int color, int minLifeTime, int maxLifeTime, double scale, double maxSpeed, Vec3 additionSpeed, SmoothVectorField smoothVectorField) {
+        if (!level.isClientSide()) return;
+        if (minLifeTime > maxLifeTime) {
+            throw new IllegalArgumentException("minLifeTime must be less than or equal to maxLifeTime");
         }
-
-        public void spawnPixelRibbon(@NonNull Vec3 from, @NonNull Vec3 to) {
-            Vec3 direction = to.subtract(from);
-            double totalDistance = direction.length();
-            if (totalDistance < 1e-6) {
-                return;
-            }
-            Vec3 dirNormalized = direction.normalize();
-
-            if (this.perpDir != null) {
-                perpDir = this.perpDir.subtract(dirNormalized.scale(this.perpDir.dot(dirNormalized)));
-                double len = perpDir.length();
-                if (len < 1e-6) {
-                    perpDir = dirNormalized.cross(new Vec3(0, 1, 0));
-                    len = perpDir.length();
-                    if (len < 1e-6) {
-                        perpDir = new Vec3(1, 0, 0);
-                    } else {
-                        perpDir = perpDir.scale(1.0 / len);
-                    }
-                } else {
-                    perpDir = perpDir.scale(1.0 / len);
-                }
-            } else {
-                perpDir = dirNormalized.cross(new Vec3(0, 1, 0));
-                double perpLen = perpDir.length();
-                if (perpLen < 1e-6) {
-                    perpDir = new Vec3(1, 0, 0);
-                } else {
-                    perpDir = perpDir.scale(1.0 / perpLen);
-                }
-            }
-            Vec3 secondPerp = perpDir.cross(dirNormalized);
-
-            if (Math.abs(initialAngle) > 1e-12) {
-                double cosA = Math.cos(initialAngle);
-                double sinA = Math.sin(initialAngle);
-                Vec3 newPerp = perpDir.scale(cosA).add(secondPerp.scale(sinA));
-                Vec3 newSecond = secondPerp.scale(cosA).subtract(perpDir.scale(sinA));
-                perpDir = newPerp;
-                secondPerp = newSecond;
-            }
-
-            int particleCount = (int) (totalDistance / interval);
-
+        double distance = to.distanceTo(from);
+        int particleCount = (int) (distance / interval);
+        double stepX = (to.x - from.x) / particleCount;
+        double stepY = (to.y - from.y) / particleCount;
+        double stepZ = (to.z - from.z) / particleCount;
+        if (particleCount > 0) {
+            double x = from.x;
+            double y = from.y;
+            double z = from.z;
             for (int i = 0; i <= particleCount; i++) {
-                double t = Math.min(i * interval, totalDistance);
-                Vec3 pointOnLine = from.add(dirNormalized.scale(t));
-
-                double angle = pointOnLine.length() / rotationPeriod * 2 * Math.PI;
-                Vec3 rotatedPerp = perpDir.scale(Math.cos(angle)).add(secondPerp.scale(Math.sin(angle)));
-
-                double offsetPhase = pointOnLine.length() / offsetPeriod * Math.PI;
-                double sinVal = Math.sin(offsetPhase);
-                double offsetAmount = sinVal * sinVal * speedRange * 0.5;
-                double speed = speedRange * sinVal * sinVal;
-
-                Vec3 velocity = rotatedPerp.scale(speed);
-                Vec3 offset = rotatedPerp.scale(offsetAmount);
-
-                int lifeTime = maxLifeTime == minLifeTime ? minLifeTime : level.getRandom().nextInt(minLifeTime, maxLifeTime);
-                var options = new PixelParticleOptions(color, lifeTime, size);
-                if (level instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(options, pointOnLine.x + offset.x, pointOnLine.y + offset.y, pointOnLine.z + offset.z, 1, 0, 0, 0, speed);
-                } else {
-                    level.addParticle(options, pointOnLine.x + offset.x, pointOnLine.y + offset.y, pointOnLine.z + offset.z, velocity.x, velocity.y, velocity.z);
-                }
+                x += stepX;
+                y += stepY;
+                z += stepZ;
+                var d = smoothVectorField.vectorAt(x, y, z, maxSpeed, scale);
+                var dx = d[0] + additionSpeed.x;
+                var dy = d[1] + additionSpeed.y;
+                var dz = d[2] + additionSpeed.z;
+                int lifeTime = minLifeTime == maxLifeTime ? minLifeTime : level.getRandom().nextInt(minLifeTime, maxLifeTime);
+                level.addParticle(
+                        new PixelParticleOptions(color, lifeTime),
+                        x, y, z,
+                        dx, dy, dz
+                );
             }
         }
     }
