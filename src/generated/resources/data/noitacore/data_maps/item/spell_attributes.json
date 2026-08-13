@@ -360,6 +360,54 @@
         }
       }
     },
+    "noitacore:spell_nuke": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 7,
+          "draws": 0,
+          "mana_drain": 200,
+          "recharge_tick": 200,
+          "uses": {
+            "must_consume": false,
+            "uses": 1
+          }
+        },
+        "damage": {
+          "damage": 15.0,
+          "damage_type": "Projectile",
+          "explosion": 50.0,
+          "explosion_radius": 35.714287,
+          "friendly_fire": true,
+          "penetrating": false,
+          "piercing": false
+        },
+        "modifications": {
+          "critical_chance": 0.0,
+          "recoil": 300.0,
+          "speed_multiplier": 0.75,
+          "spread": 0.0
+        },
+        "motion": {
+          "bounces": 0,
+          "die_speed_threshold": 0.0,
+          "friction": 1.0E-5,
+          "gravity": 120,
+          "initial_speed": 2.142857,
+          "mass": 0.2,
+          "spread": 0.6
+        },
+        "other": {
+          "base_price": 400,
+          "digging_power": 670.0,
+          "digging_strength": 8
+        },
+        "time": {
+          "life_tick": 120
+        }
+      }
+    },
     "noitacore:spell_rubber_ball": {
       "replace": true,
       "value": {

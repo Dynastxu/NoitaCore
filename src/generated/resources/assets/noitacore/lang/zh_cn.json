@@ -32,6 +32,8 @@
   "item.noitacore.spell_light_bullet_trigger_2.description": "在碰撞时施放另外两个法术的火花弹",
   "item.noitacore.spell_mana_reduce": "额外法力",
   "item.noitacore.spell_mana_reduce.description": "立即向魔杖注入 30 法力",
+  "item.noitacore.spell_nuke": "核弹",
+  "item.noitacore.spell_nuke.description": "快找掩体！",
   "item.noitacore.spell_rubber_ball": "弹跳绿豆",
   "item.noitacore.spell_rubber_ball.description": "极具弹跳力的投射物",
   "item.noitacore.wand_lc_sc_s": "法杖 - 大容量 - 单施法 - 无序",
