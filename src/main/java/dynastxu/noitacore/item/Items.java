@@ -25,6 +25,18 @@ public final class Items {
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build()))
             .projectileType(EntityTypes.LIGHT_BULLET.get()).build());
 
+    public static final DeferredItem<SpellItem> SPELL_LIGHT_BULLET_TRIGGER = ITEMS.registerItem("spell_light_bullet_trigger", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build()))
+            .projectileType(EntityTypes.LIGHT_BULLET.get()).build());
+
+    public static final DeferredItem<SpellItem> SPELL_LIGHT_BULLET_TRIGGER_2 = ITEMS.registerItem("spell_light_bullet_trigger_2", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build()))
+            .projectileType(EntityTypes.LIGHT_BULLET.get()).build());
+
+    public static final DeferredItem<SpellItem> SPELL_LIGHT_BULLET_TIMER = ITEMS.registerItem("spell_light_bullet_timer", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build()))
+            .projectileType(EntityTypes.LIGHT_BULLET.get()).build());
+
     // Modifier
     public static final DeferredItem<SpellItem> SPELL_MANA_REDUCE = ITEMS.registerItem("spell_mana_reduce", properties -> SpellItem.builder()
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build())).build());

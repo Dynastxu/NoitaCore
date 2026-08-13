@@ -144,9 +144,168 @@
           "spread": 0.0
         },
         "other": {
-          "base_price": 60,
+          "base_price": 100,
           "digging_power": 40.0,
           "digging_strength": 8
+        },
+        "time": {
+          "life_tick": 13
+        }
+      }
+    },
+    "noitacore:spell_light_bullet_timer": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 1,
+          "draws": 0,
+          "mana_drain": 10,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "damage": {
+          "damage": 0.6,
+          "damage_type": "Projectile",
+          "explosion": 0.0,
+          "explosion_radius": 0.2857143,
+          "friendly_fire": false,
+          "penetrating": false,
+          "piercing": false
+        },
+        "modifications": {
+          "critical_chance": 0.05,
+          "recoil": 0.0,
+          "speed_multiplier": 1.0,
+          "spread": 0.0
+        },
+        "motion": {
+          "bounces": 0,
+          "die_speed_threshold": 0.0,
+          "friction": 1.7,
+          "gravity": 200,
+          "initial_speed": 5.714286,
+          "mass": 0.04,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 140,
+          "digging_power": 40.0,
+          "digging_strength": 8
+        },
+        "suffix": {
+          "type": "Timer",
+          "num": 1,
+          "timer_life_tick": 3
+        },
+        "time": {
+          "life_tick": 13
+        }
+      }
+    },
+    "noitacore:spell_light_bullet_trigger": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 1,
+          "draws": 0,
+          "mana_drain": 10,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "damage": {
+          "damage": 0.6,
+          "damage_type": "Projectile",
+          "explosion": 0.0,
+          "explosion_radius": 0.2857143,
+          "friendly_fire": false,
+          "penetrating": false,
+          "piercing": false
+        },
+        "modifications": {
+          "critical_chance": 0.05,
+          "recoil": 0.0,
+          "speed_multiplier": 1.0,
+          "spread": 0.0
+        },
+        "motion": {
+          "bounces": 0,
+          "die_speed_threshold": 0.0,
+          "friction": 1.7,
+          "gravity": 200,
+          "initial_speed": 5.714286,
+          "mass": 0.04,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 140,
+          "digging_power": 40.0,
+          "digging_strength": 8
+        },
+        "suffix": {
+          "type": "Trigger",
+          "num": 1,
+          "timer_life_tick": 0
+        },
+        "time": {
+          "life_tick": 13
+        }
+      }
+    },
+    "noitacore:spell_light_bullet_trigger_2": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 1,
+          "draws": 0,
+          "mana_drain": 15,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "damage": {
+          "damage": 0.6,
+          "damage_type": "Projectile",
+          "explosion": 0.5,
+          "explosion_radius": 1.7142857,
+          "friendly_fire": false,
+          "penetrating": false,
+          "piercing": false
+        },
+        "modifications": {
+          "critical_chance": 0.05,
+          "recoil": 0.0,
+          "speed_multiplier": 1.0,
+          "spread": 0.0
+        },
+        "motion": {
+          "bounces": 0,
+          "die_speed_threshold": 0.0,
+          "friction": 1.7,
+          "gravity": 200,
+          "initial_speed": 5.0,
+          "mass": 0.04,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 250,
+          "digging_power": 40.0,
+          "digging_strength": 9
+        },
+        "suffix": {
+          "type": "Trigger",
+          "num": 2,
+          "timer_life_tick": 0
         },
         "time": {
           "life_tick": 13

@@ -15,7 +15,7 @@ import java.util.Optional;
 /**
  * @see <a href="https://noita.wiki.gg/wiki/Spells">wiki</a>
  */
-@Builder
+@Builder(toBuilder = true)
 public record SpellAttributes(
         @NonNull BaseAttributes base,
         @Nullable Modifications modifications,

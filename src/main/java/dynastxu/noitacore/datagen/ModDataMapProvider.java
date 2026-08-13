@@ -4,6 +4,7 @@ import dynastxu.noitacore.DataMaps;
 import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.spell.SpellType;
+import dynastxu.noitacore.common.spell.SuffixType;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -21,6 +22,7 @@ public final class ModDataMapProvider extends DataMapProvider {
     @Override
     protected void gather(HolderLookup.@NonNull Provider provider) {
         Builder<SpellAttributes, Item> spellBuilder = builder(DataMaps.SPELL_ATTRIBUTES);
+        boolean replace = true;
 
         // Projectile
         spellBuilder.add(
@@ -45,7 +47,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ))
                         .other(SpellAttributes.Other.builder()
                                 .basePrice(60).build()).build(),
-                true
+                replace
         );
         spellBuilder.add(
                 Items.SPELL_LIGHT_BULLET.getKey(),
@@ -68,9 +70,93 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 40f/7, 0, 200, 1.7f, 0.04f, 0, 0
                         ))
                         .other(SpellAttributes.Other.builder()
-                                .basePrice(60).diggingStrength(8).diggingPower(40).build()
+                                .basePrice(100).diggingStrength(8).diggingPower(40).build()
                         ).build(),
-                true
+                replace
+        );
+        spellBuilder.add(
+                Items.SPELL_LIGHT_BULLET_TRIGGER.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                10, 1, 0, 0
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1, 0, 0, 0.05f
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0.6f, DamageType.Projectile, 0, 2f/7, false, false, false
+                        ))
+                        .time(new SpellAttributes.Time(
+                                13
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                40f/7, 0, 200, 1.7f, 0.04f, 0, 0
+                        ))
+                        .suffix(new SpellAttributes.Suffix(
+                                1, SuffixType.Trigger, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(140).diggingStrength(8).diggingPower(40).build()
+                        ).build(),
+                replace
+        );
+        spellBuilder.add(
+                Items.SPELL_LIGHT_BULLET_TRIGGER_2.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                15, 1, 0, 0
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1, 0, 0, 0.05f
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0.6f, DamageType.Projectile, 0.5f, 12f/7, false, false, false
+                        ))
+                        .time(new SpellAttributes.Time(
+                                13
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                5, 0, 200, 1.7f, 0.04f, 0, 0
+                        ))
+                        .suffix(new SpellAttributes.Suffix(
+                                2, SuffixType.Trigger, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(250).diggingStrength(9).diggingPower(40).build()
+                        ).build(),
+                replace
+        );
+        spellBuilder.add(
+                Items.SPELL_LIGHT_BULLET_TIMER.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                10, 1, 0, 0
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1, 0, 0, 0.05f
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0.6f, DamageType.Projectile, 0, 2f/7, false, false, false
+                        ))
+                        .time(new SpellAttributes.Time(
+                                13
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                40f/7, 0, 200, 1.7f, 0.04f, 0, 0
+                        ))
+                        .suffix(new SpellAttributes.Suffix(
+                                1, SuffixType.Timer, 3
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(140).diggingStrength(8).diggingPower(40).build()
+                        ).build(),
+                replace
         );
 
         // Modifier
@@ -84,7 +170,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ))
                         .other(SpellAttributes.Other.builder()
                                 .basePrice(250).build()).build(),
-                true
+                replace
         );
 
 
@@ -99,7 +185,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ))
                         .other(SpellAttributes.Other.builder()
                                 .basePrice(140).build()).build(),
-                true
+                replace
         );
         spellBuilder.add(
                 Items.SPELL_BURST_3.getKey(),
@@ -111,7 +197,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ))
                         .other(SpellAttributes.Other.builder()
                                 .basePrice(160).build()).build(),
-                true
+                replace
         );
         spellBuilder.add(
                 Items.SPELL_BURST_4.getKey(),
@@ -123,7 +209,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ))
                         .other(SpellAttributes.Other.builder()
                                 .basePrice(180).build()).build(),
-                true
+                replace
         );
         spellBuilder.add(
                 Items.SPELL_BURST_8.getKey(),
@@ -135,7 +221,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ))
                         .other(SpellAttributes.Other.builder()
                                 .basePrice(300).build()).build(),
-                true
+                replace
         );
         spellBuilder.add(
                 Items.SPELL_BURST_X.getKey(),
@@ -147,7 +233,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ))
                         .other(SpellAttributes.Other.builder()
                                 .basePrice(500).build()).build(),
-                true
+                replace
         );
     }
 }

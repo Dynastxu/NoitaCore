@@ -1,5 +1,6 @@
 package dynastxu.noitacore.common.explosion;
 
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -15,12 +16,14 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class SpellExplosion implements Explosion {
+    private static final Logger LOGGER = LogUtils.getLogger();
     /**
      * 每刻所有射线前进的最大总距离
      */
@@ -36,7 +39,6 @@ public class SpellExplosion implements Explosion {
     protected final ServerLevel level;
     protected final float radius;
     protected final Vec3 center;
-    protected final Entity source;
 
     /**
      * 爆炸是否已完全结束
@@ -58,9 +60,8 @@ public class SpellExplosion implements Explosion {
     boolean fire;
 
 
-    public SpellExplosion(ServerLevel level, @Nullable Entity source, @Nullable DamageSource damageSource, Vec3 center, float radius, boolean fire, float energy, float damage, Predicate<Entity> canHurt) {
+    public SpellExplosion(ServerLevel level, @Nullable DamageSource damageSource, Vec3 center, float radius, boolean fire, float energy, float damage, Predicate<Entity> canHurt) {
         this.level = level;
-        this.source = source;
         this.damageSource = damageSource;
         this.center = center;
         this.radius = radius;
@@ -251,8 +252,11 @@ public class SpellExplosion implements Explosion {
             Vec3 to = new Vec3(x, y, z);
             AABB rayAABB = new AABB(from, to).inflate(0.5);
 
-            for (Entity entity : level.getEntities((Entity) null, rayAABB, e -> !toHurt.contains(e) && !canHurt.test(e))) {
-                entity.getBoundingBox().clip(from, to).ifPresent(_ -> toHurt.add(entity));
+            for (Entity entity : level.getEntities((Entity) null, rayAABB, e -> !toHurt.contains(e) && canHurt.test(e))) {
+                entity.getBoundingBox().clip(from, to).ifPresent(_ -> {
+                    LOGGER.debug("添加计划伤害的实体： {}", entity.getName());
+                    toHurt.add(entity);
+                });
             }
 
             return dead;
@@ -269,6 +273,11 @@ public class SpellExplosion implements Explosion {
 
             // 离开世界边界
             if (!level.isInWorldBounds(pos)) {
+                dead = true;
+                return;
+            }
+
+            if (new Vec3(x, y, z).distanceTo(center) > radius) {
                 dead = true;
                 return;
             }
