@@ -26,6 +26,7 @@ public final class CreativeTabs {
                         output.accept(Items.SPELL_LIGHT_BULLET_TIMER.get());
                         // Modifier
                         output.accept(Items.SPELL_MANA_REDUCE.get());
+                        output.accept(Items.SPELL_CRITICAL_HIT.get());
                         // Multicast
                         output.accept(Items.SPELL_BURST_2.get());
                         output.accept(Items.SPELL_BURST_3.get());

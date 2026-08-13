@@ -35,7 +35,12 @@ public class CastHelper {
     private int preCastDelayTick;
     private int preRechargeTick;
     @Getter
-    private WandData wandDataAfterCast;
+    protected float spread;
+    @Getter
+    protected float critChance;
+    @Getter
+    protected WandData wandDataAfterCast;
+    private boolean isUsed;
 
     public CastHelper(@NonNull WandData wandData) {
         this.statistics = wandData.statistics();
@@ -50,6 +55,8 @@ public class CastHelper {
         this.preLoadStack = new ArrayList<>();
         this.preCastDelayTick = 0;
         this.preRechargeTick = 0;
+        this.spread = statistics.spread();
+        this.isUsed = false;
 
         if (this.drawStack.isEmpty()) {
             this.drawStack = getSpells();
@@ -81,6 +88,11 @@ public class CastHelper {
     }
 
     public @NonNull List<UnitSpellChain> getNextCast(Caster<?> caster) {
+        if (isUsed) {
+            throw new IllegalStateException("CastHelper is already used, please new one");
+        } else {
+            isUsed = true;
+        }
         LOGGER.debug("开始获取施法内容");
         if (isCooling()) {
             LOGGER.debug("当前正在冷却中，无法施法");
@@ -204,6 +216,11 @@ public class CastHelper {
 
             LOGGER.debug("抽取{}：{}", spell.isAlwaysCast() ? "（始终施放）" : "", spell.getName());
             preLoadStack.add(spell);
+
+            if (spellAttributes.modifications() != null) {
+                spread += spellAttributes.modifications().spread();
+                critChance += spellAttributes.modifications().criticalChance();
+            }
 
             if (!isSuffix) {
                 addRecharge(spell.getAttributes().base().rechargeTick());

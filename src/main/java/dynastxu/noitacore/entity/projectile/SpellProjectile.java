@@ -18,10 +18,13 @@ import dynastxu.noitacore.utils.EnumCodecs;
 import lombok.Setter;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -80,17 +83,19 @@ public abstract class SpellProjectile extends Projectile {
     protected float explosion;
     protected float explosionRadius;
     protected float diggingPower;
+    protected float critChance;
 
     public SpellProjectile(EntityType<? extends SpellProjectile> type, Level level) {
         super(type, level);
     }
 
-    public void set(@NonNull Holder<Item> spellItem, @NonNull List<Holder<Item>> modifiers, float initialSpeed) {
+    public void set(@NonNull Holder<Item> spellItem, @NonNull List<Holder<Item>> modifiers, float initialSpeed, float critChance) {
         this.spellItem = spellItem;
         this.modifiers = modifiers;
         this.initialSpeed = Math.max(initialSpeed, 0);
 
         InitialState state = new InitialState();
+        state.critChance = critChance;
 
         SpellAttributes spellAttributes = getMainSpellAttributes();
         if (spellAttributes != null) {
@@ -116,6 +121,9 @@ public abstract class SpellProjectile extends Projectile {
             }
             if (spellAttributes.other() != null) {
                 state.diggingPower = spellAttributes.other().diggingPower();
+            }
+            if (spellAttributes.modifications() != null) {
+                state.critChance = spellAttributes.modifications().criticalChance();
             }
         }
 
@@ -145,6 +153,9 @@ public abstract class SpellProjectile extends Projectile {
                 if (modifierAttributes.other() != null) {
                     state.diggingPower += modifierAttributes.other().diggingPower();
                 }
+                if (modifierAttributes.modifications() != null) {
+                    state.critChance += modifierAttributes.modifications().criticalChance();
+                }
             }
         }
 
@@ -172,6 +183,7 @@ public abstract class SpellProjectile extends Projectile {
         this.diggingPower = state.diggingPower;
         this.explosion = state.explosion;
         this.explosionRadius = state.explosionRadius;
+        this.critChance = state.critChance;
 
         this.entityData.set(REMAINING_BOUNCES, state.bounces);
         this.entityData.set(REMAINING_LIFE_TICK, state.lifeTick);
@@ -203,6 +215,8 @@ public abstract class SpellProjectile extends Projectile {
         output.putFloat("InitialSpeed", initialSpeed);
         output.putFloat("Explosion", explosion);
         output.putFloat("ExplosionRadius", explosionRadius);
+        output.putFloat("DiggingPower", diggingPower);
+        output.putFloat("CritChance", critChance);
         output.putBoolean("IsPenetrating", isPenetrating);
         output.putBoolean("IsPiercing", isPiercing);
         output.putBoolean("IsFriendlyFire", isFriendlyFire);
@@ -235,6 +249,8 @@ public abstract class SpellProjectile extends Projectile {
         initialSpeed = input.getFloatOr("InitialSpeed", 0);
         explosion = input.getFloatOr("Explosion", 0);
         explosionRadius = input.getFloatOr("ExplosionRadius", 0);
+        diggingPower = input.getFloatOr("DiggingPower", 0);
+        critChance = input.getFloatOr("CritChance", 0);
         isPenetrating = input.getBooleanOr("IsPenetrating", false);
         isPiercing = input.getBooleanOr("IsPiercing", false);
         isFriendlyFire = input.getBooleanOr("IsFriendlyFire", false);
@@ -461,6 +477,25 @@ public abstract class SpellProjectile extends Projectile {
         hurtEntities.add(EntityReference.of(entity));
         entityData.set(HURT_ENTITIES, hurtEntities);
 
+        if (level().getRandom().nextFloat() <= critChance) {
+            damageMap.forEach((type, damage) -> {
+                float critResistance = 0;
+                float critDamage = damage * (1 + Math.min(critChance, 1) * (5 * Math.max(1, critChance) - 1) * (1 - critResistance));
+                damageMap.put(type, critDamage);
+            });
+            if (level() instanceof ServerLevel serverLevel) {
+                double x = entity.position().x;
+                double y = entity.position().y;
+                double z = entity.position().z;
+                serverLevel.sendParticles(
+                        ParticleTypes.CRIT.getType(),
+                        x, y, z,
+                        10, 0,0, 0, 1
+                );
+                serverLevel.playSound(null, x, y, z, SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.AMBIENT, 1.0f, 1.0f);
+            }
+        }
+
         damageMap.forEach((type, damage) -> {
             if (damage == 0) return;
             if (level() instanceof ServerLevel serverLevel) {
@@ -588,6 +623,7 @@ public abstract class SpellProjectile extends Projectile {
         public float explosion;
         public float explosionRadius;
         public float diggingPower;
+        public float critChance;
         public boolean penetrating;
         public boolean piercing;
         public boolean friendlyFire;
@@ -599,6 +635,7 @@ public abstract class SpellProjectile extends Projectile {
             dieSpeedThreshold = Math.max(dieSpeedThreshold, 0);
             explosionRadius = Math.max(explosionRadius, 0);
             diggingPower = Math.max(diggingPower, 0);
+            critChance = Math.max(critChance, 0);
         }
     }
 }

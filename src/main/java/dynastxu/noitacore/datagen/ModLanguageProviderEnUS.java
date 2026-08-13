@@ -28,6 +28,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addSpell(Items.SPELL_LIGHT_BULLET_TIMER.get(), "Spark Bolt With Timer", "A spark bolt that casts another spell after a timer runs out");
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "Add Mana", "Immediately adds 30 mana to the wand");
+        addSpell(Items.SPELL_CRITICAL_HIT.get(), "Critical Plus", "Gives a projectile +15% chance of a critical hit");
         // Multicast
         addSpell(Items.SPELL_BURST_2.get(), "Double Spell", "Simultaneously casts 2 spells");
         addSpell(Items.SPELL_BURST_3.get(), "Triple Spell", "Simultaneously casts 3 spells");

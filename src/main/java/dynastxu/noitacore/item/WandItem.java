@@ -87,17 +87,18 @@ public class WandItem extends Item {
                     Vec3 pos = getCastPosition(livingEntity);
                     Vec3 direction = livingEntity.getLookAngle();
                     float speedModifier = data.statistics().speedMultiplier();
-                    final var d = data;
-                    nextCast.forEach(chain -> {
-                        float spread = d.statistics().spread();
+
+                    for (UnitSpellChain chain: nextCast) {
+                        float spread = castHelper.getSpread();
+                        float critChance = castHelper.getCritChance();
                         SpellAttributes spellAttributes = chain.mainSpell().getData(DataMaps.SPELL_ATTRIBUTES);
                         if (spellAttributes != null) {
                             if (spellAttributes.modifications() != null) {
                                 spread += spellAttributes.modifications().spread();
                             }
-                            chain.cast(serverLevel, pos, direction, spread, speedModifier, livingEntity, EntitySpawnReason.SPAWN_ITEM_USE);
+                            chain.cast(serverLevel, pos, direction, spread, critChance, speedModifier, livingEntity, EntitySpawnReason.SPAWN_ITEM_USE);
                         }
-                    });
+                    }
                 }
             }
         }

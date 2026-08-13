@@ -41,6 +41,9 @@ public final class Items {
     public static final DeferredItem<SpellItem> SPELL_MANA_REDUCE = ITEMS.registerItem("spell_mana_reduce", properties -> SpellItem.builder()
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build())).build());
 
+    public static final DeferredItem<SpellItem> SPELL_CRITICAL_HIT = ITEMS.registerItem("spell_critical_hit", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build())).build());
+
     // Multicast
     public static final DeferredItem<SpellItem> SPELL_BURST_2 = ITEMS.registerItem("spell_burst_2", properties -> SpellItem.builder()
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build())).build());
