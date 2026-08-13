@@ -56,21 +56,17 @@ public record UnitSpellChain(
         return suffixes.size() + modifiers.size() + 1;
     }
 
+    /**
+     * 由触发调用
+     */
     public void cast(ServerLevel level, Vec3 pos, Vec3 direction, float speedModifier, Entity owner) {
-        Item item = mainSpell().value();
-        if (item instanceof SpellItem) {
-            SpellAttributes spellAttributes = mainSpell.getData(DataMaps.SPELL_ATTRIBUTES);
-            if (spellAttributes != null) {
-                float spread = 0;
-                if (spellAttributes.motion() != null) {
-                    spread = spellAttributes.motion().spread();
-                }
-                cast(level, pos, direction, spread, speedModifier, owner, EntitySpawnReason.TRIGGERED);
-            }
-        }
+        cast(level, pos, direction, 0, 0, speedModifier, owner, EntitySpawnReason.TRIGGERED);
     }
 
-    public void cast(ServerLevel level, Vec3 pos, Vec3 direction, float spread, float speedModifier, Entity caster, EntitySpawnReason reason) {
+    /**
+     * 此处仅计算 {@link SpellProjectile#shoot} 参数及多重施法其余法术链主法术的修正，其余由实体自行计算
+     */
+    public void cast(ServerLevel level, Vec3 pos, Vec3 direction, float spread, float critChance, float speedModifier, Entity caster, EntitySpawnReason reason) {
         Item item = mainSpell.value();
         if (item instanceof SpellItem spellItem) {
             EntityType<? extends SpellProjectile> projectileType = spellItem.getSpellProjectile();
@@ -82,8 +78,6 @@ public record UnitSpellChain(
 
                     if (spellAttributes.motion() != null) {
                         initialSpeed += spellAttributes.motion().initialSpeed();
-                    }
-                    if (spellAttributes.motion() != null) {
                         spread += spellAttributes.motion().spread();
                     }
 
@@ -92,7 +86,7 @@ public record UnitSpellChain(
 
                     projectile.setPos(pos);
                     projectile.setOwner(caster);
-                    projectile.set(mainSpell, modifiers, initialSpeed);
+                    projectile.set(mainSpell, modifiers, initialSpeed, critChance);
                     projectile.setSuffixes(suffixes);
 
                     level.addFreshEntity(projectile);

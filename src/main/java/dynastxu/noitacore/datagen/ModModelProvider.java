@@ -33,6 +33,7 @@ public final class ModModelProvider extends ModelProvider {
 
         // Modifier
         spellItem(Items.SPELL_MANA_REDUCE.get(), itemModels, SpellType.Modifier);
+        spellItem(Items.SPELL_CRITICAL_HIT.get(), itemModels, SpellType.Modifier);
 
         // Multicast
         spellItem(Items.SPELL_BURST_2.get(), itemModels, SpellType.Multicast);

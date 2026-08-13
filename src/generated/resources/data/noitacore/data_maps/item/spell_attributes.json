@@ -105,6 +105,33 @@
         }
       }
     },
+    "noitacore:spell_critical_hit": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Modifier",
+          "cast_delay_tick": 0,
+          "draws": 1,
+          "mana_drain": 5,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "modifications": {
+          "critical_chance": 0.15,
+          "recoil": 0.0,
+          "speed_multiplier": 0.0,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 140,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        }
+      }
+    },
     "noitacore:spell_light_bullet": {
       "replace": true,
       "value": {

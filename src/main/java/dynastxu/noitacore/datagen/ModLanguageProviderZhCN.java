@@ -27,7 +27,8 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER_2.get(), "带有双重触发的火花弹", "在碰撞时施放另外两个法术的火花弹");
         addSpell(Items.SPELL_LIGHT_BULLET_TIMER.get(), "带有定时的火花弹", "在定时结束后释放另一法术的火花弹");
         // Modifier
-        addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入30法力");
+        addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");
+        addSpell(Items.SPELL_CRITICAL_HIT.get(), "暴击率+", "提高投射物的暴击率");
         // Multicast
         addSpell(Items.SPELL_BURST_2.get(), "二重施法", "同时施放2个法术");
         addSpell(Items.SPELL_BURST_3.get(), "三重施法", "同时施放3个法术");

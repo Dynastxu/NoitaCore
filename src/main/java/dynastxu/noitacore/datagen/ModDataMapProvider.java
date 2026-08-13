@@ -172,6 +172,21 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 .basePrice(250).build()).build(),
                 replace
         );
+        spellBuilder.add(
+                Items.SPELL_CRITICAL_HIT.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Modifier,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                5, 0, 0, 1
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                0, 0, 0, 0.15f
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(140).build()).build(),
+                replace
+        );
 
 
         // Multicast
