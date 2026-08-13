@@ -126,7 +126,7 @@ public record WandData(
     }
 
     public int nextCastManaDrain(Caster<?> caster) {
-        CastHelper castHelper = new CastHelper(this, true);
+        CastHelper castHelper = new CastHelper(this.toBuilder().castDelayTick(0).rechargeTick(0).build());
         Configurator.setLevel("dynastxu.noitacore.common.wand.CastHelper", Level.ERROR);
         castHelper.getNextCast(caster);
         Configurator.setLevel("dynastxu.noitacore.common.wand.CastHelper", Level.DEBUG);

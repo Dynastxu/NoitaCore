@@ -30,8 +30,9 @@ public class RubberBall extends SpellProjectile {
     }
 
     @Override
-    protected void onWillHurtEntity(Entity entity) {
+    protected void hurtEntity(Entity entity) {
         float damage = damageMap.getOrDefault(DamageType.Projectile, 0f);
         damageMap.put(DamageType.Projectile, calculateDamageDependsOnSpeed(damage));
+        super.hurtEntity(entity);
     }
 }

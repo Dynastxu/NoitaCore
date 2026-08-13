@@ -32,7 +32,7 @@ public class WandHudOverlay {
     private static final int BACKGROUND_COLOR = 0xFF000000;
     private static final int MANA_COLOR = 0xFF4488FF;
     private static final int MANA_HIGHLIGHT = 0xFF88BBFF;
-    private static final int MANA_DRAIN_COLOR = 0xFFFFFFFF;
+    private static final int MANA_DRAIN_COLOR = 0x80FFFFFF;
     private static final int MANA_CHARGE_COLOR = 0x804488FF;
     private static final int COOLING_COLOR = 0x80884444;
 

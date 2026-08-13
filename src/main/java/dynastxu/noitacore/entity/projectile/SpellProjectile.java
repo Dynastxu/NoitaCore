@@ -464,8 +464,6 @@ public abstract class SpellProjectile extends Projectile {
     }
 
     protected void hurtEntity(Entity entity) {
-        onWillHurtEntity(entity);
-
         List<EntityReference<Entity>> hurtEntities = entityData.get(HURT_ENTITIES);
         hurtEntities.add(EntityReference.of(entity));
         entityData.set(HURT_ENTITIES, hurtEntities);
@@ -499,12 +497,6 @@ public abstract class SpellProjectile extends Projectile {
             }
 
         });
-    }
-
-    /**
-     * 直接修改 {@link #damageMap}
-     */
-    protected void onWillHurtEntity(Entity entity) {
     }
 
     @Override
