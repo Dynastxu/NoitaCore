@@ -68,8 +68,12 @@ public record UnitSpellChain(
                     if (spellAttributes.motion() != null) {
                         initialSpeed += spellAttributes.motion().initialSpeed();
                     }
+                    if (spellAttributes.motion() != null) {
+                        spread += spellAttributes.motion().spread();
+                    }
 
                     initialSpeed *= speedModifier;
+                    spread = Math.max(0, spread);
 
                     projectile.setPos(pos);
                     projectile.setOwner(caster);
