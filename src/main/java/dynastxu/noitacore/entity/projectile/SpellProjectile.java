@@ -496,35 +496,42 @@ public abstract class SpellProjectile extends Projectile {
             }
         }
 
+        if (level() instanceof ServerLevel serverLevel) {
         damageMap.forEach((type, damage) -> {
             if (damage == 0) return;
-            if (level() instanceof ServerLevel serverLevel) {
-                var damageSourceKey = switch (type) {
-                    case Projectile -> DamageTypes.SPELL_PROJECTILE;
-                    default -> null;
-                };
-                if (damageSourceKey != null && damage > 0) {
-                    DamageSource damageSource = serverLevel.damageSources().source(
-                            damageSourceKey,
-                            this,
-                            getOwner()
-                    );
-                    entity.hurtServer(serverLevel, damageSource, damage);
-                    entity.invulnerableTime = 0;
+            var damageSourceKey = switch (type) {
+                case Projectile -> DamageTypes.SPELL_PROJECTILE;
+                default -> null;
+            };
+            if (damageSourceKey != null && damage > 0) {
+                DamageSource damageSource = serverLevel.damageSources().source(
+                        damageSourceKey,
+                        this,
+                        getOwner()
+                );
+                entity.hurtServer(serverLevel, damageSource, damage);
+                entity.invulnerableTime = 0;
 
-                } else if (damageSourceKey != null && entity instanceof LivingEntity livingEntity) {
-                    livingEntity.heal(-damage + Float.MIN_NORMAL);
-                    DamageSource damageSource = serverLevel.damageSources().source(
-                            damageSourceKey,
-                            this,
-                            getOwner()
-                    );
-                    livingEntity.hurtServer(serverLevel, damageSource, Float.MIN_NORMAL);
-                    livingEntity.invulnerableTime = 0;
+            } else if (damageSourceKey != null && entity instanceof LivingEntity livingEntity) {
+                livingEntity.heal(-damage + Float.MIN_NORMAL);
+                DamageSource damageSource = serverLevel.damageSources().source(
+                        damageSourceKey,
+                        this,
+                        getOwner()
+                );
+                livingEntity.hurtServer(serverLevel, damageSource, Float.MIN_NORMAL);
+                livingEntity.invulnerableTime = 0;
                 }
-            }
+            });
 
-        });
+            DamageSource damageSource = serverLevel.damageSources().source(
+                    net.minecraft.world.damagesource.DamageTypes.EXPLOSION,
+                    this,
+                    getOwner()
+            );
+            entity.hurtServer(serverLevel, damageSource, explosion);
+            entity.invulnerableTime = 0;
+        }
     }
 
     @Override
@@ -584,7 +591,8 @@ public abstract class SpellProjectile extends Projectile {
                 ExplosionManager.add(serverLevel, new SpellExplosion(
                         serverLevel, damageSource, this.position(), explosionRadius, false, diggingPower, explosion, this::canHitEntity
                 ));
-            } else if (explosionRadius > 0) {
+            }
+            if (explosionRadius > 0) {
                 serverLevel.sendParticles(
                         new ExplosionParticleOptions(explosionRadius),
                         position().x, position().y, position().z,
