@@ -210,10 +210,10 @@ public abstract class SpellProjectile extends Projectile {
             output.store("HurtEntities", Codec.list(EntityReference.codec()), entityData.get(HURT_ENTITIES));
         }
         if (spellItem != null) {
-            output.store("SpellItem", UnitSpellChain.ITEM_HOLDER_CODEC, spellItem);
+            output.store("SpellItem", Item.CODEC, spellItem);
         }
         if (!modifiers.isEmpty()) {
-            output.store("Modifiers", UnitSpellChain.ITEM_LIST_CODEC, modifiers);
+            output.store("Modifiers", Codec.list(Item.CODEC), modifiers);
         }
         if (suffixes != null && !suffixes.isEmpty()) {
             output.store("Suffixes", Codec.list(UnitSpellChain.CODEC), suffixes);
@@ -240,8 +240,8 @@ public abstract class SpellProjectile extends Projectile {
         isFriendlyFire = input.getBooleanOr("IsFriendlyFire", false);
         //noinspection unchecked
         entityData.set(HURT_ENTITIES, (List<EntityReference<Entity>>) (Object) input.read("HurtEntities", Codec.list(EntityReference.codec())).orElse(new ArrayList<>()));
-        spellItem = input.read("SpellItem", UnitSpellChain.ITEM_HOLDER_CODEC).orElse(null);
-        modifiers = new ArrayList<>(input.read("Modifiers", UnitSpellChain.ITEM_LIST_CODEC).orElse(List.of()));
+        spellItem = input.read("SpellItem", Item.CODEC).orElse(null);
+        modifiers = new ArrayList<>(input.read("Modifiers", Codec.list(Item.CODEC)).orElse(List.of()));
         suffixes = new ArrayList<>(input.read("Suffixes", Codec.list(UnitSpellChain.CODEC)).orElse(List.of()));
     }
 
