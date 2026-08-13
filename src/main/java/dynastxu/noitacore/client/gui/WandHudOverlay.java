@@ -92,11 +92,14 @@ public class WandHudOverlay {
                 guiGraphics.fill(x, y, x + manaWidth, y + 1, MANA_HIGHLIGHT);
             }
 
-            int manaDrainWidth = (int) ((float) data.nextCastManaDrain(new Caster<>(player)) / manaMax * BAR_WIDTH);
-            if (manaDrainWidth > 0) {
-                guiGraphics.fill(x + manaWidth - manaDrainWidth, y, x + manaWidth, y + BAR_HEIGHT, MANA_DRAIN_COLOR);
-            } else if (manaDrainWidth < 0) {
-                guiGraphics.fill(x + manaWidth, y, x + manaWidth - manaDrainWidth, y + BAR_HEIGHT, MANA_CHARGE_COLOR);
+            if (!data.statistics().shuffle()) {
+                // 法力消耗预测
+                int manaDrainWidth = (int) ((float) data.nextCastManaDrain(new Caster<>(player)) / manaMax * BAR_WIDTH);
+                if (manaDrainWidth > 0) {
+                    guiGraphics.fill(x + manaWidth - manaDrainWidth, y, x + manaWidth, y + BAR_HEIGHT, MANA_DRAIN_COLOR);
+                } else if (manaDrainWidth < 0) {
+                    guiGraphics.fill(x + manaWidth, y, x + manaWidth - manaDrainWidth, y + BAR_HEIGHT, MANA_CHARGE_COLOR);
+                }
             }
         }
 

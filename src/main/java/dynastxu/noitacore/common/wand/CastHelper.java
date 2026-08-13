@@ -167,7 +167,11 @@ public class CastHelper {
         while (drawCount > 0) {
             // 回绕
             if (drawStack.isEmpty()) {
-                if (isWraped) break;
+                if (isWraped) {
+                    drawStack = getSpells();
+                    discardStack = new ArrayList<>();
+                    break;
+                }
                 LOGGER.debug("抽牌堆已无法术，尝试回绕");
                 isWraped = true;
                 if (discardStack.isEmpty()) {
