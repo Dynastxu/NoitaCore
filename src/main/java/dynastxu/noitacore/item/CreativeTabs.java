@@ -21,6 +21,9 @@ public final class CreativeTabs {
                         // Projectile
                         output.accept(Items.SPELL_RUBBER_BALL.get());
                         output.accept(Items.SPELL_LIGHT_BULLET.get());
+                        output.accept(Items.SPELL_LIGHT_BULLET_TRIGGER.get());
+                        output.accept(Items.SPELL_LIGHT_BULLET_TRIGGER_2.get());
+                        output.accept(Items.SPELL_LIGHT_BULLET_TIMER.get());
                         // Modifier
                         output.accept(Items.SPELL_MANA_REDUCE.get());
                         // Multicast

@@ -23,6 +23,9 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         // Projectile
         addSpell(Items.SPELL_RUBBER_BALL.get(), "弹跳绿豆", "极具弹跳力的投射物");
         addSpell(Items.SPELL_LIGHT_BULLET.get(), "火花弹", "弱小但带有迷人闪烁的投射物");
+        addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER.get(), "带有触发的火花弹", "在碰撞时施放另一法术的火花弹");
+        addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER_2.get(), "带有双重触发的火花弹", "在碰撞时施放另外两个法术的火花弹");
+        addSpell(Items.SPELL_LIGHT_BULLET_TIMER.get(), "带有定时的火花弹", "在定时结束后释放另一法术的火花弹");
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入30法力");
         // Multicast

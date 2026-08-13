@@ -1,6 +1,5 @@
 package dynastxu.noitacore.entity.projectile;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import dynastxu.noitacore.DamageTypes;
@@ -46,7 +45,6 @@ import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class SpellProjectile extends Projectile {
     protected static final EntityDataAccessor<Integer> REMAINING_BOUNCES =
@@ -62,9 +60,9 @@ public abstract class SpellProjectile extends Projectile {
             SynchedEntityData.defineId(SpellProjectile.class, DataSerializers.HURT_ENTITIES_SERIALIZER.get());
     private static final Logger LOGGER = LogUtils.getLogger();
     protected Holder<Item> spellItem;
-    protected List<Holder<Item>> modifiers;
+    protected List<Holder<Item>> modifiers = new ArrayList<>();
     @Setter
-    protected List<UnitSpellChain> suffixes;
+    protected List<UnitSpellChain> suffixes = new ArrayList<>();
     /**
      * 仅对同一实体造成一次伤害
      */
@@ -198,10 +196,8 @@ public abstract class SpellProjectile extends Projectile {
         output.putFloat("Friction", friction);
         if (!damageMap.isEmpty()) {
             output.store("DamageMap",
-                    Codec.list(Codec.pair(EnumCodecs.codec(DamageType.class), Codec.FLOAT)),
-                    damageMap.entrySet().stream()
-                            .map(e -> Pair.of(e.getKey(), e.getValue()))
-                            .toList());
+                    Codec.unboundedMap(EnumCodecs.codec(DamageType.class), Codec.FLOAT),
+                    damageMap);
         }
         output.putFloat("DieSpeedThreshold", dieSpeedThreshold);
         output.putFloat("InitialSpeed", initialSpeed);
@@ -214,15 +210,13 @@ public abstract class SpellProjectile extends Projectile {
             output.store("HurtEntities", Codec.list(EntityReference.codec()), entityData.get(HURT_ENTITIES));
         }
         if (spellItem != null) {
-            output.store("SpellItem", Item.CODEC, spellItem);
+            output.store("SpellItem", UnitSpellChain.ITEM_HOLDER_CODEC, spellItem);
         }
-        if (modifiers != null && !modifiers.isEmpty()) {
-            ValueOutput.TypedOutputList<Holder<Item>> modifiersValue = output.list("Modifiers", Item.CODEC);
-            modifiers.forEach(modifiersValue::add);
+        if (!modifiers.isEmpty()) {
+            output.store("Modifiers", UnitSpellChain.ITEM_LIST_CODEC, modifiers);
         }
         if (suffixes != null && !suffixes.isEmpty()) {
-            ValueOutput.TypedOutputList<UnitSpellChain> suffixesValue = output.list("Suffixes", UnitSpellChain.CODEC);
-            suffixes.forEach(suffixesValue::add);
+            output.store("Suffixes", Codec.list(UnitSpellChain.CODEC), suffixes);
         }
     }
 
@@ -234,10 +228,9 @@ public abstract class SpellProjectile extends Projectile {
         entityData.set(SUFFIX_TIMER, input.getInt("SuffixTimer").orElse(0));
         gravity = input.getFloatOr("Gravity", 0);
         friction = input.getFloatOr("Friction", 0);
-        damageMap = input.read("DamageMap", Codec.list(Codec.pair(EnumCodecs.codec(DamageType.class), Codec.FLOAT)))
-                .orElse(new ArrayList<>())
-                .stream()
-                .collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
+        damageMap = new HashMap<>(input.read("DamageMap",
+                        Codec.unboundedMap(EnumCodecs.codec(DamageType.class), Codec.FLOAT))
+                .orElse(Map.of()));
         dieSpeedThreshold = input.getFloatOr("DieSpeedThreshold", 0);
         initialSpeed = input.getFloatOr("InitialSpeed", 0);
         explosion = input.getFloatOr("Explosion", 0);
@@ -247,9 +240,9 @@ public abstract class SpellProjectile extends Projectile {
         isFriendlyFire = input.getBooleanOr("IsFriendlyFire", false);
         //noinspection unchecked
         entityData.set(HURT_ENTITIES, (List<EntityReference<Entity>>) (Object) input.read("HurtEntities", Codec.list(EntityReference.codec())).orElse(new ArrayList<>()));
-        spellItem = input.read("SpellItem", Item.CODEC).orElse(null);
-        input.listOrEmpty("Modifiers", Item.CODEC).forEach(modifier -> modifiers.add(modifier));
-        input.listOrEmpty("Suffixes", UnitSpellChain.CODEC).forEach(suffix -> suffixes.add(suffix));
+        spellItem = input.read("SpellItem", UnitSpellChain.ITEM_HOLDER_CODEC).orElse(null);
+        modifiers = new ArrayList<>(input.read("Modifiers", UnitSpellChain.ITEM_LIST_CODEC).orElse(List.of()));
+        suffixes = new ArrayList<>(input.read("Suffixes", Codec.list(UnitSpellChain.CODEC)).orElse(List.of()));
     }
 
     protected SpellAttributes getMainSpellAttributes() {
@@ -554,7 +547,7 @@ public abstract class SpellProjectile extends Projectile {
                         getOwner()
                 );
                 ExplosionManager.add(serverLevel, new SpellExplosion(
-                        serverLevel, this, damageSource, this.position(), explosionRadius, false, diggingPower, explosion, this::canHitEntity
+                        serverLevel, damageSource, this.position(), explosionRadius, false, diggingPower, explosion, this::canHitEntity
                 ));
             } else if (explosionRadius > 0) {
                 serverLevel.sendParticles(

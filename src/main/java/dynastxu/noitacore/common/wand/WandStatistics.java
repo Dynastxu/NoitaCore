@@ -2,6 +2,7 @@ package dynastxu.noitacore.common.wand;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dynastxu.noitacore.common.spell.UnitSpellChain;
 import lombok.NonNull;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -34,7 +35,7 @@ public record WandStatistics(
                             Codec.INT.fieldOf("mana_charge_speed").forGetter(WandStatistics::manaChargeSpeed),
                             Codec.INT.fieldOf("capacity").forGetter(WandStatistics::capacity),
                             Codec.FLOAT.fieldOf("spread").forGetter(WandStatistics::spread),
-                            Codec.list(Item.CODEC).fieldOf("always_casts").forGetter(WandStatistics::alwaysCasts),
+                            Codec.list(UnitSpellChain.ITEM_HOLDER_CODEC).fieldOf("always_casts").forGetter(WandStatistics::alwaysCasts),
                             Codec.FLOAT.fieldOf("speed_multiplier").forGetter(WandStatistics::speedMultiplier)
                     )
                     .apply(instance, WandStatistics::new)

@@ -23,6 +23,9 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         // Projectile
         addSpell(Items.SPELL_RUBBER_BALL.get(), "Bouncing Burst", "A very bouncy projectile");
         addSpell(Items.SPELL_LIGHT_BULLET.get(), "Spark Bolt", "A weak but enchanting sparkling projectile");
+        addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER.get(), "Spark Bolt With Trigger", "A spark bolt that casts another spell upon collision");
+        addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER_2.get(), "Spark Bolt With Double Trigger", "A spark bolt that casts two new spells upon collision");
+        addSpell(Items.SPELL_LIGHT_BULLET_TIMER.get(), "Spark Bolt With Timer", "A spark bolt that casts another spell after a timer runs out");
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "Add Mana", "Immediately adds 30 mana to the wand");
         // Multicast

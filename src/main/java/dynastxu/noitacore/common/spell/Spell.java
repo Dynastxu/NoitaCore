@@ -24,7 +24,7 @@ public record Spell(
 ) {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final Codec<Spell> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Item.CODEC.fieldOf("base").forGetter(Spell::itemHolder),
+            UnitSpellChain.ITEM_HOLDER_CODEC.fieldOf("base").forGetter(Spell::itemHolder),
             Codec.INT.fieldOf("index").forGetter(Spell::index),
             Codec.BOOL.fieldOf("isAlwaysCast").forGetter(Spell::isAlwaysCast)
     ).apply(instance, Spell::new));
