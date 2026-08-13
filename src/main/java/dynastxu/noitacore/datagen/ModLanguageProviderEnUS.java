@@ -39,6 +39,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         // Wands
         add(Items.WAND_SMC_SC_NS.get(), "Wand - Small/Med Capacity - Single Cast - No-shuffle");
         add(Items.WAND_LC_SC_S.get(), "Wand - Large Capacity - Single Cast - Shuffle");
+        add(Items.WAND_MLC_3C_S.get(), "Wand - Med/Large Capacity - 3 Cast - Shuffle");
     }
 
     @Override

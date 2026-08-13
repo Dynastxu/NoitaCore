@@ -39,6 +39,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         // Wands
         add(Items.WAND_SMC_SC_NS.get(), "法杖 - 小/中容量 - 单施法 - 有序");
         add(Items.WAND_LC_SC_S.get(), "法杖 - 大容量 - 单施法 - 无序");
+        add(Items.WAND_MLC_3C_S.get(), "法杖 - 中/大容量 - 3 施法 - 无序");
     }
 
     @Override
