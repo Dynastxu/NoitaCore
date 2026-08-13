@@ -122,14 +122,12 @@ public class CastHelper {
         }
 
         LOGGER.debug("处理普通施放");
-        for (int i = 0; i < statistics.spellsPerCast(); i++) {
-            List<UnitSpellChain> nextChains = getNextSpellChains(caster, false);
-            if (!nextChains.isEmpty()) {
-                result.addAll(nextChains);
-            } else {
-                onCastOver();
-                return result;
-            }
+        List<UnitSpellChain> nextChains = getNextSpellChains(caster, false);
+        if (!nextChains.isEmpty()) {
+            result.addAll(nextChains);
+        } else {
+            onCastOver();
+            return result;
         }
 
         onCastOver();
@@ -162,7 +160,7 @@ public class CastHelper {
         List<Holder<Item>> modifiers = new ArrayList<>(); // 单独计算，不嵌套
         List<List<UnitSpellChain>> suffixes = new ArrayList<>();
         List<Holder<Item>> mainSpells = new ArrayList<>();
-        int drawCount = 1;
+        int drawCount = Math.min(statistics.spellsPerCast(), drawStack.size());
         boolean isWraped = false;
         while (drawCount > 0) {
             // 回绕

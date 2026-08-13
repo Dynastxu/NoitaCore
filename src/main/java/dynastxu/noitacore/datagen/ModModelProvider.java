@@ -44,6 +44,7 @@ public final class ModModelProvider extends ModelProvider {
 
         wandItem(Items.WAND_SMC_SC_NS.get(), itemModels);
         wandItem(Items.WAND_LC_SC_S.get(), itemModels);
+        wandItem(Items.WAND_MLC_3C_S.get(), itemModels);
     }
 
     private void spellItem(Item item, @NonNull ItemModelGenerators itemModels, @NonNull SpellType spellType) {
