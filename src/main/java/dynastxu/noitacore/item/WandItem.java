@@ -95,9 +95,6 @@ public class WandItem extends Item {
                             if (spellAttributes.modifications() != null) {
                                 spread += spellAttributes.modifications().spread();
                             }
-                            if (spread < 0) {
-                                spread = 0;
-                            }
                             chain.cast(serverLevel, pos, direction, spread, speedModifier, livingEntity, EntitySpawnReason.SPAWN_ITEM_USE);
                         }
                     });
