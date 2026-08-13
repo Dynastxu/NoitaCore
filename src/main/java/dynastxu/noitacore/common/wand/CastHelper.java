@@ -38,21 +38,13 @@ public class CastHelper {
     private WandData wandDataAfterCast;
 
     public CastHelper(@NonNull WandData wandData) {
-        this(wandData, false);
-    }
-
-    public CastHelper(@NonNull WandData wandData, boolean cloneInventory) {
         this.statistics = wandData.statistics();
         this.mana = wandData.mana();
         this.drawStack = new ArrayList<>(wandData.drawStack());
         this.discardStack = new ArrayList<>(wandData.discardStack());
         this.castDelayTick = wandData.castDelayTick();
         this.rechargeTick = wandData.rechargeTick();
-        if (cloneInventory) {
-            this.inventory = Utils.clone(wandData.inventory());
-        } else {
-            this.inventory = wandData.inventory();
-        }
+        this.inventory = Utils.clone(wandData.inventory());
 
         this.wandDataAfterCast = wandData;
         this.preLoadStack = new ArrayList<>();
