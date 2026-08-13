@@ -32,6 +32,8 @@
   "item.noitacore.spell_light_bullet_trigger_2.description": "A spark bolt that casts two new spells upon collision",
   "item.noitacore.spell_mana_reduce": "Add Mana",
   "item.noitacore.spell_mana_reduce.description": "Immediately adds 30 mana to the wand",
+  "item.noitacore.spell_nuke": "Nuke",
+  "item.noitacore.spell_nuke.description": "Take cover!",
   "item.noitacore.spell_rubber_ball": "Bouncing Burst",
   "item.noitacore.spell_rubber_ball.description": "A very bouncy projectile",
   "item.noitacore.wand_lc_sc_s": "Wand - Large Capacity - Single Cast - Shuffle",

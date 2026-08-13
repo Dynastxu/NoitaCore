@@ -1,6 +1,7 @@
 package dynastxu.noitacore.entity;
 
 import dynastxu.noitacore.entity.projectile.LightBullet;
+import dynastxu.noitacore.entity.projectile.Nuke;
 import dynastxu.noitacore.entity.projectile.RubberBall;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -38,4 +39,13 @@ public final class EntityTypes {
                     .updateInterval(SPELL_PROJECTILE_UPDATE_INTERVAL)
                     .build(ResourceKey.create(Registries.ENTITY_TYPE,
                             Identifier.fromNamespaceAndPath(MODID, "light_bullet"))));
+
+    public static final Supplier<EntityType<Nuke>> NUKE =
+            ENTITY_TYPES.register("nuke", () -> EntityType.Builder
+                    .of(Nuke::new, MobCategory.MISC)
+                    .sized(0.5f, 0.5f)
+                    .clientTrackingRange(SPELL_PROJECTILE_CLIENT_TRACKING_RANGE)
+                    .updateInterval(SPELL_PROJECTILE_UPDATE_INTERVAL)
+                    .build(ResourceKey.create(Registries.ENTITY_TYPE,
+                            Identifier.fromNamespaceAndPath(MODID, "nuke"))));
 }

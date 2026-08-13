@@ -1,6 +1,8 @@
 package dynastxu.noitacore.client;
 
+import dynastxu.noitacore.client.model.NukeModel;
 import dynastxu.noitacore.client.renderer.EmptyRenderer;
+import dynastxu.noitacore.client.renderer.NukeRenderer;
 import dynastxu.noitacore.client.renderer.RubberBallRenderer;
 import dynastxu.noitacore.client.screen.WandScreen;
 import dynastxu.noitacore.entity.EntityTypes;
@@ -37,6 +39,12 @@ public final class ClientSetup {
     public static void registerRenderers(EntityRenderersEvent.@NonNull RegisterRenderers event) {
         event.registerEntityRenderer(EntityTypes.RUBBER_BALL.get(), RubberBallRenderer::new);
         event.registerEntityRenderer(EntityTypes.LIGHT_BULLET.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(EntityTypes.NUKE.get(), NukeRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayerDefinitions(EntityRenderersEvent.@NonNull RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(NukeModel.LAYER_LOCATION, NukeModel::createBodyLayer);
     }
 
     @SubscribeEvent

@@ -577,7 +577,7 @@ public abstract class SpellProjectile extends Projectile {
         if (level() instanceof ServerLevel serverLevel) {
             if (explosionRadius >= 1 && explosion > 0) {
                 DamageSource damageSource = serverLevel.damageSources().source(
-                        DamageTypes.SPELL_PROJECTILE,
+                        net.minecraft.world.damagesource.DamageTypes.EXPLOSION,
                         this,
                         getOwner()
                 );

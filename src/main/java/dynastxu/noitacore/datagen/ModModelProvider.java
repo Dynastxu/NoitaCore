@@ -30,6 +30,7 @@ public final class ModModelProvider extends ModelProvider {
         spellItem(Items.SPELL_LIGHT_BULLET_TRIGGER.get(), itemModels, SpellType.Projectile);
         spellItem(Items.SPELL_LIGHT_BULLET_TRIGGER_2.get(), itemModels, SpellType.Projectile);
         spellItem(Items.SPELL_LIGHT_BULLET_TIMER.get(), itemModels, SpellType.Projectile);
+        spellItem(Items.SPELL_NUKE.get(), itemModels, SpellType.Projectile);
 
         // Modifier
         spellItem(Items.SPELL_MANA_REDUCE.get(), itemModels, SpellType.Modifier);
