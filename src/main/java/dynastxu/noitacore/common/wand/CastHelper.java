@@ -3,7 +3,6 @@ package dynastxu.noitacore.common.wand;
 import com.mojang.logging.LogUtils;
 import dynastxu.noitacore.common.spell.Spell;
 import dynastxu.noitacore.common.spell.SpellAttributes;
-import dynastxu.noitacore.common.spell.SpellType;
 import dynastxu.noitacore.common.spell.UnitSpellChain;
 import dynastxu.noitacore.components.SpellData;
 import dynastxu.noitacore.components.WandData;
@@ -35,6 +34,8 @@ public class CastHelper {
     private int preCastDelayTick;
     private int preRechargeTick;
     @Getter
+    protected int recoil;
+    @Getter
     protected float spread;
     @Getter
     protected float critChance;
@@ -57,6 +58,7 @@ public class CastHelper {
         this.preRechargeTick = 0;
         this.spread = statistics.spread();
         this.isUsed = false;
+        this.recoil = 0;
 
         if (this.drawStack.isEmpty()) {
             this.drawStack = getSpells();
@@ -219,15 +221,13 @@ public class CastHelper {
             LOGGER.debug("抽取{}：{}", spell.isAlwaysCast() ? "（始终施放）" : "", spell.getName());
             preLoadStack.add(spell);
 
-            if (spellAttributes.modifications() != null) {
-                spread += spellAttributes.modifications().spread();
-                critChance += spellAttributes.modifications().criticalChance();
-            }
-
             if (!isSuffix) {
                 addRecharge(spell.getAttributes().base().rechargeTick());
-                if (spell.getAttributes().base().type() == SpellType.Projectile) {
-                    addCastDelay(spell.getAttributes().base().castDelayTick());
+                addCastDelay(spell.getAttributes().base().castDelayTick());
+                if (spellAttributes.modifications() != null) {
+                    spread += spellAttributes.modifications().spread();
+                    critChance += spellAttributes.modifications().criticalChance();
+                    recoil += spellAttributes.modifications().recoil();
                 }
                 if (!spell.isAlwaysCast() || spell.getAttributes().base().manaDrain() < 0) {
                     mana -= spell.getAttributes().base().manaDrain();

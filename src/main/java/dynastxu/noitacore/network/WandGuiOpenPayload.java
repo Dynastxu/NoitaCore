@@ -1,6 +1,5 @@
 package dynastxu.noitacore.network;
 
-import com.mojang.logging.LogUtils;
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.components.WandData;
 import dynastxu.noitacore.item.WandItem;
@@ -18,7 +17,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jspecify.annotations.NonNull;
-import org.slf4j.Logger;
 
 import static dynastxu.noitacore.NoitaCore.MODID;
 

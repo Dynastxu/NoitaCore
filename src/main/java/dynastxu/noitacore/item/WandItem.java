@@ -84,8 +84,16 @@ public class WandItem extends Item {
                     List<UnitSpellChain> nextCast = castHelper.getNextCast(livingEntity);
                     data = castHelper.getWandDataAfterCast();
                     itemStack.set(DataComponents.WAND_DATA, data);
+
                     Vec3 pos = getCastPosition(livingEntity);
                     Vec3 direction = livingEntity.getLookAngle();
+
+                    int recoil = castHelper.getRecoil();
+                    if (recoil > 0) {
+                        livingEntity.setDeltaMovement(livingEntity.getDeltaMovement().add(direction.reverse().scale(recoil / 100.0)));
+                        livingEntity.hurtMarked = true;
+                    }
+
                     float speedModifier = data.statistics().speedMultiplier();
 
                     for (UnitSpellChain chain: nextCast) {
