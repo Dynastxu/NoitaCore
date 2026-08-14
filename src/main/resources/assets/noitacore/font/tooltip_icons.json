@@ -111,6 +111,13 @@
       "ascent": 7,
       "height": 9,
       "chars": ["\uE736"]
+    },
+    {
+      "type": "bitmap",
+      "file": "noitacore:font/explosion.png",
+      "ascent": 7,
+      "height": 9,
+      "chars": ["\uE737"]
     }
   ]
 }
