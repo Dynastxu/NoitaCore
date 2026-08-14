@@ -224,6 +224,30 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ).build(),
                 replace
         );
+        spellBuilder.add(
+                Items.SPELL_FUNKY.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                5, -1, 0, 0
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0.75f, DamageType.Projectile, 2, 2f/7, false, false, false
+                        ))
+                        .time(new SpellAttributes.Time(
+                                17
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1, 0, 2, 1
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                45f/14, 5.7f, 400, 0, 0.05f, 0, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(50).build()).build(),
+                replace
+        );
 
         // Modifier
         spellBuilder.add(

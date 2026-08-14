@@ -1,7 +1,9 @@
 package dynastxu.noitacore.client;
 
+import dynastxu.noitacore.client.model.FunkyModel;
 import dynastxu.noitacore.client.model.NukeModel;
 import dynastxu.noitacore.client.renderer.EmptyRenderer;
+import dynastxu.noitacore.client.renderer.FunkyRenderer;
 import dynastxu.noitacore.client.renderer.NukeRenderer;
 import dynastxu.noitacore.client.renderer.RubberBallRenderer;
 import dynastxu.noitacore.client.screen.WandScreen;
@@ -41,11 +43,13 @@ public final class ClientSetup {
         event.registerEntityRenderer(EntityTypes.LIGHT_BULLET.get(), EmptyRenderer::new);
         event.registerEntityRenderer(EntityTypes.NUKE.get(), NukeRenderer::new);
         event.registerEntityRenderer(EntityTypes.CRUMBLING_EARTH.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(EntityTypes.FUNKY.get(), FunkyRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.@NonNull RegisterLayerDefinitions event) {
         event.registerLayerDefinition(NukeModel.LAYER_LOCATION, NukeModel::createBodyLayer);
+        event.registerLayerDefinition(FunkyModel.LAYER_LOCATION, FunkyModel::createBodyLayer);
     }
 
     @SubscribeEvent

@@ -10,13 +10,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 
 import static dynastxu.noitacore.NoitaCore.MODID;
 
-public class NukeRenderer extends EntityRenderer<Nuke, NukeRenderState> {
+public class NukeRenderer extends EntityRenderer<Nuke, RotatableEntityRenderState> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(MODID, "textures/entity/nuke.png");
     private final NukeModel model;
 
@@ -26,26 +24,18 @@ public class NukeRenderer extends EntityRenderer<Nuke, NukeRenderState> {
     }
 
     @Override
-    public @NonNull NukeRenderState createRenderState() {
-        return new NukeRenderState();
+    public @NonNull RotatableEntityRenderState createRenderState() {
+        return new RotatableEntityRenderState();
     }
 
     @Override
-    public void extractRenderState(@NonNull Nuke entity, @NonNull NukeRenderState state, float partialTicks) {
+    public void extractRenderState(@NonNull Nuke entity, @NonNull RotatableEntityRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
-        Vec3 velocity = entity.getDeltaMovement();
-        double horizontalDist = velocity.horizontalDistance();
-        if (horizontalDist > 1.0E-7 || Math.abs(velocity.y) > 1.0E-7) {
-            state.yRot = (float) (Mth.atan2(velocity.x, velocity.z) * (180.0F / Math.PI));
-            state.xRot = (float) (Mth.atan2(velocity.y, horizontalDist) * (180.0F / Math.PI));
-        } else {
-            state.yRot = Mth.lerp(partialTicks, entity.yRotO, entity.getYRot());
-            state.xRot = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
-        }
+        RotatableEntityRenderState.extractFromVelocity(entity, state, partialTicks);
     }
 
     @Override
-    public void submit(@NonNull NukeRenderState state, @NonNull PoseStack poseStack,
+    public void submit(@NonNull RotatableEntityRenderState state, @NonNull PoseStack poseStack,
                        @NonNull SubmitNodeCollector collector, @NonNull CameraRenderState camera) {
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(state.yRot + 180.0F));
