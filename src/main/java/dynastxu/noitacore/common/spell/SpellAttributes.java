@@ -118,20 +118,20 @@ public record SpellAttributes(
 
     public record Modifications(
             float speedMultiplier,
-            float recoil,
+            int recoil,
             float spread,
             float criticalChance
     ) {
         public static final Codec<Modifications> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.FLOAT.fieldOf("speed_multiplier").forGetter(Modifications::speedMultiplier),
-                Codec.FLOAT.fieldOf("recoil").forGetter(Modifications::recoil),
+                Codec.INT.fieldOf("recoil").forGetter(Modifications::recoil),
                 Codec.FLOAT.fieldOf("spread").forGetter(Modifications::spread),
                 Codec.FLOAT.fieldOf("critical_chance").forGetter(Modifications::criticalChance)
         ).apply(instance, Modifications::new));
 
         public static final StreamCodec<ByteBuf, Modifications> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.FLOAT, Modifications::speedMultiplier,
-                ByteBufCodecs.FLOAT, Modifications::recoil,
+                ByteBufCodecs.VAR_INT, Modifications::recoil,
                 ByteBufCodecs.FLOAT, Modifications::spread,
                 ByteBufCodecs.FLOAT, Modifications::criticalChance,
                 Modifications::new
