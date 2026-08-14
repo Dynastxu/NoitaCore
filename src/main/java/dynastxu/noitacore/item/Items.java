@@ -45,6 +45,10 @@ public final class Items {
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(1).build()))
             .projectileType(EntityTypes.NUKE.get()).build());
 
+    public static final DeferredItem<SpellItem> SPELL_CRUMBLING_EARTH = ITEMS.registerItem("spell_crumbling_earth", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(3).build()))
+            .projectileType(EntityTypes.CRUMBLING_EARTH.get()).build());
+
     // Modifier
     public static final DeferredItem<SpellItem> SPELL_MANA_REDUCE = ITEMS.registerItem("spell_mana_reduce", properties -> SpellItem.builder()
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(0).build())).build());

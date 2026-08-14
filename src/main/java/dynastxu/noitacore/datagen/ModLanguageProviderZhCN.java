@@ -28,6 +28,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addSpell(Items.SPELL_LIGHT_BULLET_TIMER.get(), "带有定时的火花弹", "在定时结束后释放另一法术的火花弹");
         addSpell(Items.SPELL_NUKE.get(), "核弹", "快找掩体！");
         addSpell(Items.SPELL_NUKE_GIGA.get(), "巨型核弹", "你在期待什么呢？");
+        addSpell(Items.SPELL_CRUMBLING_EARTH.get(), "地震", "呼唤大地的愤怒");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");

@@ -28,6 +28,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addSpell(Items.SPELL_LIGHT_BULLET_TIMER.get(), "Spark Bolt With Timer", "A spark bolt that casts another spell after a timer runs out");
         addSpell(Items.SPELL_NUKE.get(), "Nuke", "Take cover!");
         addSpell(Items.SPELL_NUKE_GIGA.get(), "Giga Nuke", "What do you expect?");
+        addSpell(Items.SPELL_CRUMBLING_EARTH.get(), "Earthquake", "Calls the anger of the earth");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "Add Mana", "Immediately adds 30 mana to the wand");

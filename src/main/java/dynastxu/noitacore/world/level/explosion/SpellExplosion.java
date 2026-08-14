@@ -1,16 +1,18 @@
-package dynastxu.noitacore.common.explosion;
+package dynastxu.noitacore.world.level.explosion;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ServerExplosion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -22,13 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class SpellExplosion implements Explosion {
+public class SpellExplosion extends ServerExplosion {
     private static final Logger LOGGER = LogUtils.getLogger();
     /**
      * 每刻所有射线前进的最大总距离
      */
     protected static final float MAX_RAY_DISTANCE_PER_TICK = 17.0F;
-    protected static final int MAX_RAYS = 12097;
+    protected static final int MAX_RAYS = 24194;
     protected static final int MIN_RAYS = 64;
     /**
      * 射线单次推进步长
@@ -56,11 +58,24 @@ public class SpellExplosion implements Explosion {
     protected float energy;
     protected float damage;
     protected Predicate<Entity> canHurt;
+    protected final LivingEntity indirectSource;
+    protected final Entity source;
     DamageSource damageSource;
     boolean fire;
+    private int ticks = 0;
 
+    public SpellExplosion(@NonNull ServerLevel level, Entity source, LivingEntity indirectSource, Vec3 center, float radius, boolean fire, float energy, float damage, Predicate<Entity> canHurt) {
+        DamageSource damageSource = level.damageSources().source(
+                DamageTypes.EXPLOSION,
+                source,
+                indirectSource
+        );
+        this(level, source, indirectSource, damageSource, center, radius, fire, energy, damage, canHurt);
+    }
 
-    public SpellExplosion(ServerLevel level, @Nullable DamageSource damageSource, Vec3 center, float radius, boolean fire, float energy, float damage, Predicate<Entity> canHurt) {
+    private SpellExplosion(@NonNull ServerLevel level, Entity source, LivingEntity indirectSource, DamageSource damageSource, Vec3 center, float radius, boolean fire, float energy, float damage, Predicate<Entity> canHurt) {
+        super(level, source, damageSource, null, center, radius, fire, BLOCK_INTERACTION);
+
         this.level = level;
         this.damageSource = damageSource;
         this.center = center;
@@ -69,6 +84,9 @@ public class SpellExplosion implements Explosion {
         this.energy = energy;
         this.damage = damage;
         this.canHurt = canHurt;
+        this.indirectSource = indirectSource;
+        this.source = source;
+
         initRays();
     }
 
@@ -84,6 +102,14 @@ public class SpellExplosion implements Explosion {
     }
 
     public boolean tick() {
+        if (ticks == 0) {
+            level.gameEvent(source, GameEvent.EXPLODE, center);
+        }
+        ticks++;
+
+        toBlow.clear();
+        toHurt.clear();
+
         rays.removeIf(Ray::advance);
 
         if (rays.isEmpty()) {
@@ -92,10 +118,14 @@ public class SpellExplosion implements Explosion {
 
         interactWithBlocks(toBlow);
         hurtEntities(toHurt);
-        toBlow.clear();
-        toHurt.clear();
 
         return finished;
+    }
+
+    @Override
+    public int explode() {
+        ExplosionManager.add(level, this);
+        return 0;
     }
 
     protected void hurtEntities(@NonNull List<Entity> entities) {
@@ -155,12 +185,12 @@ public class SpellExplosion implements Explosion {
 
     @Override
     public @Nullable LivingEntity getIndirectSourceEntity() {
-        return null;
+        return indirectSource;
     }
 
     @Override
     public @Nullable Entity getDirectSourceEntity() {
-        return null;
+        return source;
     }
 
     @Override
@@ -175,7 +205,7 @@ public class SpellExplosion implements Explosion {
 
     @Override
     public boolean canTriggerBlocks() {
-        return BLOCK_INTERACTION == BlockInteraction.TRIGGER_BLOCK;
+        return false;
     }
 
     @Override
@@ -203,7 +233,7 @@ public class SpellExplosion implements Explosion {
     /**
      * 爆炸射线
      */
-    public class Ray {
+    protected class Ray {
         protected final SpellExplosion explosion;
         /**
          * 单位方向向量

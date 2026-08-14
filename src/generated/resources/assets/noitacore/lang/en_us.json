@@ -22,6 +22,8 @@
   "item.noitacore.spell_burst_x.description": "Simultaneously casts as many spells as you have left uncast in your wand",
   "item.noitacore.spell_critical_hit": "Critical Plus",
   "item.noitacore.spell_critical_hit.description": "Gives a projectile +15% chance of a critical hit",
+  "item.noitacore.spell_crumbling_earth": "Earthquake",
+  "item.noitacore.spell_crumbling_earth.description": "Calls the anger of the earth",
   "item.noitacore.spell_light_bullet": "Spark Bolt",
   "item.noitacore.spell_light_bullet.description": "A weak but enchanting sparkling projectile",
   "item.noitacore.spell_light_bullet_timer": "Spark Bolt With Timer",

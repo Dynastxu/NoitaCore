@@ -40,6 +40,7 @@ public final class ClientSetup {
         event.registerEntityRenderer(EntityTypes.RUBBER_BALL.get(), RubberBallRenderer::new);
         event.registerEntityRenderer(EntityTypes.LIGHT_BULLET.get(), EmptyRenderer::new);
         event.registerEntityRenderer(EntityTypes.NUKE.get(), NukeRenderer::new);
+        event.registerEntityRenderer(EntityTypes.CRUMBLING_EARTH.get(), EmptyRenderer::new);
     }
 
     @SubscribeEvent
