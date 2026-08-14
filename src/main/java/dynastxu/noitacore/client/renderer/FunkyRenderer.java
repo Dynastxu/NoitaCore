@@ -38,9 +38,10 @@ public class FunkyRenderer extends EntityRenderer<Funky, RotatableEntityRenderSt
     @Override
     public void submit(@NonNull RotatableEntityRenderState state, @NonNull PoseStack stack, @NonNull SubmitNodeCollector collector, @NonNull CameraRenderState camera) {
         stack.pushPose();
+        stack.translate(0.0F, 1F/14, 0.0F);
+        stack.scale(0.1f, 0.1f, 0.1f);
         stack.mulPose(Axis.YP.rotationDegrees(state.yRot + 180.0F));
         stack.mulPose(Axis.ZP.rotationDegrees(-state.xRot));
-        stack.scale(0.1f, 0.1f, 0.1f);
         collector.submitModel(
                 this.model, state, stack, TEXTURE,
                 LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, state.outlineColor, null);

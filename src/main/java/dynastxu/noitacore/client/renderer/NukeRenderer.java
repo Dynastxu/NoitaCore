@@ -38,9 +38,9 @@ public class NukeRenderer extends EntityRenderer<Nuke, RotatableEntityRenderStat
     public void submit(@NonNull RotatableEntityRenderState state, @NonNull PoseStack poseStack,
                        @NonNull SubmitNodeCollector collector, @NonNull CameraRenderState camera) {
         poseStack.pushPose();
+        poseStack.translate(0.0F, 0.25F, 0.0F);
         poseStack.mulPose(Axis.YP.rotationDegrees(state.yRot + 180.0F));
         poseStack.mulPose(Axis.ZP.rotationDegrees(-state.xRot));
-        poseStack.translate(0.0F, -0.75F, 0.0F);
         collector.submitModel(
                 this.model, state, poseStack, TEXTURE,
                 state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
