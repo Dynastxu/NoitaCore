@@ -16,7 +16,8 @@ public enum Font {
     SPELLS_PER_CAST('\uE733'),
     MANA('\uE734'),
     MANA_CHARGE('\uE735'),
-    CAPACITY('\uE736');
+    CAPACITY('\uE736'),
+    EXPLOSION('\uE737');
 
     private final char c;
     Font(char c) {

@@ -93,6 +93,13 @@ public class ToolTips {
                             .append("    ")
                             .append(String.format("%.2f", spellAttributes.damage().damage())));
                 }
+                // 爆炸伤害
+                if (spellAttributes.damage() != null && spellAttributes.damage().explosion() > 0) {
+                    tooltip.add(Component.literal(Font.EXPLOSION + " ")
+                            .append(Component.translatable("tooltip.noitacore.explosion"))
+                            .append("    ")
+                            .append(String.format("%.2f", spellAttributes.damage().explosion())));
+                }
                 // 半径
                 if (spellAttributes.damage() != null && spellAttributes.damage().explosionRadius() > 0) {
                     tooltip.add(Component.literal(Font.RADIUS + " ")

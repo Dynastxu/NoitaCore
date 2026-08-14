@@ -25,6 +25,7 @@ public final class CreativeTabs {
                         output.accept(Items.SPELL_LIGHT_BULLET_TRIGGER_2.get());
                         output.accept(Items.SPELL_LIGHT_BULLET_TIMER.get());
                         output.accept(Items.SPELL_NUKE.get());
+                        output.accept(Items.SPELL_NUKE_GIGA.get());
                         // Modifier
                         output.accept(Items.SPELL_MANA_REDUCE.get());
                         output.accept(Items.SPELL_CRITICAL_HIT.get());

@@ -27,6 +27,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER_2.get(), "Spark Bolt With Double Trigger", "A spark bolt that casts two new spells upon collision");
         addSpell(Items.SPELL_LIGHT_BULLET_TIMER.get(), "Spark Bolt With Timer", "A spark bolt that casts another spell after a timer runs out");
         addSpell(Items.SPELL_NUKE.get(), "Nuke", "Take cover!");
+        addSpell(Items.SPELL_NUKE_GIGA.get(), "Giga Nuke", "What do you expect?");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "Add Mana", "Immediately adds 30 mana to the wand");
@@ -67,6 +68,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addTooltip("mana_charge_speed", "Mana Chg. Spd");
         addTooltip("capacity", "Capacity");
         addTooltip("spread", "Spread");
+        addTooltip("explosion", "Explosion");
     }
 
     @Override

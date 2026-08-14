@@ -1,6 +1,6 @@
 package dynastxu.noitacore;
 
-import dynastxu.noitacore.common.explosion.ExplosionManager;
+import dynastxu.noitacore.world.level.explosion.ExplosionManager;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;

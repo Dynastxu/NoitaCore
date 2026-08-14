@@ -27,6 +27,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER_2.get(), "带有双重触发的火花弹", "在碰撞时施放另外两个法术的火花弹");
         addSpell(Items.SPELL_LIGHT_BULLET_TIMER.get(), "带有定时的火花弹", "在定时结束后释放另一法术的火花弹");
         addSpell(Items.SPELL_NUKE.get(), "核弹", "快找掩体！");
+        addSpell(Items.SPELL_NUKE_GIGA.get(), "巨型核弹", "你在期待什么呢？");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");
@@ -67,6 +68,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addTooltip("mana_charge_speed", "法力充能速度");
         addTooltip("capacity", "容量");
         addTooltip("spread", "散射");
+        addTooltip("explosion", "爆炸伤害");
     }
 
     @Override

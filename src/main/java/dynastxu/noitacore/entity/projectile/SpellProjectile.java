@@ -6,8 +6,6 @@ import dynastxu.noitacore.DamageTypes;
 import dynastxu.noitacore.DataMaps;
 import dynastxu.noitacore.DataSerializers;
 import dynastxu.noitacore.accessor.ProjectileAccessor;
-import dynastxu.noitacore.common.explosion.ExplosionManager;
-import dynastxu.noitacore.common.explosion.SpellExplosion;
 import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.spell.SuffixType;
@@ -15,6 +13,8 @@ import dynastxu.noitacore.common.spell.UnitSpellChain;
 import dynastxu.noitacore.item.SpellItem;
 import dynastxu.noitacore.particle.explosion.ExplosionParticleOptions;
 import dynastxu.noitacore.utils.EnumCodecs;
+import dynastxu.noitacore.world.level.explosion.ExplosionManager;
+import dynastxu.noitacore.world.level.explosion.SpellExplosion;
 import lombok.Setter;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -583,13 +583,9 @@ public abstract class SpellProjectile extends Projectile {
     protected void applyExplosion() {
         if (level() instanceof ServerLevel serverLevel) {
             if (explosionRadius >= 1 && explosion > 0) {
-                DamageSource damageSource = serverLevel.damageSources().source(
-                        net.minecraft.world.damagesource.DamageTypes.EXPLOSION,
-                        this,
-                        getOwner()
-                );
+                LivingEntity indirectSourceEntity = getOwner() instanceof LivingEntity livingEntity ? livingEntity : null;
                 ExplosionManager.add(serverLevel, new SpellExplosion(
-                        serverLevel, damageSource, this.position(), explosionRadius, false, diggingPower, explosion, this::canHitEntity
+                        serverLevel,this, indirectSourceEntity, this.position(), explosionRadius, false, diggingPower, explosion, this::canHitEntity
                 ));
             }
             if (explosionRadius > 0) {

@@ -183,6 +183,31 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ).build(),
                 replace
         );
+        spellBuilder.add(
+                Items.SPELL_NUKE_GIGA.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                new SpellAttributes.Uses(1, true),
+                                500, 17, 267, 0
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                0.5f, 300, 0, 0
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                50f, DamageType.Projectile, 100, 400f/7, true, false, false
+                        ))
+                        .time(new SpellAttributes.Time(
+                                120
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                45f/7, 0.6f, 120, 0.00001f, 0.2f, 0, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(800).diggingStrength(14).diggingPower(970).build()
+                        ).build(),
+                replace
+        );
 
         // Modifier
         spellBuilder.add(
