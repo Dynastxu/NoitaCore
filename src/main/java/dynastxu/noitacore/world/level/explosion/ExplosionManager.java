@@ -1,9 +1,10 @@
-package dynastxu.noitacore.common.explosion;
+package dynastxu.noitacore.world.level.explosion;
 
 import dynastxu.noitacore.Attachments;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.jspecify.annotations.NonNull;
 
@@ -15,9 +16,16 @@ import static dynastxu.noitacore.NoitaCore.MODID;
 @EventBusSubscriber(modid = MODID)
 public class ExplosionManager {
     protected List<SpellExplosion> spellExplosions = new ArrayList<>();
+    protected List<Earthquake> earthquakes = new ArrayList<>();
 
     public static void add(@NonNull ServerLevel level, @NonNull SpellExplosion explosion) {
+        if (EventHooks.onExplosionStart(level, explosion)) return;
         level.getData(Attachments.EXPLOSION_MANAGER).add(explosion);
+    }
+
+    public static void add(@NonNull ServerLevel level, @NonNull Earthquake earthquake) {
+        if (EventHooks.onExplosionStart(level, earthquake)) return;
+        level.getData(Attachments.EXPLOSION_MANAGER).add(earthquake);
     }
 
     @SubscribeEvent
@@ -31,7 +39,12 @@ public class ExplosionManager {
         spellExplosions.add(explosion);
     }
 
+    public void add(Earthquake earthquake) {
+        earthquakes.add(earthquake);
+    }
+
     public void tick() {
         spellExplosions.removeIf(SpellExplosion::tick);
+        earthquakes.removeIf(Earthquake::tick);
     }
 }

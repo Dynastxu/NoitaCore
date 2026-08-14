@@ -208,6 +208,22 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ).build(),
                 replace
         );
+        spellBuilder.add(
+                Items.SPELL_CRUMBLING_EARTH.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                new SpellAttributes.Uses(3, false),
+                                240, 0, 0, 0
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0, DamageType.Projectile, 0, 2f/7, false, false, false
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(300).build()
+                        ).build(),
+                replace
+        );
 
         // Modifier
         spellBuilder.add(
@@ -240,54 +256,10 @@ public final class ModDataMapProvider extends DataMapProvider {
 
 
         // Multicast
-        spellBuilder.add(
-                Items.SPELL_BURST_2.getKey(),
-                SpellAttributes.builder()
-                        .base(new SpellAttributes.BaseAttributes(
-                                SpellType.Multicast,
-                                SpellAttributes.Uses.UNRESTRICTED,
-                                0, 0, 0, 2
-                        ))
-                        .other(SpellAttributes.Other.builder()
-                                .basePrice(140).build()).build(),
-                replace
-        );
-        spellBuilder.add(
-                Items.SPELL_BURST_3.getKey(),
-                SpellAttributes.builder()
-                        .base(new SpellAttributes.BaseAttributes(
-                                SpellType.Multicast,
-                                SpellAttributes.Uses.UNRESTRICTED,
-                                2, 0, 0, 3
-                        ))
-                        .other(SpellAttributes.Other.builder()
-                                .basePrice(160).build()).build(),
-                replace
-        );
-        spellBuilder.add(
-                Items.SPELL_BURST_4.getKey(),
-                SpellAttributes.builder()
-                        .base(new SpellAttributes.BaseAttributes(
-                                SpellType.Multicast,
-                                SpellAttributes.Uses.UNRESTRICTED,
-                                5, 0, 0, 4
-                        ))
-                        .other(SpellAttributes.Other.builder()
-                                .basePrice(180).build()).build(),
-                replace
-        );
-        spellBuilder.add(
-                Items.SPELL_BURST_8.getKey(),
-                SpellAttributes.builder()
-                        .base(new SpellAttributes.BaseAttributes(
-                                SpellType.Multicast,
-                                SpellAttributes.Uses.UNRESTRICTED,
-                                30, 0, 0, 8
-                        ))
-                        .other(SpellAttributes.Other.builder()
-                                .basePrice(300).build()).build(),
-                replace
-        );
+        spellBuilder.add(Items.SPELL_BURST_2.getKey(), buildMulticast(0, 2, 140), replace);
+        spellBuilder.add(Items.SPELL_BURST_3.getKey(), buildMulticast(2, 3, 160), replace);
+        spellBuilder.add(Items.SPELL_BURST_4.getKey(), buildMulticast(5, 4, 180), replace);
+        spellBuilder.add(Items.SPELL_BURST_8.getKey(), buildMulticast(30, 8, 300), replace);
         spellBuilder.add(
                 Items.SPELL_BURST_X.getKey(),
                 SpellAttributes.builder()
@@ -300,5 +272,18 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 .basePrice(500).build()).build(),
                 replace
         );
+    }
+
+    private SpellAttributes buildMulticast(int manaDrain, int draws, int basePrice) {
+        return SpellAttributes.builder()
+                .base(new SpellAttributes.BaseAttributes(
+                        SpellType.Multicast, SpellAttributes.Uses.UNRESTRICTED,
+                        manaDrain, 0, 0, draws
+                ))
+                .other(SpellAttributes.Other.builder()
+                        .basePrice(basePrice)
+                        .build()
+                )
+                .build();
     }
 }

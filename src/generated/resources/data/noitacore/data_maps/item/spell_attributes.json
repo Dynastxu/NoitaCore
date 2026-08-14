@@ -132,6 +132,36 @@
         }
       }
     },
+    "noitacore:spell_crumbling_earth": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 0,
+          "draws": 0,
+          "mana_drain": 240,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 3
+          }
+        },
+        "damage": {
+          "damage": 0.0,
+          "damage_type": "Projectile",
+          "explosion": 0.0,
+          "explosion_radius": 0.2857143,
+          "friendly_fire": false,
+          "penetrating": false,
+          "piercing": false
+        },
+        "other": {
+          "base_price": 300,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        }
+      }
+    },
     "noitacore:spell_light_bullet": {
       "replace": true,
       "value": {

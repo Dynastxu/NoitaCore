@@ -1,8 +1,6 @@
 package dynastxu.noitacore.entity;
 
-import dynastxu.noitacore.entity.projectile.LightBullet;
-import dynastxu.noitacore.entity.projectile.Nuke;
-import dynastxu.noitacore.entity.projectile.RubberBall;
+import dynastxu.noitacore.entity.projectile.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -10,6 +8,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.Supplier;
 
@@ -23,29 +22,24 @@ public final class EntityTypes {
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, MODID);
 
     public static final Supplier<EntityType<RubberBall>> RUBBER_BALL =
-            ENTITY_TYPES.register("rubber_ball", () -> EntityType.Builder
-                    .of(RubberBall::new, MobCategory.MISC)
-                    .sized(0.25f, 0.25f)
-                    .clientTrackingRange(SPELL_PROJECTILE_CLIENT_TRACKING_RANGE)
-                    .updateInterval(SPELL_PROJECTILE_UPDATE_INTERVAL)
-                    .build(ResourceKey.create(Registries.ENTITY_TYPE,
-                            Identifier.fromNamespaceAndPath(MODID, "rubber_ball"))));
+            registerSpellProjectile("rubber_ball", 0.25f, RubberBall::new);
 
     public static final Supplier<EntityType<LightBullet>> LIGHT_BULLET =
-            ENTITY_TYPES.register("light_bullet", () -> EntityType.Builder
-                    .of(LightBullet::new, MobCategory.MISC)
-                    .sized(1f/7, 1f/7)
-                    .clientTrackingRange(SPELL_PROJECTILE_CLIENT_TRACKING_RANGE)
-                    .updateInterval(SPELL_PROJECTILE_UPDATE_INTERVAL)
-                    .build(ResourceKey.create(Registries.ENTITY_TYPE,
-                            Identifier.fromNamespaceAndPath(MODID, "light_bullet"))));
+            registerSpellProjectile("light_bullet", 1f/7, LightBullet::new);
 
     public static final Supplier<EntityType<Nuke>> NUKE =
-            ENTITY_TYPES.register("nuke", () -> EntityType.Builder
-                    .of(Nuke::new, MobCategory.MISC)
-                    .sized(0.5f, 0.5f)
-                    .clientTrackingRange(SPELL_PROJECTILE_CLIENT_TRACKING_RANGE)
-                    .updateInterval(SPELL_PROJECTILE_UPDATE_INTERVAL)
-                    .build(ResourceKey.create(Registries.ENTITY_TYPE,
-                            Identifier.fromNamespaceAndPath(MODID, "nuke"))));
+            registerSpellProjectile("nuke", 0.5f, Nuke::new);
+
+    public static final Supplier<EntityType<CrumblingEarth>> CRUMBLING_EARTH =
+            registerSpellProjectile("crumbling_earth", 1f/7, CrumblingEarth::new);
+
+    private static <T extends SpellProjectile> @NonNull Supplier<EntityType<T>> registerSpellProjectile(String name, float size, EntityType.EntityFactory<T> factory) {
+        return ENTITY_TYPES.register(name, () -> EntityType.Builder
+                .of(factory, MobCategory.MISC)
+                .sized(size, size)
+                .clientTrackingRange(SPELL_PROJECTILE_CLIENT_TRACKING_RANGE)
+                .updateInterval(SPELL_PROJECTILE_UPDATE_INTERVAL)
+                .build(ResourceKey.create(Registries.ENTITY_TYPE,
+                        Identifier.fromNamespaceAndPath(MODID, name))));
+    }
 }
