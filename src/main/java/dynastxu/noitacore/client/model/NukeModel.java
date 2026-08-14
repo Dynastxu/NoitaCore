@@ -20,7 +20,8 @@ public class NukeModel extends EntityModel<EntityRenderState> {
         super(root, RenderTypes::entityCutoutCull);
     }
 
-    public static LayerDefinition createBodyLayer() {
+    @SuppressWarnings({"DuplicatedCode", "unused"})
+    public static @NonNull LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 

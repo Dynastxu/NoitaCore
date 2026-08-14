@@ -21,24 +21,25 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
     @Override
     protected void addItems() {
         // Projectile
-        addSpell(Items.SPELL_RUBBER_BALL.get(), "Bouncing Burst", "A very bouncy projectile");
-        addSpell(Items.SPELL_LIGHT_BULLET.get(), "Spark Bolt", "A weak but enchanting sparkling projectile");
-        addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER.get(), "Spark Bolt With Trigger", "A spark bolt that casts another spell upon collision");
-        addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER_2.get(), "Spark Bolt With Double Trigger", "A spark bolt that casts two new spells upon collision");
-        addSpell(Items.SPELL_LIGHT_BULLET_TIMER.get(), "Spark Bolt With Timer", "A spark bolt that casts another spell after a timer runs out");
-        addSpell(Items.SPELL_NUKE.get(), "Nuke", "Take cover!");
-        addSpell(Items.SPELL_NUKE_GIGA.get(), "Giga Nuke", "What do you expect?");
-        addSpell(Items.SPELL_CRUMBLING_EARTH.get(), "Earthquake", "Calls the anger of the earth");
+        addSpell(Items.SPELL_RUBBER_BALL, "Bouncing Burst", "A very bouncy projectile");
+        addSpell(Items.SPELL_LIGHT_BULLET, "Spark Bolt", "A weak but enchanting sparkling projectile");
+        addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER, "Spark Bolt With Trigger", "A spark bolt that casts another spell upon collision");
+        addSpell(Items.SPELL_LIGHT_BULLET_TRIGGER_2, "Spark Bolt With Double Trigger", "A spark bolt that casts two new spells upon collision");
+        addSpell(Items.SPELL_LIGHT_BULLET_TIMER, "Spark Bolt With Timer", "A spark bolt that casts another spell after a timer runs out");
+        addSpell(Items.SPELL_NUKE, "Nuke", "Take cover!");
+        addSpell(Items.SPELL_NUKE_GIGA, "Giga Nuke", "What do you expect?");
+        addSpell(Items.SPELL_CRUMBLING_EARTH, "Earthquake", "Calls the anger of the earth");
+        addSpell(Items.SPELL_FUNKY, "???", "???");
 
         // Modifier
-        addSpell(Items.SPELL_MANA_REDUCE.get(), "Add Mana", "Immediately adds 30 mana to the wand");
-        addSpell(Items.SPELL_CRITICAL_HIT.get(), "Critical Plus", "Gives a projectile +15% chance of a critical hit");
+        addSpell(Items.SPELL_MANA_REDUCE, "Add Mana", "Immediately adds 30 mana to the wand");
+        addSpell(Items.SPELL_CRITICAL_HIT, "Critical Plus", "Gives a projectile +15% chance of a critical hit");
         // Multicast
-        addSpell(Items.SPELL_BURST_2.get(), "Double Spell", "Simultaneously casts 2 spells");
-        addSpell(Items.SPELL_BURST_3.get(), "Triple Spell", "Simultaneously casts 3 spells");
-        addSpell(Items.SPELL_BURST_4.get(), "Quadruple Spell", "Simultaneously casts 4 spells");
-        addSpell(Items.SPELL_BURST_8.get(), "Octuple Spell", "Simultaneously cast 8 spells");
-        addSpell(Items.SPELL_BURST_X.get(), "Myriad Spell", "Simultaneously casts as many spells as you have left uncast in your wand");
+        addSpell(Items.SPELL_BURST_2, "Double Spell", "Simultaneously casts 2 spells");
+        addSpell(Items.SPELL_BURST_3, "Triple Spell", "Simultaneously casts 3 spells");
+        addSpell(Items.SPELL_BURST_4, "Quadruple Spell", "Simultaneously casts 4 spells");
+        addSpell(Items.SPELL_BURST_8, "Octuple Spell", "Simultaneously cast 8 spells");
+        addSpell(Items.SPELL_BURST_X, "Myriad Spell", "Simultaneously casts as many spells as you have left uncast in your wand");
 
         // Wands
         add(Items.WAND_SMC_SC_NS.get(), "Wand - Small/Med Capacity - Single Cast - No-shuffle");

@@ -37,6 +37,7 @@ public final class ModModelProvider extends ModelProvider {
         r.registerProjectile(Items.SPELL_NUKE);
         r.registerProjectile(Items.SPELL_NUKE_GIGA);
         r.registerProjectile(Items.SPELL_CRUMBLING_EARTH);
+        r.registerProjectile(Items.SPELL_FUNKY);
 
         r.registerModifier(Items.SPELL_MANA_REDUCE);
         r.registerModifier(Items.SPELL_CRITICAL_HIT);
