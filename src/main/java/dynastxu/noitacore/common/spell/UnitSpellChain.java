@@ -83,9 +83,8 @@ public record UnitSpellChain(
         if (item instanceof SpellItem spellItem) {
             EntityType<? extends SpellProjectile> projectileType = spellItem.getSpellProjectile();
             if (projectileType != null) {
-                SpellProjectile projectile = projectileType.create(level, reason);
                 SpellAttributes spellAttributes = mainSpell.getData(DataMaps.SPELL_ATTRIBUTES);
-                if (projectile != null && spellAttributes != null) {
+                if (spellAttributes != null) {
                     float initialSpeed = 0;
 
                     if (spellAttributes.motion() != null) {
@@ -96,13 +95,21 @@ public record UnitSpellChain(
                     initialSpeed *= speedModifier;
                     spread = Math.max(0, spread);
 
-                    projectile.setPos(pos);
-                    projectile.setOwner(caster);
-                    projectile.set(mainSpell, modifiers, initialSpeed, critChance);
-                    projectile.setSuffixes(suffixes);
+                    if (spellAttributes.damage() != null) {
+                        for (int i = 0; i < spellAttributes.damage().projectileCount(); i++) {
+                            SpellProjectile projectile = projectileType.create(level, reason);
 
-                    projectile.shoot(direction.x, direction.y, direction.z, initialSpeed, spread);
-                    level.addFreshEntity(projectile);
+                            if (projectile != null) {
+                                projectile.setPos(pos);
+                                projectile.setOwner(caster);
+                                projectile.set(mainSpell, modifiers, initialSpeed, critChance);
+                                projectile.setSuffixes(suffixes);
+
+                                projectile.shoot(direction.x, direction.y, direction.z, initialSpeed, spread);
+                                level.addFreshEntity(projectile);
+                            }
+                        }
+                    }
                 }
             }
         }

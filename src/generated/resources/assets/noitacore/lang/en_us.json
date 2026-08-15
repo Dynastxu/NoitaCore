@@ -14,6 +14,8 @@
   "item.noitacore.spell_black_hole.description": "A slow orb of void that eats through all obstacles",
   "item.noitacore.spell_black_hole_death_trigger": "Black Hole with Death Trigger",
   "item.noitacore.spell_black_hole_death_trigger.description": "A slow orb of void that eats through all obstacles and casts another spell as it expires",
+  "item.noitacore.spell_buckshot": "Triplicate Bolt",
+  "item.noitacore.spell_buckshot.description": "A formation of three small, fast bolts",
   "item.noitacore.spell_burst_2": "Double Spell",
   "item.noitacore.spell_burst_2.description": "Simultaneously casts 2 spells",
   "item.noitacore.spell_burst_3": "Triple Spell",

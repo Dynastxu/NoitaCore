@@ -32,6 +32,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addSpell(Items.SPELL_FUNKY, "???", "???");
         addSpell(Items.SPELL_BLACK_HOLE, "黑洞", "缓慢的虚无球体，吞噬沿路的一切材料");
         addSpell(Items.SPELL_BLACK_HOLE_DEATH_TRIGGER, "带有死亡触发的黑洞", "在失效时释放另一法术的黑洞");
+        addSpell(Items.SPELL_BUCKSHOT, "三联魔弹", "三颗高速且带有弹性的小子弹");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");

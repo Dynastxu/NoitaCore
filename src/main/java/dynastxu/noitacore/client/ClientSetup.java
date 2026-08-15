@@ -54,6 +54,7 @@ public final class ClientSetup {
         event.registerEntityRenderer(EntityTypes.CRUMBLING_EARTH.get(), EmptyRenderer::new);
         event.registerEntityRenderer(EntityTypes.FUNKY.get(), FunkyRenderer::new);
         event.registerEntityRenderer(EntityTypes.BLACK_HOLE.get(), BlackHoleRenderer::new);
+        event.registerEntityRenderer(EntityTypes.BUCKSHOT.get(), BuckshotRenderer::new);
     }
 
     @SubscribeEvent

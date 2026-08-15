@@ -86,7 +86,7 @@ public abstract class SpellProjectile extends Projectile {
     protected float explosionRadius;
     protected float diggingPower;
     protected float critChance;
-    protected boolean applyEffectsFromBlocks = true;
+    protected float bounceStrength = 0.5f;
 
     public SpellProjectile(EntityType<? extends SpellProjectile> type, Level level) {
         super(type, level);
@@ -94,7 +94,7 @@ public abstract class SpellProjectile extends Projectile {
 
     public void set(@NonNull Holder<Item> spellItem, @NonNull List<Holder<Item>> modifiers, float initialSpeed, float critChance) {
         this.spellItem = spellItem;
-        this.modifiers = modifiers;
+        this.modifiers = new ArrayList<>(modifiers);
         this.initialSpeed = Math.max(initialSpeed, 0);
 
         InitialState state = new InitialState();
@@ -545,10 +545,10 @@ public abstract class SpellProjectile extends Projectile {
         int remainingBounces = entityData.get(REMAINING_BOUNCES);
         if (remainingBounces > 0) {
             entityData.set(REMAINING_BOUNCES, remainingBounces - 1);
-            bounce(hitResult);
+            bounce(hitResult, bounceStrength);
             onBounced(hitResult);
         } else {
-            bounce(hitResult);
+            bounce(hitResult, 1);
             onWillDiscard();
             discard();
         }
@@ -559,7 +559,7 @@ public abstract class SpellProjectile extends Projectile {
     protected void onBounced(BlockHitResult hitResult) {
     }
 
-    protected void bounce(@NonNull BlockHitResult hitResult) {
+    protected void bounce(@NonNull BlockHitResult hitResult, float bounceStrength) {
         Vec3 motion = getDeltaMovement();
         Direction dir = hitResult.getDirection();
         Vec3 normal = Vec3.atLowerCornerOf(dir.getUnitVec3i());
@@ -567,7 +567,7 @@ public abstract class SpellProjectile extends Projectile {
 
         if (dot < 0) {
             setDeltaMovement(motion.subtract(normal.scale(2 * dot)));
-            setDeltaMovement(getDeltaMovement().scale(0.5));
+            setDeltaMovement(getDeltaMovement().scale(bounceStrength));
         }
     }
 

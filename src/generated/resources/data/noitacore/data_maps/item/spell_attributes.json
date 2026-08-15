@@ -21,7 +21,8 @@
           "explosion_radius": 0.14285715,
           "friendly_fire": true,
           "penetrating": true,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "motion": {
           "bounces": 0,
@@ -64,7 +65,8 @@
           "explosion_radius": 0.14285715,
           "friendly_fire": true,
           "penetrating": true,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "motion": {
           "bounces": 0,
@@ -87,6 +89,50 @@
         },
         "time": {
           "can_hit_shooter_after": 3,
+          "life_tick": 40
+        }
+      }
+    },
+    "noitacore:spell_buckshot": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 3,
+          "draws": 0,
+          "mana_drain": 25,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "damage": {
+          "damage": 0.925,
+          "damage_type": "Projectile",
+          "explosion": 0.0,
+          "explosion_radius": 0.5714286,
+          "friendly_fire": false,
+          "penetrating": false,
+          "piercing": false,
+          "projectile_count": 3
+        },
+        "motion": {
+          "bounces": 1,
+          "die_speed_threshold": 0.0,
+          "friction": 1.0,
+          "gravity": 0,
+          "initial_speed": 3.9285715,
+          "mass": 0.06,
+          "spread": 2.3
+        },
+        "other": {
+          "base_price": 160,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        },
+        "time": {
+          "can_hit_shooter_after": 0,
           "life_tick": 40
         }
       }
@@ -244,7 +290,8 @@
           "explosion_radius": 0.2857143,
           "friendly_fire": false,
           "penetrating": false,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "other": {
           "base_price": 300,
@@ -278,7 +325,8 @@
           "explosion_radius": 0.2857143,
           "friendly_fire": false,
           "penetrating": false,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "modifications": {
           "critical_chance": 1.0,
@@ -327,7 +375,8 @@
           "explosion_radius": 0.2857143,
           "friendly_fire": false,
           "penetrating": false,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "modifications": {
           "critical_chance": 0.05,
@@ -376,7 +425,8 @@
           "explosion_radius": 0.2857143,
           "friendly_fire": false,
           "penetrating": false,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "modifications": {
           "critical_chance": 0.05,
@@ -430,7 +480,8 @@
           "explosion_radius": 0.2857143,
           "friendly_fire": false,
           "penetrating": false,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "modifications": {
           "critical_chance": 0.05,
@@ -484,7 +535,8 @@
           "explosion_radius": 1.7142857,
           "friendly_fire": false,
           "penetrating": false,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "modifications": {
           "critical_chance": 0.05,
@@ -559,7 +611,8 @@
           "explosion_radius": 35.714287,
           "friendly_fire": true,
           "penetrating": false,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "modifications": {
           "critical_chance": 0.0,
@@ -608,7 +661,8 @@
           "explosion_radius": 57.142857,
           "friendly_fire": true,
           "penetrating": false,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "modifications": {
           "critical_chance": 0.0,
@@ -657,7 +711,8 @@
           "explosion_radius": 0.14285715,
           "friendly_fire": false,
           "penetrating": false,
-          "piercing": false
+          "piercing": false,
+          "projectile_count": 1
         },
         "modifications": {
           "critical_chance": 0.0,
