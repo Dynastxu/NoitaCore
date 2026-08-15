@@ -270,6 +270,30 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 .basePrice(200).build()).build(),
                 replace
         );
+        spellBuilder.add(
+                Items.SPELL_BLACK_HOLE_DEATH_TRIGGER.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                new SpellAttributes.Uses(3, true),
+                                200, 30, 0, 0
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0, DamageType.Projectile, 0, 1f/7, true, false, true
+                        ))
+                        .time(new SpellAttributes.Time(
+                                40, 3
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                2f/7, 0, 0, -0.2f, 0.3f, 0, 0
+                        ))
+                        .suffix(new SpellAttributes.Suffix(
+                                1, SuffixType.Death, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(220).build()).build(),
+                replace
+        );
 
         // Modifier
         spellBuilder.add(

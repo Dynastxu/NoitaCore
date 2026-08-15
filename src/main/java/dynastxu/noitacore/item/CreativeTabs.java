@@ -29,6 +29,7 @@ public final class CreativeTabs {
                         output.accept(Items.SPELL_CRUMBLING_EARTH.get());
                         output.accept(Items.SPELL_FUNKY.get());
                         output.accept(Items.SPELL_BLACK_HOLE.get());
+                        output.accept(Items.SPELL_BLACK_HOLE_DEATH_TRIGGER.get());
                         // Modifier
                         output.accept(Items.SPELL_MANA_REDUCE.get());
                         output.accept(Items.SPELL_CRITICAL_HIT.get());
