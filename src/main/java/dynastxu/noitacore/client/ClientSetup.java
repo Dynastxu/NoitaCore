@@ -7,10 +7,7 @@ import dynastxu.noitacore.client.gui.WandClientTooltipComponent;
 import dynastxu.noitacore.client.gui.WandTooltipComponent;
 import dynastxu.noitacore.client.model.FunkyModel;
 import dynastxu.noitacore.client.model.NukeModel;
-import dynastxu.noitacore.client.renderer.EmptyRenderer;
-import dynastxu.noitacore.client.renderer.FunkyRenderer;
-import dynastxu.noitacore.client.renderer.NukeRenderer;
-import dynastxu.noitacore.client.renderer.RubberBallRenderer;
+import dynastxu.noitacore.client.renderer.*;
 import dynastxu.noitacore.client.screen.WandScreen;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.wand.Caster;
@@ -56,6 +53,7 @@ public final class ClientSetup {
         event.registerEntityRenderer(EntityTypes.NUKE.get(), NukeRenderer::new);
         event.registerEntityRenderer(EntityTypes.CRUMBLING_EARTH.get(), EmptyRenderer::new);
         event.registerEntityRenderer(EntityTypes.FUNKY.get(), FunkyRenderer::new);
+        event.registerEntityRenderer(EntityTypes.BLACK_HOLE.get(), BlackHoleRenderer::new);
     }
 
     @SubscribeEvent

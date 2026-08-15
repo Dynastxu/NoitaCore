@@ -30,6 +30,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addSpell(Items.SPELL_NUKE_GIGA, "Giga Nuke", "What do you expect?");
         addSpell(Items.SPELL_CRUMBLING_EARTH, "Earthquake", "Calls the anger of the earth");
         addSpell(Items.SPELL_FUNKY, "???", "???");
+        addSpell(Items.SPELL_BLACK_HOLE, "Black Hole", "A slow orb of void that eats through all obstacles");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE, "Add Mana", "Immediately adds 30 mana to the wand");

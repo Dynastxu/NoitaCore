@@ -30,6 +30,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addSpell(Items.SPELL_NUKE_GIGA.get(), "巨型核弹", "你在期待什么呢？");
         addSpell(Items.SPELL_CRUMBLING_EARTH.get(), "地震", "呼唤大地的愤怒");
         addSpell(Items.SPELL_FUNKY, "???", "???");
+        addSpell(Items.SPELL_BLACK_HOLE, "黑洞", "缓慢的虚无球体，吞噬沿路的一切材料");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");

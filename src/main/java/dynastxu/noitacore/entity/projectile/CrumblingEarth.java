@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 
 public class CrumblingEarth extends SpellProjectile {
 
-    public CrumblingEarth(EntityType<? extends SpellProjectile> type, Level level) {
+    public CrumblingEarth(EntityType<? extends CrumblingEarth> type, Level level) {
         super(type, level);
     }
 

@@ -8,7 +8,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dynastxu.noitacore.DataMaps;
 import dynastxu.noitacore.entity.projectile.SpellProjectile;
 import dynastxu.noitacore.item.SpellItem;
-import lombok.NonNull;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -19,30 +18,43 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
 public record UnitSpellChain(
-        @NonNull Holder<Item> mainSpell,
-        @NonNull List<UnitSpellChain> suffixes,
-        @NonNull List<Holder<Item>> modifiers
+        @lombok.NonNull Holder<Item> mainSpell,
+        @lombok.NonNull List<Suffix> suffixes,
+        @lombok.NonNull List<Holder<Item>> modifiers
 ) {
+    private static final StreamCodec<RegistryFriendlyByteBuf, Suffix> LAZY_STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public @NonNull Suffix decode(@NonNull RegistryFriendlyByteBuf buf) {
+            return Suffix.STREAM_CODEC.decode(buf);
+        }
+
+        @Override
+        public void encode(@NonNull RegistryFriendlyByteBuf buf, @NonNull Suffix suffix) {
+            Suffix.STREAM_CODEC.encode(buf, suffix);
+        }
+    };
+
     public static final StreamCodec<RegistryFriendlyByteBuf, UnitSpellChain> STREAM_CODEC = StreamCodec.composite(
             Item.STREAM_CODEC, UnitSpellChain::mainSpell,
-            ByteBufCodecs.<RegistryFriendlyByteBuf, UnitSpellChain>list().apply(UnitSpellChain.STREAM_CODEC), UnitSpellChain::suffixes,
+            ByteBufCodecs.<RegistryFriendlyByteBuf, Suffix>list().apply(LAZY_STREAM_CODEC), UnitSpellChain::suffixes,
             ByteBufCodecs.<RegistryFriendlyByteBuf, Holder<Item>>list().apply(Item.STREAM_CODEC), UnitSpellChain::modifiers,
             UnitSpellChain::new
     );
 
-    private static final Codec<UnitSpellChain> LAZY_CODEC = new Codec<>() {
+    private static final Codec<Suffix> LAZY_CODEC = new Codec<>() {
         @Override
-        public <T> DataResult<Pair<UnitSpellChain, T>> decode(DynamicOps<T> ops, T input) {
-            return CODEC.decode(ops, input);
+        public <T> DataResult<Pair<Suffix, T>> decode(DynamicOps<T> ops, T input) {
+            return Suffix.CODEC.decode(ops, input);
         }
 
         @Override
-        public <T> DataResult<T> encode(UnitSpellChain input, DynamicOps<T> ops, T prefix) {
-            return CODEC.encode(input, ops, prefix);
+        public <T> DataResult<T> encode(Suffix input, DynamicOps<T> ops, T prefix) {
+            return Suffix.CODEC.encode(input, ops, prefix);
         }
     };
 

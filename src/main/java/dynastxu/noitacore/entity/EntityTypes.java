@@ -36,6 +36,9 @@ public final class EntityTypes {
     public static final Supplier<EntityType<Funky>> FUNKY =
             registerSpellProjectile("funky", 1f/7, Funky::new);
 
+    public static final Supplier<EntityType<BlackHole>> BLACK_HOLE =
+            registerSpellProjectile("black_hole", 3f, BlackHole::new);
+
     private static <T extends SpellProjectile> @NonNull Supplier<EntityType<T>> registerSpellProjectile(String name, float size, EntityType.EntityFactory<T> factory) {
         return ENTITY_TYPES.register(name, () -> EntityType.Builder
                 .of(factory, MobCategory.MISC)

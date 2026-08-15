@@ -18,6 +18,7 @@ import static dynastxu.noitacore.NoitaCore.MODID;
 
 public abstract class TextureEntityRenderer< T extends Entity, S extends EntityRenderState> extends EntityRenderer<T, S> {
     private final RenderType renderType;
+    protected float scale = 1;
 
     TextureEntityRenderer(EntityRendererProvider.Context context, String path) {
         this(context, Identifier.fromNamespaceAndPath(MODID, path));
@@ -32,7 +33,7 @@ public abstract class TextureEntityRenderer< T extends Entity, S extends EntityR
     public void submit(@NonNull S state, @NonNull PoseStack stack, @NonNull SubmitNodeCollector collector, @NonNull CameraRenderState camera) {
         super.submit(state, stack, collector, camera);
         stack.pushPose();
-        stack.scale(0.5F, 0.5F, 0.5F);
+        stack.scale(scale, scale, scale);
         stack.mulPose(camera.orientation);
         collector.submitCustomGeometry(stack, renderType, (pose, buffer) -> buildQuad(state, pose, buffer));
         stack.popPose();
