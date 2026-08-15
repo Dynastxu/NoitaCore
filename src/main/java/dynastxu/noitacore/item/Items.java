@@ -83,7 +83,7 @@ public final class Items {
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())).build());
 
     public static final DeferredItem<SpellItem> SPELL_BURST_X = ITEMS.registerItem("spell_burst_x", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(3).build())).build());
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(30).build())).build());
 
     public static final List<DeferredItem<SpellItem>> SPELL_ITEMS = List.of(
             // Projectile
