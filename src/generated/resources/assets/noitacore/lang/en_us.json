@@ -32,6 +32,8 @@
   "item.noitacore.spell_crumbling_earth.description": "Calls the anger of the earth",
   "item.noitacore.spell_funky": "???",
   "item.noitacore.spell_funky.description": "???",
+  "item.noitacore.spell_laser_emitter": "Plasma Beam",
+  "item.noitacore.spell_laser_emitter.description": "An instantaneous, dangerous beam of light",
   "item.noitacore.spell_light_bullet": "Spark Bolt",
   "item.noitacore.spell_light_bullet.description": "A weak but enchanting sparkling projectile",
   "item.noitacore.spell_light_bullet_timer": "Spark Bolt With Timer",

@@ -41,6 +41,7 @@ public final class ModModelProvider extends ModelProvider {
         r.registerProjectile(Items.SPELL_BLACK_HOLE);
         r.registerProjectile(Items.SPELL_BLACK_HOLE_DEATH_TRIGGER);
         r.registerProjectile(Items.SPELL_BUCKSHOT);
+        r.registerProjectile(Items.SPELL_LASER_EMITTER);
 
         r.registerModifier(Items.SPELL_MANA_REDUCE);
         r.registerModifier(Items.SPELL_CRITICAL_HIT);

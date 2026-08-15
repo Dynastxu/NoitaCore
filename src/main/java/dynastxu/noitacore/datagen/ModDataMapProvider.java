@@ -315,6 +315,30 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 .basePrice(160).build()).build(),
                 replace
         );
+        spellBuilder.add(
+                Items.SPELL_LASER_EMITTER.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                60, 2, 0, 0
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1, 20, 0, 0
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                12f, DamageType.Projectile, 0, 0, false, true, false, 1
+                        ))
+                        .time(new SpellAttributes.Time(
+                                33, 0
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                2f/7, 0, 0, 7, 0.05f, 0, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(180).diggingStrength(11).build()).build(),
+                replace
+        );
 
         // Modifier
         spellBuilder.add(

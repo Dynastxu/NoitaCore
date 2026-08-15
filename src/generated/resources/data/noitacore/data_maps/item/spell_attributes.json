@@ -354,6 +354,56 @@
         }
       }
     },
+    "noitacore:spell_laser_emitter": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 2,
+          "draws": 0,
+          "mana_drain": 60,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "damage": {
+          "damage": 12.0,
+          "damage_type": "Projectile",
+          "explosion": 0.0,
+          "explosion_radius": 0.0,
+          "friendly_fire": false,
+          "penetrating": false,
+          "piercing": true,
+          "projectile_count": 1
+        },
+        "modifications": {
+          "critical_chance": 0.0,
+          "recoil": 20,
+          "speed_multiplier": 1.0,
+          "spread": 0.0
+        },
+        "motion": {
+          "bounces": 0,
+          "die_speed_threshold": 0.0,
+          "friction": 7.0,
+          "gravity": 0,
+          "initial_speed": 0.2857143,
+          "mass": 0.05,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 180,
+          "digging_power": 0.0,
+          "digging_strength": 11
+        },
+        "time": {
+          "can_hit_shooter_after": 0,
+          "life_tick": 33
+        }
+      }
+    },
     "noitacore:spell_light_bullet": {
       "replace": true,
       "value": {
