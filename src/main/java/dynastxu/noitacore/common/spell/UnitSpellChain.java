@@ -101,9 +101,8 @@ public record UnitSpellChain(
                     projectile.set(mainSpell, modifiers, initialSpeed, critChance);
                     projectile.setSuffixes(suffixes);
 
-                    level.addFreshEntity(projectile);
-
                     projectile.shoot(direction.x, direction.y, direction.z, initialSpeed, spread);
+                    level.addFreshEntity(projectile);
                 }
             }
         }
