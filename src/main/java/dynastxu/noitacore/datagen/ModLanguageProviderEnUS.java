@@ -45,6 +45,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         add(Items.WAND_SMC_SC_NS.get(), "Wand - Small/Med Capacity - Single Cast - No-shuffle");
         add(Items.WAND_LC_SC_S.get(), "Wand - Large Capacity - Single Cast - Shuffle");
         add(Items.WAND_MLC_3C_S.get(), "Wand - Med/Large Capacity - 3 Cast - Shuffle");
+        add(Items.WAND_OF_DESTRUCTION.get(), "WAND OF DESTRUCTION");
     }
 
     @Override
@@ -71,6 +72,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addTooltip("capacity", "Capacity");
         addTooltip("spread", "Spread");
         addTooltip("explosion", "Explosion");
+        addTooltip("always_casts", "Always Cast");
     }
 
     @Override

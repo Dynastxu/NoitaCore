@@ -45,6 +45,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         add(Items.WAND_SMC_SC_NS.get(), "法杖 - 小/中容量 - 单施法 - 有序");
         add(Items.WAND_LC_SC_S.get(), "法杖 - 大容量 - 单施法 - 无序");
         add(Items.WAND_MLC_3C_S.get(), "法杖 - 中/大容量 - 3 施法 - 无序");
+        add(Items.WAND_OF_DESTRUCTION.get(), "毁灭之杖");
     }
 
     @Override
@@ -71,6 +72,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addTooltip("capacity", "容量");
         addTooltip("spread", "散射");
         addTooltip("explosion", "爆炸伤害");
+        addTooltip("always_casts", "始终施放");
     }
 
     @Override

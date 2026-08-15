@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static dynastxu.noitacore.NoitaCore.MODID;
 
@@ -90,5 +91,12 @@ public final class Items {
     public static final DeferredItem<WandItem> WAND_MLC_3C_S = ITEMS.registerItem("wand_mlc_3c_s", properties -> new WandItem(
             properties.component(DataComponents.WAND_DATA.get(), new WandData(new WandStatistics(
                     true, 3, 2, 20, 2000, 20, 20, 10, new ArrayList<>(), 1
+            )))));
+
+    public static final DeferredItem<WandItem> WAND_OF_DESTRUCTION = ITEMS.registerItem("wand_of_destruction", properties -> new WandItem(
+            properties.component(DataComponents.WAND_DATA.get(), new WandData(new WandStatistics(
+                    false, 1, 7, -760, 1130, 40, 25, 0, List.of(
+                    SPELL_NUKE
+            ), 1
             )))));
 }

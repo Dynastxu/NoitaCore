@@ -1,5 +1,9 @@
 package dynastxu.noitacore.client;
 
+import dynastxu.noitacore.client.gui.SpellClientTooltipComponent;
+import dynastxu.noitacore.client.gui.SpellTooltipComponent;
+import dynastxu.noitacore.client.gui.WandClientTooltipComponent;
+import dynastxu.noitacore.client.gui.WandTooltipComponent;
 import dynastxu.noitacore.client.model.FunkyModel;
 import dynastxu.noitacore.client.model.NukeModel;
 import dynastxu.noitacore.client.renderer.EmptyRenderer;
@@ -16,10 +20,7 @@ import dynastxu.noitacore.particle.pixel.PixelParticleProvider;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.*;
 import org.jspecify.annotations.NonNull;
 
 import static dynastxu.noitacore.NoitaCore.MODID;
@@ -56,5 +57,11 @@ public final class ClientSetup {
     public static void registerParticles(@NonNull RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ParticleTypes.PIXEL_PARTICLE.get(), PixelParticleProvider::new);
         event.registerSpriteSet(ParticleTypes.EXPLOSION_PARTICLE.get(), ExplosionParticleProvider::new);
+    }
+
+    @SubscribeEvent
+    public static void registerTooltipFactories(@NonNull RegisterClientTooltipComponentFactoriesEvent event) {
+        event.register(WandTooltipComponent.class, WandClientTooltipComponent::new);
+        event.register(SpellTooltipComponent.class, SpellClientTooltipComponent::new);
     }
 }

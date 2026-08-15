@@ -49,6 +49,7 @@ public final class CreativeTabs {
                         output.accept(Items.WAND_SMC_SC_NS.get());
                         output.accept(Items.WAND_LC_SC_S.get());
                         output.accept(Items.WAND_MLC_3C_S.get());
+                        output.accept(Items.WAND_OF_DESTRUCTION.get());
                     })
                     .build()
             );
