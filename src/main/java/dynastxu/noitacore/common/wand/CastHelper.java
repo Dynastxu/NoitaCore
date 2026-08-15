@@ -1,9 +1,7 @@
 package dynastxu.noitacore.common.wand;
 
 import com.mojang.logging.LogUtils;
-import dynastxu.noitacore.common.spell.Spell;
-import dynastxu.noitacore.common.spell.SpellAttributes;
-import dynastxu.noitacore.common.spell.UnitSpellChain;
+import dynastxu.noitacore.common.spell.*;
 import dynastxu.noitacore.components.SpellData;
 import dynastxu.noitacore.components.WandData;
 import dynastxu.noitacore.utils.Utils;
@@ -162,7 +160,7 @@ public class CastHelper {
         List<UnitSpellChain> result = new ArrayList<>();
 
         List<Holder<Item>> modifiers = new ArrayList<>(); // 单独计算，不嵌套
-        List<List<UnitSpellChain>> suffixes = new ArrayList<>();
+        List<List<Suffix>> suffixes = new ArrayList<>();
         List<Holder<Item>> mainSpells = new ArrayList<>();
         int drawCount = Math.min(statistics.spellsPerCast(), drawStack.size());
         boolean isWraped = false;
@@ -231,9 +229,9 @@ public class CastHelper {
                     critChance += spellAttributes.modifications().criticalChance();
                     recoil += spellAttributes.modifications().recoil();
                 }
-                if (!spell.isAlwaysCast() || spell.getAttributes().base().manaDrain() < 0) {
-                    mana -= spell.getAttributes().base().manaDrain();
-                }
+            }
+            if (!spell.isAlwaysCast() || spell.getAttributes().base().manaDrain() < 0) {
+                mana -= spell.getAttributes().base().manaDrain();
             }
             drawCount--;
 
@@ -245,17 +243,15 @@ public class CastHelper {
             } else {
                 drawCount += spell.getAttributes().base().draws(); // 通常是 0
                 mainSpells.add(spell.itemHolder());
-                List<UnitSpellChain> suffix = new ArrayList<>();
+                List<Suffix> sufs = new ArrayList<>();
                 if (spell.getAttributes().suffix() != null) {
                     int suffixNum = spell.getAttributes().suffix().num();
+                    SuffixType suffixType = spell.getAttributes().suffix().type();
                     if (suffixNum > 0) {
-                        List<UnitSpellChain> suf = getSuffix(caster, suffixNum);
-                        if (!suf.isEmpty()) {
-                            suffix = suf;
-                        }
+                        sufs = getSuffixes(caster, suffixNum, suffixType);
                     }
                 }
-                suffixes.add(suffix);
+                suffixes.add(sufs);
             }
         }
 
@@ -266,15 +262,17 @@ public class CastHelper {
         return result;
     }
 
-    protected @NonNull List<UnitSpellChain> getSuffix(Caster<?> caster, int num) {
+    protected @NonNull List<Suffix> getSuffixes(Caster<?> caster, int num, SuffixType type) {
         LOGGER.debug("尝试获取后缀，数量：{}", num);
-        List<UnitSpellChain> result = new ArrayList<>();
+        List<Suffix> result = new ArrayList<>();
 
         for (int i = 0; i < num; i++) {
             LOGGER.debug("尝试获取后缀，第 {} 个", i);
             List<UnitSpellChain> chains = getNextSpellChains(caster, true);
             if (!chains.isEmpty()) {
-                result.addAll(chains);
+                for (UnitSpellChain chain : chains) {
+                    result.add(new Suffix(type, chain));
+                }
             } else {
                 break;
             }

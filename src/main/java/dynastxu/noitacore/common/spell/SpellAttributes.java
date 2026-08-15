@@ -138,6 +138,11 @@ public record SpellAttributes(
         );
     }
 
+    /**
+     *
+     * @param piercing 可对同一实体重复伤害
+     * @param penetrating 仅对同一实体造成一次伤害
+     */
     public record Damage(
             float damage,
             @NonNull DamageType damageType,
@@ -170,14 +175,17 @@ public record SpellAttributes(
     }
 
     public record Time(
-            int lifeTick
+            int lifeTick,
+            int canHitShooterAfter
     ) {
         public static final Codec<Time> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.INT.fieldOf("life_tick").forGetter(Time::lifeTick)
+                Codec.INT.fieldOf("life_tick").forGetter(Time::lifeTick),
+                Codec.INT.fieldOf("can_hit_shooter_after").forGetter(Time::canHitShooterAfter)
         ).apply(instance, Time::new));
 
         public static final StreamCodec<ByteBuf, Time> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.VAR_INT, Time::lifeTick,
+                ByteBufCodecs.VAR_INT, Time::canHitShooterAfter,
                 Time::new
         );
     }

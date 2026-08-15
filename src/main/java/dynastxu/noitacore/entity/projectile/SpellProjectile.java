@@ -5,11 +5,10 @@ import com.mojang.serialization.Codec;
 import dynastxu.noitacore.DamageTypes;
 import dynastxu.noitacore.DataMaps;
 import dynastxu.noitacore.DataSerializers;
-import dynastxu.noitacore.accessor.ProjectileAccessor;
 import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellAttributes;
+import dynastxu.noitacore.common.spell.Suffix;
 import dynastxu.noitacore.common.spell.SuffixType;
-import dynastxu.noitacore.common.spell.UnitSpellChain;
 import dynastxu.noitacore.item.SpellItem;
 import dynastxu.noitacore.particle.explosion.ExplosionParticleOptions;
 import dynastxu.noitacore.utils.EnumCodecs;
@@ -45,6 +44,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.*;
@@ -56,6 +56,8 @@ public abstract class SpellProjectile extends Projectile {
             SynchedEntityData.defineId(SpellProjectile.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> SUFFIX_TIMER =
             SynchedEntityData.defineId(SpellProjectile.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> LIFE_TICK =
+            SynchedEntityData.defineId(SpellProjectile.class, EntityDataSerializers.INT);
     /**
      * 伤害过的实体
      */
@@ -65,7 +67,7 @@ public abstract class SpellProjectile extends Projectile {
     protected Holder<Item> spellItem;
     protected List<Holder<Item>> modifiers = new ArrayList<>();
     @Setter
-    protected List<UnitSpellChain> suffixes = new ArrayList<>();
+    protected List<Suffix> suffixes = new ArrayList<>();
     /**
      * 仅对同一实体造成一次伤害
      */
@@ -84,6 +86,7 @@ public abstract class SpellProjectile extends Projectile {
     protected float explosionRadius;
     protected float diggingPower;
     protected float critChance;
+    protected boolean applyEffectsFromBlocks = true;
 
     public SpellProjectile(EntityType<? extends SpellProjectile> type, Level level) {
         super(type, level);
@@ -196,6 +199,7 @@ public abstract class SpellProjectile extends Projectile {
         entityData.define(REMAINING_LIFE_TICK, 0);
         entityData.define(SUFFIX_TIMER, 0);
         entityData.define(HURT_ENTITIES, new ArrayList<>());
+        entityData.define(LIFE_TICK, 0);
     }
 
     @Override
@@ -230,8 +234,9 @@ public abstract class SpellProjectile extends Projectile {
             output.store("Modifiers", Codec.list(Item.CODEC), modifiers);
         }
         if (suffixes != null && !suffixes.isEmpty()) {
-            output.store("Suffixes", Codec.list(UnitSpellChain.CODEC), suffixes);
+            output.store("Suffixes", Codec.list(Suffix.CODEC), suffixes);
         }
+        output.putInt("LifeTick", entityData.get(LIFE_TICK));
     }
 
     @Override
@@ -258,10 +263,11 @@ public abstract class SpellProjectile extends Projectile {
         entityData.set(HURT_ENTITIES, (List<EntityReference<Entity>>) (Object) input.read("HurtEntities", Codec.list(EntityReference.codec())).orElse(new ArrayList<>()));
         spellItem = input.read("SpellItem", Item.CODEC).orElse(null);
         modifiers = new ArrayList<>(input.read("Modifiers", Codec.list(Item.CODEC)).orElse(List.of()));
-        suffixes = new ArrayList<>(input.read("Suffixes", Codec.list(UnitSpellChain.CODEC)).orElse(List.of()));
+        suffixes = new ArrayList<>(input.read("Suffixes", Codec.list(Suffix.CODEC)).orElse(List.of()));
+        entityData.set(LIFE_TICK, input.getInt("LifeTick").orElse(0));
     }
 
-    protected SpellAttributes getMainSpellAttributes() {
+    protected @Nullable SpellAttributes getMainSpellAttributes() {
         if (spellItem == null) return null;
         SpellAttributes spellAttributes = spellItem.getData(DataMaps.SPELL_ATTRIBUTES);
         if (spellAttributes == null) {
@@ -309,6 +315,8 @@ public abstract class SpellProjectile extends Projectile {
 
     @Override
     public void tick() {
+        entityData.set(LIFE_TICK, entityData.get(LIFE_TICK) + 1);
+
         if (dieSpeedThreshold > 0) {
             if (getDeltaMovement().length() <= dieSpeedThreshold) {
                 onWillDiscard();
@@ -322,7 +330,7 @@ public abstract class SpellProjectile extends Projectile {
                 .clipIncludingBorder(
                         new ClipContext(originalPosition, originalPosition.add(movement), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)
                 );
-        this.stepMoveAndHit(blockHitResult, true);
+        this.stepMoveAndHit(blockHitResult, originalPosition.add(movement));
 
         spawnStepMoveParticle(originalPosition);
 
@@ -347,19 +355,12 @@ public abstract class SpellProjectile extends Projectile {
                 discard();
             }
 
-            SuffixType suffixType = null;
-            if (spellAttributes.suffix() != null) {
-                suffixType = spellAttributes.suffix().type();
-            }
-
-            if (suffixType == SuffixType.Timer) {
-                int suffixTimer = entityData.get(SUFFIX_TIMER);
-                if (suffixTimer > 0) {
-                    entityData.set(SUFFIX_TIMER, suffixTimer - 1);
-                } else if (suffixTimer != -1) {
-                    castSuffixes();
-                    entityData.set(SUFFIX_TIMER, -1);
-                }
+            int suffixTimer = entityData.get(SUFFIX_TIMER);
+            if (suffixTimer > 0) {
+                entityData.set(SUFFIX_TIMER, suffixTimer - 1);
+            } else if (suffixTimer != -1) {
+                castSuffixes(SuffixType.Timer);
+                entityData.set(SUFFIX_TIMER, -1);
             }
         }
     }
@@ -381,7 +382,7 @@ public abstract class SpellProjectile extends Projectile {
         return ProjectileDeflection.NONE;
     }
 
-    protected void stepMoveAndHit(BlockHitResult blockHitResult, boolean applyEffectsFromBlocks) {
+    protected void stepMoveAndHit(BlockHitResult blockHitResult, Vec3 movementEnd) {
         while (this.isAlive()) {
             Vec3 initialPosition = this.position();
             ArrayList<EntityHitResult> entitiesHit = new ArrayList<>(this.findHitEntities(initialPosition, blockHitResult.getLocation()));
@@ -391,9 +392,6 @@ public abstract class SpellProjectile extends Projectile {
             Vec3 nextLocation = Objects.requireNonNullElse(firstEntityHit, blockHitResult).getLocation();
 
             this.setPos(nextLocation);
-            if (applyEffectsFromBlocks) {
-                this.applyEffectsFromBlocks(initialPosition, nextLocation);
-            }
             if (this.portalProcess != null && this.portalProcess.isInsidePortalThisTick()) {
                 this.handlePortal();
             }
@@ -445,15 +443,22 @@ public abstract class SpellProjectile extends Projectile {
     @SuppressWarnings("RedundantIfStatement")
     protected boolean canHitOwner() {
         if (!isFriendlyFire) return false;
-        if (!((ProjectileAccessor) this).noitaCore$isLeftOwner()) {
+//        if (!((ProjectileAccessor) this).noitaCore$isLeftOwner()) return false; // TODO 将发射位置放到发射者视线前以移除注入并兼容部分自伤法术
+        SpellAttributes spellAttributes = getMainSpellAttributes();
+        if (spellAttributes != null && spellAttributes.time() != null && entityData.get(LIFE_TICK) <= spellAttributes.time().canHitShooterAfter())
             return false;
-        }
         return true;
     }
 
     @Override
     public boolean isPickable() {
         return false;
+    }
+
+    @Override
+    protected void onHit(@NonNull HitResult hitResult) {
+        super.onHit(hitResult);
+        castSuffixes(SuffixType.Trigger);
     }
 
     @Override
@@ -548,6 +553,8 @@ public abstract class SpellProjectile extends Projectile {
             onWillDiscard();
             discard();
         }
+
+        castSuffixes(SuffixType.Trigger);
     }
 
     protected void onBounced(BlockHitResult hitResult) {
@@ -568,16 +575,7 @@ public abstract class SpellProjectile extends Projectile {
     protected void onWillDiscard() {
         applyExplosion();
 
-        final SpellAttributes spellAttributes = getMainSpellAttributes();
-        if (spellAttributes != null) {
-            SuffixType suffixType = null;
-            if (spellAttributes.suffix() != null) {
-                suffixType = spellAttributes.suffix().type();
-            }
-            if (suffixType == SuffixType.Trigger) {
-                castSuffixes();
-            }
-        }
+        castSuffixes(SuffixType.Trigger, SuffixType.Timer, SuffixType.Death);
     }
 
     protected void applyExplosion() {
@@ -597,12 +595,26 @@ public abstract class SpellProjectile extends Projectile {
         }
     }
 
-    protected void castSuffixes() {
+    protected void castSuffixes(SuffixType type) {
         if (level() instanceof ServerLevel serverLevel) {
             if (suffixes.isEmpty()) return;
-            for (UnitSpellChain suffix : suffixes) {
-                suffix.cast(serverLevel, position(), getDeltaMovement(), 1, getOwner());
+            for (Suffix suffix : suffixes) {
+                if (suffix.type() != type) continue;
+                suffix.chain().cast(serverLevel, position(), getDeltaMovement(), 1, getOwner());
             }
+            suffixes.removeIf(suffix -> suffix.type() == type);
+        }
+    }
+
+    protected void castSuffixes(SuffixType... types) {
+        if (level() instanceof ServerLevel serverLevel) {
+            if (suffixes.isEmpty()) return;
+            List<SuffixType> ts = Arrays.stream(types).toList();
+            for (Suffix suffix : suffixes) {
+                if (!ts.contains(suffix.type())) continue;
+                suffix.chain().cast(serverLevel, position(), getDeltaMovement(), 1, getOwner());
+            }
+            suffixes.removeIf(suffix -> ts.contains(suffix.type()));
         }
     }
 
