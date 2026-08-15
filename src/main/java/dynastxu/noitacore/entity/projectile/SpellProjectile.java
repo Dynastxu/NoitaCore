@@ -443,7 +443,6 @@ public abstract class SpellProjectile extends Projectile {
     @SuppressWarnings("RedundantIfStatement")
     protected boolean canHitOwner() {
         if (!isFriendlyFire) return false;
-//        if (!((ProjectileAccessor) this).noitaCore$isLeftOwner()) return false; // TODO 将发射位置放到发射者视线前以移除注入并兼容部分自伤法术
         SpellAttributes spellAttributes = getMainSpellAttributes();
         if (spellAttributes != null && spellAttributes.time() != null && entityData.get(LIFE_TICK) <= spellAttributes.time().canHitShooterAfter())
             return false;
