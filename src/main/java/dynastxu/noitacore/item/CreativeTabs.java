@@ -31,6 +31,7 @@ public final class CreativeTabs {
                         output.accept(Items.SPELL_BLACK_HOLE.get());
                         output.accept(Items.SPELL_BLACK_HOLE_DEATH_TRIGGER.get());
                         output.accept(Items.SPELL_BUCKSHOT.get());
+                        output.accept(Items.SPELL_LASER_EMITTER.get());
                         // Modifier
                         output.accept(Items.SPELL_MANA_REDUCE.get());
                         output.accept(Items.SPELL_CRITICAL_HIT.get());

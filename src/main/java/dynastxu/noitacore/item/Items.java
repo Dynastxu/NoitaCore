@@ -66,6 +66,10 @@ public final class Items {
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
             .projectileType(EntityTypes.BUCKSHOT.get()).build());
 
+    public static final DeferredItem<SpellItem> SPELL_LASER_EMITTER = ITEMS.registerItem("spell_laser_emitter", properties -> SpellItem.builder()
+            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
+            .projectileType(EntityTypes.LASER_EMITTER.get()).build());
+
     // Modifier
     public static final DeferredItem<SpellItem> SPELL_MANA_REDUCE = ITEMS.registerItem("spell_mana_reduce", properties -> SpellItem.builder()
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())).build());
@@ -103,6 +107,7 @@ public final class Items {
             SPELL_BLACK_HOLE,
             SPELL_BLACK_HOLE_DEATH_TRIGGER,
             SPELL_BUCKSHOT,
+            SPELL_LASER_EMITTER,
 
             // Modifier
             SPELL_MANA_REDUCE,

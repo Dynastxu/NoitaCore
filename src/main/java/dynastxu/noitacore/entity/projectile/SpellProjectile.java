@@ -38,10 +38,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.neoforged.neoforge.event.EventHooks;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -176,7 +173,7 @@ public abstract class SpellProjectile extends Projectile {
     protected void apply(@NonNull InitialState state) {
         state.setValid();
 
-        this.isPiercing = state.penetrating;
+        this.isPiercing = state.piercing;
         this.isPenetrating = state.penetrating;
         this.isFriendlyFire = state.friendlyFire;
         this.gravity = state.gravity;
@@ -362,6 +359,13 @@ public abstract class SpellProjectile extends Projectile {
                 castSuffixes(SuffixType.Timer);
                 entityData.set(SUFFIX_TIMER, -1);
             }
+
+            if (isPiercing) {
+                AABB aabb = getBoundingBox();
+                for (Entity entity : level().getEntitiesOfClass(Entity.class, aabb, this::canHitEntity)) {
+                    hurtEntity(entity);
+                }
+            }
         }
     }
 
@@ -466,7 +470,7 @@ public abstract class SpellProjectile extends Projectile {
 
         final SpellAttributes spellAttributes = getMainSpellAttributes();
 
-        if (spellAttributes != null && spellAttributes.damage() != null) {
+        if (spellAttributes != null && spellAttributes.damage() != null && !isPiercing) {
             hurtEntity(hitResult.getEntity());
         }
 

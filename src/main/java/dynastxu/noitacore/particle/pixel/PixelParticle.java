@@ -24,6 +24,7 @@ public class PixelParticle extends SingleQuadParticle {
         this.setLifetime(lifeTime);
         this.quadSize = size;
         this.friction = 0.9f;
+        this.hasPhysics = false;
     }
 
     public PixelParticle(@NonNull ClientLevel level, double x, double y, double z, double xa, double ya, double za, int color, int lifeTime, float size, @NonNull SpriteSet sprites) {
