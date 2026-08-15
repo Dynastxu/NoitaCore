@@ -113,10 +113,6 @@ public class WandItem extends Item {
     }
 
     private static @NonNull Vec3 getCastPosition(@NonNull LivingEntity entity) {
-        Vec3 eyePos = entity.getEyePosition();
-        Vec3 lookAngle = entity.getLookAngle();
-        Vec3 behindPos = eyePos.add(lookAngle.scale(-0.25));
-        double offsetY = Math.max(-0.25, entity.getY() + 0.1 - behindPos.y);
-        return behindPos.add(0, offsetY, 0);
+        return entity.getEyePosition().add(entity.getLookAngle().scale(1));
     }
 }
