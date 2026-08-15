@@ -11,6 +11,8 @@ import dynastxu.noitacore.components.WandData;
 import dynastxu.noitacore.item.SpellItem;
 import dynastxu.noitacore.item.WandItem;
 import dynastxu.noitacore.network.WandGuiOpenPayload;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -45,7 +47,9 @@ public final class ClientEvents {
             SpellAttributes attrs = stack.getData(DataMaps.SPELL_ATTRIBUTES);
             if (attrs == null) return;
             SpellData spellData = stack.get(DataComponents.SPELL_DATA);
-            event.getTooltipElements().add(Either.right(new SpellTooltipComponent(attrs, spellData)));
+            Player player = Minecraft.getInstance().player;
+            if (player == null) return;
+            event.getTooltipElements().add(Either.right(new SpellTooltipComponent(attrs, spellData, player)));
         }
     }
 }

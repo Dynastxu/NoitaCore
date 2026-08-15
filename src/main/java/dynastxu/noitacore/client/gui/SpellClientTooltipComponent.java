@@ -3,11 +3,13 @@ package dynastxu.noitacore.client.gui;
 import dynastxu.noitacore.client.font.Font;
 import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellAttributes;
+import dynastxu.noitacore.common.wand.Caster;
 import dynastxu.noitacore.components.SpellData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class SpellClientTooltipComponent implements ClientTooltipComponent {
         SpellAttributes attrs = component.attributes();
         SpellData spellData = component.spellData();
 
-        this.statLines = buildStatLines(attrs, spellData);
+        this.statLines = buildStatLines(attrs, spellData, component.player());
 
         net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
         this.maxLabelWidth = statLines.stream()
@@ -39,7 +41,7 @@ public class SpellClientTooltipComponent implements ClientTooltipComponent {
                 .orElse(0);
     }
 
-    private static @NonNull List<StatLine> buildStatLines(@NonNull SpellAttributes attrs, SpellData spellData) {
+    private static @NonNull List<StatLine> buildStatLines(@NonNull SpellAttributes attrs, SpellData spellData, Player player) {
         List<StatLine> lines = new ArrayList<>();
 
         lines.add(new StatLine(
@@ -47,7 +49,7 @@ public class SpellClientTooltipComponent implements ClientTooltipComponent {
                         .append(Component.translatable("tooltip.noitacore.spell_type")),
                 attrs.base().type().getTranslatedName()));
 
-        if (attrs.base().uses().uses() > 0) {
+        if (attrs.base().uses().uses() > 0 && !Caster.canSkipConsumeUses(player, attrs)) {
             Component value;
             if (spellData != null) {
                 value = Component.literal(String.valueOf(spellData.remainingUses()));
