@@ -37,7 +37,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 1, 0, -1, 0
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0.6f, DamageType.Projectile, 0, 1f/7, false, false, false
+                                0.6f, DamageType.Projectile, 0, 1f/7, false, false, false, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 250, 0
@@ -61,7 +61,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 1, 0, -1, 0.05f
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0.6f, DamageType.Projectile, 0, 2f/7, false, false, false
+                                0.6f, DamageType.Projectile, 0, 2f/7, false, false, false, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 13, 0
@@ -86,7 +86,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 1, 0, 0, 0.05f
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0.6f, DamageType.Projectile, 0, 2f/7, false, false, false
+                                0.6f, DamageType.Projectile, 0, 2f/7, false, false, false, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 13, 0
@@ -114,7 +114,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 1, 0, 0, 0.05f
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0.6f, DamageType.Projectile, 0.5f, 12f/7, false, false, false
+                                0.6f, DamageType.Projectile, 0.5f, 12f/7, false, false, false, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 13, 0
@@ -142,7 +142,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 1, 0, 0, 0.05f
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0.6f, DamageType.Projectile, 0, 2f/7, false, false, false
+                                0.6f, DamageType.Projectile, 0, 2f/7, false, false, false, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 13, 0
@@ -170,7 +170,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 0.75f, 300, 0, 0
                         ))
                         .damage(new SpellAttributes.Damage(
-                                15f, DamageType.Projectile, 50, 250f/7, true, false, false
+                                15f, DamageType.Projectile, 50, 250f/7, true, false, false, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 120, 0
@@ -195,7 +195,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 0.5f, 300, 0, 0
                         ))
                         .damage(new SpellAttributes.Damage(
-                                50f, DamageType.Projectile, 100, 400f/7, true, false, false
+                                50f, DamageType.Projectile, 100, 400f/7, true, false, false, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 120, 0
@@ -217,7 +217,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 240, 0, 0, 0
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0, DamageType.Projectile, 0, 2f/7, false, false, false
+                                0, DamageType.Projectile, 0, 2f/7, false, false, false, 1
                         ))
                         .time(new SpellAttributes.Time(10, 0))
                         .other(SpellAttributes.Other.builder()
@@ -234,7 +234,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 5, -1, 0, 0
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0.75f, DamageType.Projectile, 2, 2f/7, false, false, false
+                                0.75f, DamageType.Projectile, 2, 2f/7, false, false, false, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 17, 0
@@ -258,7 +258,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 180, 27, 0, 0
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0, DamageType.Projectile, 0, 1f/7, true, false, true
+                                0, DamageType.Projectile, 0, 1f/7, true, false, true, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 40, 3
@@ -279,7 +279,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 200, 30, 0, 0
                         ))
                         .damage(new SpellAttributes.Damage(
-                                0, DamageType.Projectile, 0, 1f/7, true, false, true
+                                0, DamageType.Projectile, 0, 1f/7, true, false, true, 1
                         ))
                         .time(new SpellAttributes.Time(
                                 40, 3
@@ -292,6 +292,27 @@ public final class ModDataMapProvider extends DataMapProvider {
                         ))
                         .other(SpellAttributes.Other.builder()
                                 .basePrice(220).build()).build(),
+                replace
+        );
+        spellBuilder.add(
+                Items.SPELL_BUCKSHOT.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                25, 3, 0, 0
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0.925f, DamageType.Projectile, 0, 4f/7, false, false, false, 3
+                        ))
+                        .time(new SpellAttributes.Time(
+                                40, 0
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                55f/14, 2.3f, 0, 1, 0.06f, 0, 1
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(160).build()).build(),
                 replace
         );
 

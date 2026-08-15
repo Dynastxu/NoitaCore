@@ -150,7 +150,8 @@ public record SpellAttributes(
             float explosionRadius,
             boolean friendlyFire,
             boolean piercing,
-            boolean penetrating
+            boolean penetrating,
+            int projectileCount
     ) {
         public static final Codec<Damage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.FLOAT.fieldOf("damage").forGetter(Damage::damage),
@@ -159,7 +160,8 @@ public record SpellAttributes(
                 Codec.FLOAT.fieldOf("explosion_radius").forGetter(Damage::explosionRadius),
                 Codec.BOOL.fieldOf("friendly_fire").forGetter(Damage::friendlyFire),
                 Codec.BOOL.fieldOf("piercing").forGetter(Damage::piercing),
-                Codec.BOOL.fieldOf("penetrating").forGetter(Damage::penetrating)
+                Codec.BOOL.fieldOf("penetrating").forGetter(Damage::penetrating),
+                Codec.INT.fieldOf("projectile_count").forGetter(Damage::projectileCount)
         ).apply(instance, Damage::new));
 
         public static final StreamCodec<ByteBuf, Damage> STREAM_CODEC = StreamCodec.composite(
@@ -170,6 +172,7 @@ public record SpellAttributes(
                 ByteBufCodecs.BOOL, Damage::friendlyFire,
                 ByteBufCodecs.BOOL, Damage::piercing,
                 ByteBufCodecs.BOOL, Damage::penetrating,
+                ByteBufCodecs.VAR_INT, Damage::projectileCount,
                 Damage::new
         );
     }

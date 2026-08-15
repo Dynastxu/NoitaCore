@@ -32,6 +32,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addSpell(Items.SPELL_FUNKY, "???", "???");
         addSpell(Items.SPELL_BLACK_HOLE, "Black Hole", "A slow orb of void that eats through all obstacles");
         addSpell(Items.SPELL_BLACK_HOLE_DEATH_TRIGGER, "Black Hole with Death Trigger", "A slow orb of void that eats through all obstacles and casts another spell as it expires");
+        addSpell(Items.SPELL_BUCKSHOT, "Triplicate Bolt", "A formation of three small, fast bolts");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE, "Add Mana", "Immediately adds 30 mana to the wand");

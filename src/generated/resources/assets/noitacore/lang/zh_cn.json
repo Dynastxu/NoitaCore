@@ -14,6 +14,8 @@
   "item.noitacore.spell_black_hole.description": "缓慢的虚无球体，吞噬沿路的一切材料",
   "item.noitacore.spell_black_hole_death_trigger": "带有死亡触发的黑洞",
   "item.noitacore.spell_black_hole_death_trigger.description": "在失效时释放另一法术的黑洞",
+  "item.noitacore.spell_buckshot": "三联魔弹",
+  "item.noitacore.spell_buckshot.description": "三颗高速且带有弹性的小子弹",
   "item.noitacore.spell_burst_2": "二重施法",
   "item.noitacore.spell_burst_2.description": "同时施放2个法术",
   "item.noitacore.spell_burst_3": "三重施法",
