@@ -51,6 +51,7 @@ public final class ModModelProvider extends ModelProvider {
         r.registerWand(Items.WAND_SMC_SC_NS);
         r.registerWand(Items.WAND_LC_SC_S);
         r.registerWand(Items.WAND_MLC_3C_S);
+        r.registerWand(Items.WAND_OF_DESTRUCTION);
     }
 
     private record Register(BlockModelGenerators block, ItemModelGenerators item) {
