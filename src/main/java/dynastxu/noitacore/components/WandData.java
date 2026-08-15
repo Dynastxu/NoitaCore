@@ -30,7 +30,8 @@ public record WandData(
         int castDelayTick,
         int rechargeTick,
         int lastCastDelayTick,
-        int lastRechargeTick
+        int lastRechargeTick,
+        boolean needRecharge
 ) {
     public static final Codec<WandData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     WandStatistics.CODEC.fieldOf("wand_statistics").forGetter(WandData::statistics),
@@ -41,7 +42,8 @@ public record WandData(
                     Codec.INT.fieldOf("cast_delay_tick").forGetter(WandData::castDelayTick),
                     Codec.INT.fieldOf("recharge_tick").forGetter(WandData::rechargeTick),
                     Codec.INT.fieldOf("last_cast_delay_tick").forGetter(WandData::lastCastDelayTick),
-                    Codec.INT.fieldOf("last_recharge_tick").forGetter(WandData::lastRechargeTick)
+                    Codec.INT.fieldOf("last_recharge_tick").forGetter(WandData::lastRechargeTick),
+                    Codec.BOOL.fieldOf("need_recharge").forGetter(WandData::needRecharge)
             ).apply(instance, WandData::new)
     );
 
@@ -55,21 +57,22 @@ public record WandData(
             ByteBufCodecs.<RegistryFriendlyByteBuf, ItemStack>list().apply(ItemStack.OPTIONAL_STREAM_CODEC), WandData::inventory,
             ByteBufCodecs.VAR_INT, WandData::lastCastDelayTick,
             ByteBufCodecs.VAR_INT, WandData::lastRechargeTick,
+            ByteBufCodecs.BOOL, WandData::needRecharge,
             WandData::new
     );
 
     public WandData(@NonNull WandStatistics statistics) {
-        this(statistics, statistics.manaMax(), NonNullList.withSize(statistics.capacity(), ItemStack.EMPTY), new ArrayList<>(), new ArrayList<>(), 0, 0, 0, 0);
+        this(statistics, statistics.manaMax(), NonNullList.withSize(statistics.capacity(), ItemStack.EMPTY), new ArrayList<>(), new ArrayList<>(), 0, 0, 0, 0, false);
     }
 
-    public WandData(@NonNull WandStatistics statistics, int mana, List<Spell> drawStack, List<Spell> discardStack, int castDelayTick, int rechargeTick, List<ItemStack> inventory, int lastCastDelayTick, int lastCastRechargeTick) {
+    public WandData(@NonNull WandStatistics statistics, int mana, List<Spell> drawStack, List<Spell> discardStack, int castDelayTick, int rechargeTick, List<ItemStack> inventory, int lastCastDelayTick, int lastCastRechargeTick, boolean needRecharge) {
         NonNullList<ItemStack> list = NonNullList.withSize(statistics.capacity(), ItemStack.EMPTY);
 
         for (int i = 0; i < list.size(); i++) {
             list.set(i, inventory.get(i));
         }
 
-        this(statistics, mana, list, drawStack, discardStack, castDelayTick, rechargeTick, lastCastDelayTick, lastCastRechargeTick);
+        this(statistics, mana, list, drawStack, discardStack, castDelayTick, rechargeTick, lastCastDelayTick, lastCastRechargeTick, needRecharge);
     }
 
     public boolean isCastDelaying() {
@@ -77,7 +80,7 @@ public record WandData(
     }
 
     public boolean isRecharging() {
-        return rechargeTick > 0;
+        return rechargeTick > 0 && needRecharge;
     }
 
     public boolean isCooling() {
@@ -89,11 +92,19 @@ public record WandData(
             return this;
         }
         int castDelayTick = Math.max(0, this.castDelayTick - 1);
-        int rechargeTick = Math.max(0, this.rechargeTick - 1);
+        int rechargeTick;
+        boolean needRecharge;
+        if (this.needRecharge) {
+            rechargeTick = Math.max(0, this.rechargeTick - 1);
+        } else {
+            rechargeTick = this.rechargeTick;
+        }
+        needRecharge = rechargeTick <= 0 ? false : this.needRecharge;
 
         return this.toBuilder()
                 .castDelayTick(castDelayTick)
-                .rechargeTick(rechargeTick).build();
+                .rechargeTick(rechargeTick)
+                .needRecharge(needRecharge).build();
     }
 
     public WandData chargeMana() {
