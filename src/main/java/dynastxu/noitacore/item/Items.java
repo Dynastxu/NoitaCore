@@ -77,6 +77,25 @@ public final class Items {
     public static final DeferredItem<SpellItem> SPELL_BURST_X = ITEMS.registerItem("spell_burst_x", properties -> SpellItem.builder()
             .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(30).build())).build());
 
+    public static final List<DeferredItem<SpellItem>> SPELL_ITEMS = List.of(
+            SPELL_RUBBER_BALL,
+            SPELL_LIGHT_BULLET,
+            SPELL_LIGHT_BULLET_TRIGGER,
+            SPELL_LIGHT_BULLET_TRIGGER_2,
+            SPELL_LIGHT_BULLET_TIMER,
+            SPELL_NUKE,
+            SPELL_NUKE_GIGA,
+            SPELL_CRUMBLING_EARTH,
+            SPELL_FUNKY,
+            SPELL_MANA_REDUCE,
+            SPELL_CRITICAL_HIT,
+            SPELL_BURST_2,
+            SPELL_BURST_3,
+            SPELL_BURST_4,
+            SPELL_BURST_8,
+            SPELL_BURST_X
+    );
+
     // Wands
     public static final DeferredItem<WandItem> WAND_SMC_SC_NS = ITEMS.registerItem("wand_smc_sc_ns", properties -> new WandItem(
             properties.component(DataComponents.WAND_DATA.get(), new WandData(new WandStatistics(
