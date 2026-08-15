@@ -31,6 +31,7 @@ public class CastHelper {
     protected List<Spell> discardStack;
     protected int castDelayTick;
     protected int rechargeTick;
+    protected boolean needRecharge;
     private int preCastDelayTick;
     private int preRechargeTick;
     @Getter
@@ -66,7 +67,7 @@ public class CastHelper {
     }
 
     protected void genWandDataAfterCast() {
-        wandDataAfterCast = new WandData(statistics, mana, inventory, drawStack, discardStack, castDelayTick, rechargeTick, castDelayTick, rechargeTick);
+        wandDataAfterCast = new WandData(statistics, mana, inventory, drawStack, discardStack, castDelayTick, rechargeTick, castDelayTick, rechargeTick, needRecharge);
     }
 
     protected boolean isCastDelaying() {
@@ -74,7 +75,7 @@ public class CastHelper {
     }
 
     protected boolean isRecharging() {
-        return rechargeTick > 0;
+        return rechargeTick > 0 && needRecharge;
     }
 
     protected boolean isCooling() {
@@ -142,7 +143,8 @@ public class CastHelper {
         preLoadStack = new ArrayList<>();
 
         if (drawStack.isEmpty()) {
-            drawStack = new ArrayList<>(getSpells());
+            needRecharge = true;
+            drawStack = getSpells();
             discardStack = new ArrayList<>();
             if (statistics.shuffle()) {
                 Collections.shuffle(drawStack);
@@ -151,7 +153,7 @@ public class CastHelper {
 
         mana = Math.min(mana, statistics.manaMax());
 
-        applyCastDelay();
+        applyCooldown();
         genWandDataAfterCast();
     }
 
@@ -170,12 +172,12 @@ public class CastHelper {
                 if (isWraped) {
                     drawStack = getSpells();
                     discardStack = new ArrayList<>();
+                    needRecharge = true;
                     break;
                 }
                 LOGGER.debug("抽牌堆已无法术，尝试回绕");
                 isWraped = true;
                 if (discardStack.isEmpty()) {
-                    applyCooldown();
                     break;
                 }
                 drawStack = discardStack;
@@ -290,19 +292,13 @@ public class CastHelper {
     }
 
     private void applyRecharge() {
-        rechargeTick = preRechargeTick + statistics.rechargeTick();
+        rechargeTick = Math.max(preRechargeTick + statistics.rechargeTick(), 0);
         preRechargeTick = 0;
-        if (rechargeTick < 0) {
-            rechargeTick = 0;
-        }
     }
 
     private void applyCastDelay() {
-        castDelayTick = preCastDelayTick;
+        castDelayTick = Math.max(preCastDelayTick, 0);
         preCastDelayTick = 0;
-        if (castDelayTick < 0) {
-            castDelayTick = 0;
-        }
     }
 
     private void applyCooldown() {
