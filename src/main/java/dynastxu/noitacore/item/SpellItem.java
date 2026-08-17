@@ -1,5 +1,6 @@
 package dynastxu.noitacore.item;
 
+import dynastxu.noitacore.common.spell.TickManager;
 import dynastxu.noitacore.entity.projectile.SpellProjectile;
 import lombok.Getter;
 import net.minecraft.world.entity.EntityType;
@@ -30,6 +31,10 @@ public abstract class SpellItem extends Item {
     public static class Modifier extends SpellItem {
         public Modifier(@NonNull Properties properties) {
             super(properties);
+        }
+
+        public <T extends SpellProjectile> TickManager<T> getTickManager(T projectile) {
+            return null;
         }
     }
 }

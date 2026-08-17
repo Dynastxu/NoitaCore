@@ -77,6 +77,9 @@ public final class Items {
     public static final DeferredItem<SpellItem.Modifier> SPELL_CRITICAL_HIT = ITEMS.registerItem("spell_critical_hit", properties -> new SpellItem.Modifier(
             properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
 
+    public static final DeferredItem<OrbitLasersSpellItem> SPELL_ORBIT_LASERS = ITEMS.registerItem("spell_orbit_lasers", properties -> new OrbitLasersSpellItem(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
+
     // Multicast
     public static final DeferredItem<SpellItem.Multicast> SPELL_BURST_2 = ITEMS.registerItem("spell_burst_2", properties -> new SpellItem.Multicast(
             properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
@@ -112,6 +115,7 @@ public final class Items {
             // Modifier
             SPELL_MANA_REDUCE,
             SPELL_CRITICAL_HIT,
+            SPELL_ORBIT_LASERS,
 
             // Multicast
             SPELL_BURST_2,

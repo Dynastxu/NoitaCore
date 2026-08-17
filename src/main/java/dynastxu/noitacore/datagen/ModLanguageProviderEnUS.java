@@ -38,6 +38,8 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE, "Add Mana", "Immediately adds 30 mana to the wand");
         addSpell(Items.SPELL_CRITICAL_HIT, "Critical Plus", "Gives a projectile +15% chance of a critical hit");
+        addSpell(Items.SPELL_ORBIT_LASERS, "Plasma Beam Orbit", "Makes six plasma beams rotate around a projectile");
+
         // Multicast
         addSpell(Items.SPELL_BURST_2, "Double Spell", "Simultaneously casts 2 spells");
         addSpell(Items.SPELL_BURST_3, "Triple Spell", "Simultaneously casts 3 spells");

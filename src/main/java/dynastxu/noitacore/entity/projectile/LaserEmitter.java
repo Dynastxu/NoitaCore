@@ -4,6 +4,7 @@ import dynastxu.noitacore.DamageTypes;
 import dynastxu.noitacore.common.spell.SuffixType;
 import dynastxu.noitacore.particle.ParticleUtils;
 import dynastxu.noitacore.particle.pixel.PixelParticleOptions;
+import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -23,7 +24,10 @@ import java.util.Collection;
 import java.util.Comparator;
 
 public class LaserEmitter extends SpellProjectile {
-    protected Vec3 lastDirection = Vec3.ZERO;
+    @Setter
+    protected Vec3 laserDirection = Vec3.ZERO;
+    @Setter
+    protected boolean breakBlocks = true;
 
     public LaserEmitter(EntityType<? extends LaserEmitter> type, Level level) {
         super(type, level);
@@ -37,15 +41,18 @@ public class LaserEmitter extends SpellProjectile {
 
     @Override
     public void tick() {
-        if (!lastDirection.equals(Vec3.ZERO)) {
+        if (!laserDirection.equals(Vec3.ZERO)) {
             Vec3 start = position();
-            Vec3 direction = lastDirection;
+            Vec3 direction = laserDirection;
             Vec3 end = start.add(direction.scale(16));
 
             if (!level().isClientSide() && level() instanceof ServerLevel serverLevel) {
-                BlockHitResult blockHit = level().clipIncludingBorder(
-                        new ClipContext(start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)
-                );
+                BlockHitResult blockHit = null;
+                if (breakBlocks) {
+                    blockHit = level().clipIncludingBorder(
+                            new ClipContext(start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)
+                    );
+                }
 
                 Collection<EntityHitResult> entityHits = ProjectileUtil.getManyEntityHitResult(
                         level(), this, start, end,
@@ -57,14 +64,14 @@ public class LaserEmitter extends SpellProjectile {
                                                                                  .min(Comparator.comparingDouble(e -> start.distanceToSqr(e.getLocation())))
                                                                                  .orElse(null);
 
-                double blockDist = blockHit.getType() != HitResult.Type.MISS
+                double blockDist = blockHit != null && blockHit.getType() != HitResult.Type.MISS
                         ? start.distanceToSqr(blockHit.getLocation())
                         : Double.MAX_VALUE;
                 double entityDist = closestEntityHit != null
                         ? start.distanceToSqr(closestEntityHit.getLocation())
                         : Double.MAX_VALUE;
 
-                if (blockDist < entityDist && blockHit.getType() != HitResult.Type.MISS) {
+                if (blockDist < entityDist && blockHit != null && blockHit.getType() != HitResult.Type.MISS) {
                     BlockPos pos = blockHit.getBlockPos();
                     if (level().getBlockState(pos).getDestroySpeed(level(), pos) >= 0) {
                         level().destroyBlock(pos, false);
@@ -79,7 +86,7 @@ public class LaserEmitter extends SpellProjectile {
                 }
             }
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++) { // TODO 重做粒子效果
                 RandomSource random = level().getRandom();
                 double offsetX = random.nextDouble() * 0.25;
                 double offsetY = random.nextDouble() * 0.25;
@@ -100,7 +107,7 @@ public class LaserEmitter extends SpellProjectile {
                 }
             }
         }
-        lastDirection = getDeltaMovement().normalize();
+        laserDirection = getDeltaMovement().normalize();
         super.tick();
     }
 }
