@@ -40,7 +40,7 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
         add("death.attack." + msgId + ".item", msgByItem);
     }
 
-    protected void addSpell(@NonNull DeferredItem<SpellItem> item, String name, String description) {
+    protected void addSpell(@NonNull DeferredItem<? extends SpellItem> item, String name, String description) {
         addSpell(item.get(), name, description);
     }
 

@@ -18,82 +18,82 @@ public final class Items {
 
     // Spells
     // Projectile
-    public static final DeferredItem<SpellItem> SPELL_RUBBER_BALL = ITEMS.registerItem("spell_rubber_ball", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
-            .projectileType(EntityTypes.RUBBER_BALL.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_RUBBER_BALL = ITEMS.registerItem("spell_rubber_ball", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.RUBBER_BALL.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_LIGHT_BULLET = ITEMS.registerItem("spell_light_bullet", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
-            .projectileType(EntityTypes.LIGHT_BULLET.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_LIGHT_BULLET = ITEMS.registerItem("spell_light_bullet", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.LIGHT_BULLET.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_LIGHT_BULLET_TRIGGER = ITEMS.registerItem("spell_light_bullet_trigger", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
-            .projectileType(EntityTypes.LIGHT_BULLET.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_LIGHT_BULLET_TRIGGER = ITEMS.registerItem("spell_light_bullet_trigger", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.LIGHT_BULLET.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_LIGHT_BULLET_TRIGGER_2 = ITEMS.registerItem("spell_light_bullet_trigger_2", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
-            .projectileType(EntityTypes.LIGHT_BULLET.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_LIGHT_BULLET_TRIGGER_2 = ITEMS.registerItem("spell_light_bullet_trigger_2", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.LIGHT_BULLET.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_LIGHT_BULLET_TIMER = ITEMS.registerItem("spell_light_bullet_timer", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
-            .projectileType(EntityTypes.LIGHT_BULLET.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_LIGHT_BULLET_TIMER = ITEMS.registerItem("spell_light_bullet_timer", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.LIGHT_BULLET.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_NUKE = ITEMS.registerItem("spell_nuke", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(1).build()))
-            .projectileType(EntityTypes.NUKE.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_NUKE = ITEMS.registerItem("spell_nuke", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(1).build()),
+            EntityTypes.NUKE.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_NUKE_GIGA = ITEMS.registerItem("spell_nuke_giga", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(1).build()))
-            .projectileType(EntityTypes.NUKE.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_NUKE_GIGA = ITEMS.registerItem("spell_nuke_giga", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(1).build()),
+            EntityTypes.NUKE.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_CRUMBLING_EARTH = ITEMS.registerItem("spell_crumbling_earth", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(3).build()))
-            .projectileType(EntityTypes.CRUMBLING_EARTH.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_CRUMBLING_EARTH = ITEMS.registerItem("spell_crumbling_earth", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(3).build()),
+            EntityTypes.CRUMBLING_EARTH.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_FUNKY = ITEMS.registerItem("spell_funky", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
-            .projectileType(EntityTypes.FUNKY.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_FUNKY = ITEMS.registerItem("spell_funky", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.FUNKY.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_BLACK_HOLE = ITEMS.registerItem("spell_black_hole", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(3).build()))
-            .projectileType(EntityTypes.BLACK_HOLE.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_BLACK_HOLE = ITEMS.registerItem("spell_black_hole", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(3).build()),
+            EntityTypes.BLACK_HOLE.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_BLACK_HOLE_DEATH_TRIGGER = ITEMS.registerItem("spell_black_hole_death_trigger", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(3).build()))
-            .projectileType(EntityTypes.BLACK_HOLE.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_BLACK_HOLE_DEATH_TRIGGER = ITEMS.registerItem("spell_black_hole_death_trigger", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(3).build()),
+            EntityTypes.BLACK_HOLE.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_BUCKSHOT = ITEMS.registerItem("spell_buckshot", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
-            .projectileType(EntityTypes.BUCKSHOT.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_BUCKSHOT = ITEMS.registerItem("spell_buckshot", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.BUCKSHOT.get()));
 
-    public static final DeferredItem<SpellItem> SPELL_LASER_EMITTER = ITEMS.registerItem("spell_laser_emitter", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()))
-            .projectileType(EntityTypes.LASER_EMITTER.get()).build());
+    public static final DeferredItem<SpellItem.Projectile> SPELL_LASER_EMITTER = ITEMS.registerItem("spell_laser_emitter", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.LASER_EMITTER.get()));
 
     // Modifier
-    public static final DeferredItem<SpellItem> SPELL_MANA_REDUCE = ITEMS.registerItem("spell_mana_reduce", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())).build());
+    public static final DeferredItem<SpellItem.Modifier> SPELL_MANA_REDUCE = ITEMS.registerItem("spell_mana_reduce", properties -> new SpellItem.Modifier(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
 
-    public static final DeferredItem<SpellItem> SPELL_CRITICAL_HIT = ITEMS.registerItem("spell_critical_hit", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())).build());
+    public static final DeferredItem<SpellItem.Modifier> SPELL_CRITICAL_HIT = ITEMS.registerItem("spell_critical_hit", properties -> new SpellItem.Modifier(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
 
     // Multicast
-    public static final DeferredItem<SpellItem> SPELL_BURST_2 = ITEMS.registerItem("spell_burst_2", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())).build());
+    public static final DeferredItem<SpellItem.Multicast> SPELL_BURST_2 = ITEMS.registerItem("spell_burst_2", properties -> new SpellItem.Multicast(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
 
-    public static final DeferredItem<SpellItem> SPELL_BURST_3 = ITEMS.registerItem("spell_burst_3", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())).build());
+    public static final DeferredItem<SpellItem.Multicast> SPELL_BURST_3 = ITEMS.registerItem("spell_burst_3", properties -> new SpellItem.Multicast(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
 
-    public static final DeferredItem<SpellItem> SPELL_BURST_4 = ITEMS.registerItem("spell_burst_4", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())).build());
+    public static final DeferredItem<SpellItem.Multicast> SPELL_BURST_4 = ITEMS.registerItem("spell_burst_4", properties -> new SpellItem.Multicast(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
 
-    public static final DeferredItem<SpellItem> SPELL_BURST_8 = ITEMS.registerItem("spell_burst_8", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())).build());
+    public static final DeferredItem<SpellItem.Multicast> SPELL_BURST_8 = ITEMS.registerItem("spell_burst_8", properties -> new SpellItem.Multicast(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
 
-    public static final DeferredItem<SpellItem> SPELL_BURST_X = ITEMS.registerItem("spell_burst_x", properties -> SpellItem.builder()
-            .properties(properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(30).build())).build());
+    public static final DeferredItem<SpellItem.Multicast> SPELL_BURST_X = ITEMS.registerItem("spell_burst_x", properties -> new SpellItem.Multicast(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().remainingUses(30).build())));
 
-    public static final List<DeferredItem<SpellItem>> SPELL_ITEMS = List.of(
+    public static final List<DeferredItem<? extends SpellItem>> SPELL_ITEMS = List.of(
             // Projectile
             SPELL_RUBBER_BALL,
             SPELL_LIGHT_BULLET,
