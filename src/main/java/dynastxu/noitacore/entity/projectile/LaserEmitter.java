@@ -2,6 +2,7 @@ package dynastxu.noitacore.entity.projectile;
 
 import dynastxu.noitacore.DamageTypes;
 import dynastxu.noitacore.common.spell.SuffixType;
+import dynastxu.noitacore.particle.ParticleUtils;
 import dynastxu.noitacore.particle.pixel.PixelParticleOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -38,7 +39,7 @@ public class LaserEmitter extends SpellProjectile {
     public void tick() {
         if (!lastDirection.equals(Vec3.ZERO)) {
             Vec3 start = position();
-            Vec3 direction = lastDirection.normalize();
+            Vec3 direction = lastDirection;
             Vec3 end = start.add(direction.scale(16));
 
             if (!level().isClientSide() && level() instanceof ServerLevel serverLevel) {
@@ -78,16 +79,24 @@ public class LaserEmitter extends SpellProjectile {
                 }
             }
 
-            if (level().isClientSide()) {
-                for (int i = 0; i < 10; i++) {
-                    RandomSource random = level().getRandom();
-                    level().addParticle(
-                            new PixelParticleOptions(0xFFFFFFFF, 20 + random.nextIntBetweenInclusive(-10, 10), 0.01f),
-                            position().x + random.nextFloat() * 0.25,
-                            position().y + random.nextFloat() * 0.25,
-                            position().z + random.nextFloat() * 0.25,
-                            lastDirection.x, lastDirection.y, lastDirection.z
-                    );
+            for (int i = 0; i < 10; i++) {
+                RandomSource random = level().getRandom();
+                double offsetX = random.nextDouble() * 0.25;
+                double offsetY = random.nextDouble() * 0.25;
+                double offsetZ = random.nextDouble() * 0.25;
+                if (level().isClientSide()) {
+                    ParticleUtils.spawnParticles(level(),
+                            position().add(offsetX, offsetY, offsetZ).add(direction),
+                            position().add(offsetX, offsetY, offsetZ).add(direction.scale(16 * (0.5 + random.nextDouble() / (1 + (offsetX + offsetY + offsetZ))))),
+                            0.05 + random.nextDouble() * 0.1,
+                            () -> {
+                                float t = random.nextFloat();
+                                int r = (int) (0xFF + t * (0xCA - 0xFF));
+                                int g = (int) (0xFF + t * (0xEF - 0xFF));
+                                int b = (int) (0xFF + t * (0xFD - 0xFF));
+                                int color = 0xFF000000 | (r << 16) | (g << 8) | b;
+                                return new PixelParticleOptions(color, random.nextIntBetweenInclusive(1, 3), 0.01f);
+                            });
                 }
             }
         }
