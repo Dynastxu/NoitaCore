@@ -9,7 +9,6 @@ import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.spell.Suffix;
 import dynastxu.noitacore.common.spell.SuffixType;
-import dynastxu.noitacore.item.SpellItem;
 import dynastxu.noitacore.particle.explosion.ExplosionParticleOptions;
 import dynastxu.noitacore.utils.EnumCodecs;
 import dynastxu.noitacore.world.level.explosion.ExplosionManager;
@@ -156,13 +155,6 @@ public abstract class SpellProjectile extends Projectile {
                 if (modifierAttributes.modifications() != null) {
                     state.critChance += modifierAttributes.modifications().criticalChance();
                 }
-            }
-        }
-
-        for (Holder<Item> modifier : modifiers) {
-            Item item = modifier.value();
-            if (item instanceof SpellItem si) {
-                si.onWillApplyInitialState(state);
             }
         }
 

@@ -80,9 +80,8 @@ public record UnitSpellChain(
      */
     public void cast(ServerLevel level, Vec3 pos, Vec3 direction, float spread, float critChance, float speedModifier, Entity caster, EntitySpawnReason reason) {
         Item item = mainSpell.value();
-        if (item instanceof SpellItem spellItem) {
-            EntityType<? extends SpellProjectile> projectileType = spellItem.getSpellProjectile();
-            if (projectileType != null) {
+        if (item instanceof SpellItem.Projectile spellItem) {
+            EntityType<? extends SpellProjectile> projectileType = spellItem.getProjectileType();
                 SpellAttributes spellAttributes = mainSpell.getData(DataMaps.SPELL_ATTRIBUTES);
                 if (spellAttributes != null) {
                     float initialSpeed = 0;
@@ -111,7 +110,7 @@ public record UnitSpellChain(
                         }
                     }
                 }
-            }
+
         }
     }
 }

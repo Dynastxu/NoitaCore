@@ -90,15 +90,15 @@ public final class ModModelProvider extends ModelProvider {
             registerWand(item.get(), this.item);
         }
 
-        public void registerProjectile(@NonNull DeferredItem<SpellItem> item) {
+        public void registerProjectile(@NonNull DeferredItem<? extends SpellItem.Projectile> item) {
             registerSpell(item.get(), this.item, SpellType.Projectile);
         }
 
-        public void registerModifier(@NonNull DeferredItem<SpellItem> item) {
+        public void registerModifier(@NonNull DeferredItem<? extends SpellItem.Modifier> item) {
             registerSpell(item.get(), this.item, SpellType.Modifier);
         }
 
-        public void registerMulticast(@NonNull DeferredItem<SpellItem> item) {
+        public void registerMulticast(@NonNull DeferredItem<? extends SpellItem.Multicast> item) {
             registerSpell(item.get(), this.item, SpellType.Multicast);
         }
     }

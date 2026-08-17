@@ -109,7 +109,7 @@ public final class ClientSetup {
             return true;
         };
 
-        for (DeferredItem<SpellItem> spellItem : Items.SPELL_ITEMS) {
+        for (DeferredItem<? extends SpellItem> spellItem : Items.SPELL_ITEMS) {
             event.register(spellItem.get(), spellDecorator);
         }
     }
