@@ -45,6 +45,7 @@ public final class ModModelProvider extends ModelProvider {
 
         r.registerModifier(Items.SPELL_MANA_REDUCE);
         r.registerModifier(Items.SPELL_CRITICAL_HIT);
+        r.registerModifier(Items.SPELL_ORBIT_LASERS);
 
         r.registerMulticast(Items.SPELL_BURST_2);
         r.registerMulticast(Items.SPELL_BURST_3);

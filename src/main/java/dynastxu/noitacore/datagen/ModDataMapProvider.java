@@ -368,6 +368,18 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 .basePrice(140).build()).build(),
                 replace
         );
+        spellBuilder.add(
+                Items.SPELL_ORBIT_LASERS.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Modifier,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                100, 0, 0, 1
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(200).build()).build(),
+                replace
+        );
 
 
         // Multicast

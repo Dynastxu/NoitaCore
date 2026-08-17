@@ -5,10 +5,8 @@ import com.mojang.serialization.Codec;
 import dynastxu.noitacore.DamageTypes;
 import dynastxu.noitacore.DataMaps;
 import dynastxu.noitacore.DataSerializers;
-import dynastxu.noitacore.common.spell.DamageType;
-import dynastxu.noitacore.common.spell.SpellAttributes;
-import dynastxu.noitacore.common.spell.Suffix;
-import dynastxu.noitacore.common.spell.SuffixType;
+import dynastxu.noitacore.common.spell.*;
+import dynastxu.noitacore.item.SpellItem;
 import dynastxu.noitacore.particle.explosion.ExplosionParticleOptions;
 import dynastxu.noitacore.utils.EnumCodecs;
 import dynastxu.noitacore.world.level.explosion.ExplosionManager;
@@ -60,6 +58,7 @@ public abstract class SpellProjectile extends Projectile {
     protected static final EntityDataAccessor<List<EntityReference<Entity>>> HURT_ENTITIES =
             SynchedEntityData.defineId(SpellProjectile.class, DataSerializers.HURT_ENTITIES_SERIALIZER.get());
     private static final Logger LOGGER = LogUtils.getLogger();
+    @Setter
     protected Holder<Item> spellItem;
     protected List<Holder<Item>> modifiers = new ArrayList<>();
     @Setter
@@ -72,6 +71,7 @@ public abstract class SpellProjectile extends Projectile {
      * 可对同一实体重复伤害
      */
     protected boolean isPiercing;
+    @Setter
     protected boolean isFriendlyFire;
     protected float gravity;
     protected float friction;
@@ -83,9 +83,22 @@ public abstract class SpellProjectile extends Projectile {
     protected float diggingPower;
     protected float critChance;
     protected float bounceStrength = 0.5f;
+    protected List<TickManager<?>> tickManagers = new ArrayList<>();
 
     public SpellProjectile(EntityType<? extends SpellProjectile> type, Level level) {
         super(type, level);
+    }
+
+    public void setRemainingLifeTick(int tick) {
+        entityData.set(REMAINING_LIFE_TICK, tick);
+    }
+
+    public int getLivedTick() {
+        return entityData.get(LIFE_TICK) - entityData.get(REMAINING_LIFE_TICK);
+    }
+
+    public Vec3 center() {
+        return position().add(0, getBbHeight() / 2, 0);
     }
 
     public void set(@NonNull Holder<Item> spellItem, @NonNull List<Holder<Item>> modifiers, float initialSpeed, float critChance) {
@@ -180,6 +193,17 @@ public abstract class SpellProjectile extends Projectile {
         this.entityData.set(REMAINING_BOUNCES, state.bounces);
         this.entityData.set(REMAINING_LIFE_TICK, state.lifeTick);
         this.entityData.set(SUFFIX_TIMER, state.suffixTimer);
+
+        genManagers();
+    }
+
+    protected void genManagers() {
+        modifiers.forEach(mod -> {
+            Item item = mod.value();
+            if (item instanceof SpellItem.Modifier modifier) {
+                tickManagers.add(modifier.getTickManager(this));
+            }
+        });
     }
 
     @Override
@@ -254,6 +278,8 @@ public abstract class SpellProjectile extends Projectile {
         modifiers = new ArrayList<>(input.read("Modifiers", Codec.list(Item.CODEC)).orElse(List.of()));
         suffixes = new ArrayList<>(input.read("Suffixes", Codec.list(Suffix.CODEC)).orElse(List.of()));
         entityData.set(LIFE_TICK, input.getInt("LifeTick").orElse(0));
+
+        genManagers();
     }
 
     protected @Nullable SpellAttributes getMainSpellAttributes() {
@@ -320,6 +346,8 @@ public abstract class SpellProjectile extends Projectile {
                         new ClipContext(originalPosition, originalPosition.add(movement), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)
                 );
         this.stepMoveAndHit(blockHitResult, originalPosition.add(movement));
+
+        tickManagers.forEach(TickManager::onTick);
 
         spawnStepMoveParticle(originalPosition);
 

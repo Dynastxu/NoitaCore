@@ -38,6 +38,8 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");
         addSpell(Items.SPELL_CRITICAL_HIT.get(), "暴击率+", "提高投射物的暴击率");
+        addSpell(Items.SPELL_ORBIT_LASERS, "电浆束环绕", "令六道电浆束绕一个投射物旋转");
+
         // Multicast
         addSpell(Items.SPELL_BURST_2.get(), "二重施法", "同时施放2个法术");
         addSpell(Items.SPELL_BURST_3.get(), "三重施法", "同时施放3个法术");
