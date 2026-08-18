@@ -45,6 +45,9 @@ public final class EntityTypes {
     public static final Supplier<EntityType<LaserEmitter>> LASER_EMITTER =
             registerSpellProjectile("laser_emitter", 0.25f, LaserEmitter::new);
 
+    public static final Supplier<EntityType<TeleportProjectile>> TELEPORT_PROJECTILE =
+            registerSpellProjectile("teleport_projectile", 0.25f, TeleportProjectile::new);
+
     private static <T extends SpellProjectile> @NonNull Supplier<EntityType<T>> registerSpellProjectile(String name, float size, EntityType.EntityFactory<T> factory) {
         return ENTITY_TYPES.register(name, () -> EntityType.Builder
                 .of(factory, MobCategory.MISC)

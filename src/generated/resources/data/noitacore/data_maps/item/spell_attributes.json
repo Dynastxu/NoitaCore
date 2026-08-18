@@ -810,6 +810,106 @@
           "life_tick": 250
         }
       }
+    },
+    "noitacore:spell_teleport_projectile": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 1,
+          "draws": 0,
+          "mana_drain": 40,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "damage": {
+          "damage": 0.0,
+          "damage_type": "Projectile",
+          "explosion": 0.0,
+          "explosion_radius": 0.2857143,
+          "friendly_fire": false,
+          "penetrating": false,
+          "piercing": false,
+          "projectile_count": 1
+        },
+        "modifications": {
+          "critical_chance": 0.0,
+          "recoil": 0,
+          "speed_multiplier": 1.0,
+          "spread": -2.0
+        },
+        "motion": {
+          "bounces": 0,
+          "die_speed_threshold": 0.0,
+          "friction": 1.7,
+          "gravity": 200,
+          "initial_speed": 5.714286,
+          "mass": 0.04,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 130,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        },
+        "time": {
+          "can_hit_shooter_after": 0,
+          "life_tick": 13
+        }
+      }
+    },
+    "noitacore:spell_teleport_projectile_short": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 0,
+          "draws": 0,
+          "mana_drain": 20,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "damage": {
+          "damage": 0.0,
+          "damage_type": "Projectile",
+          "explosion": 0.0,
+          "explosion_radius": 0.2857143,
+          "friendly_fire": false,
+          "penetrating": false,
+          "piercing": false,
+          "projectile_count": 1
+        },
+        "modifications": {
+          "critical_chance": 0.0,
+          "recoil": 0,
+          "speed_multiplier": 1.0,
+          "spread": -2.0
+        },
+        "motion": {
+          "bounces": 0,
+          "die_speed_threshold": 0.0,
+          "friction": 1.7,
+          "gravity": 200,
+          "initial_speed": 9.642858,
+          "mass": 0.04,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 130,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        },
+        "time": {
+          "can_hit_shooter_after": 0,
+          "life_tick": 3
+        }
+      }
     }
   }
 }

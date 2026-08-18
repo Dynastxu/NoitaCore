@@ -339,6 +339,54 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 .basePrice(180).diggingStrength(11).build()).build(),
                 replace
         );
+        spellBuilder.add(
+                Items.SPELL_TELEPORT_PROJECTILE.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                40, 1, 0, 0
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1, 0, -2, 0
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0, DamageType.Projectile, 0, 2f/7, false, false, false, 1
+                        ))
+                        .time(new SpellAttributes.Time(
+                                13, 0
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                40f/7, 0, 200, 1.7f, 0.04f, 0, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(130).build()).build(),
+                replace
+        );
+        spellBuilder.add(
+                Items.SPELL_TELEPORT_PROJECTILE_SHORT.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                20, 0, 0, 0
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1, 0, -2, 0
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                0, DamageType.Projectile, 0, 2f/7, false, false, false, 1
+                        ))
+                        .time(new SpellAttributes.Time(
+                                3, 0
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                135f/14, 0, 200, 1.7f, 0.04f, 0, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(130).build()).build(),
+                replace
+        );
 
         // Modifier
         spellBuilder.add(

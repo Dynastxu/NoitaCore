@@ -57,6 +57,7 @@ public final class ClientSetup {
         event.registerEntityRenderer(EntityTypes.BLACK_HOLE.get(), BlackHoleRenderer::new);
         event.registerEntityRenderer(EntityTypes.BUCKSHOT.get(), BuckshotRenderer::new);
         event.registerEntityRenderer(EntityTypes.LASER_EMITTER.get(), LaserEmitterRenderer::new);
+        event.registerEntityRenderer(EntityTypes.TELEPORT_PROJECTILE.get(), EmptyRenderer::new);
     }
 
     @SubscribeEvent
