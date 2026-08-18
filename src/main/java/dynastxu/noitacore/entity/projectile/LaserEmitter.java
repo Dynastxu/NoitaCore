@@ -41,6 +41,7 @@ public class LaserEmitter extends SpellProjectile {
 
     @Override
     public void tick() {
+        super.tick();
         if (!laserDirection.equals(Vec3.ZERO)) {
             Vec3 start = position();
             Vec3 direction = laserDirection;
@@ -108,6 +109,5 @@ public class LaserEmitter extends SpellProjectile {
             }
         }
         laserDirection = getDeltaMovement().normalize();
-        super.tick();
     }
 }
