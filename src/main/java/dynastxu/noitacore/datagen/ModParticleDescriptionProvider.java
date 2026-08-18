@@ -17,6 +17,6 @@ public final class ModParticleDescriptionProvider extends ParticleDescriptionPro
     @Override
     protected void addDescriptions() {
         spriteSet(ParticleTypes.PIXEL_PARTICLE.get(), Identifier.fromNamespaceAndPath(MODID, "pixel"));
-        spriteSet(ParticleTypes.EXPLOSION_PARTICLE.get(), IntStream.rangeClosed(0, 15).mapToObj(i -> Identifier.fromNamespaceAndPath("minecraft", "explosion_" + i)).toList());
+        spriteSet(ParticleTypes.EXPLOSION_PARTICLE.get(), IntStream.rangeClosed(0, 15).mapToObj(i -> Identifier.withDefaultNamespace("explosion_" + i)).toList());
     }
 }
