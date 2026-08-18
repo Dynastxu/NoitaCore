@@ -34,6 +34,8 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addSpell(Items.SPELL_BLACK_HOLE_DEATH_TRIGGER, "带有死亡触发的黑洞", "在失效时释放另一法术的黑洞");
         addSpell(Items.SPELL_BUCKSHOT, "三联魔弹", "三颗高速且带有弹性的小子弹");
         addSpell(Items.SPELL_LASER_EMITTER, "电浆束", "一束持续短时间的致命光线");
+        addSpell(Items.SPELL_TELEPORT_PROJECTILE, "传送魔弹", "将你传送到其失效时的位置");
+        addSpell(Items.SPELL_TELEPORT_PROJECTILE_SHORT, "小传送魔弹", "存在时间更短、速度更快的传送魔弹");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");

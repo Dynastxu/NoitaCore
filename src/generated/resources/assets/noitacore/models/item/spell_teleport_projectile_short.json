@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "noitacore:item/spell_layer_projectile",
+    "layer1": "noitacore:item/spell_teleport_projectile_short"
+  }
+}

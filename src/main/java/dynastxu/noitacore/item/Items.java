@@ -70,6 +70,14 @@ public final class Items {
             properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
             EntityTypes.LASER_EMITTER.get()));
 
+    public static final DeferredItem<SpellItem.Projectile> SPELL_TELEPORT_PROJECTILE = ITEMS.registerItem("spell_teleport_projectile", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.TELEPORT_PROJECTILE.get()));
+
+    public static final DeferredItem<SpellItem.Projectile> SPELL_TELEPORT_PROJECTILE_SHORT = ITEMS.registerItem("spell_teleport_projectile_short", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.TELEPORT_PROJECTILE.get()));
+
     // Modifier
     public static final DeferredItem<SpellItem.Modifier> SPELL_MANA_REDUCE = ITEMS.registerItem("spell_mana_reduce", properties -> new SpellItem.Modifier(
             properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
@@ -111,6 +119,8 @@ public final class Items {
             SPELL_BLACK_HOLE_DEATH_TRIGGER,
             SPELL_BUCKSHOT,
             SPELL_LASER_EMITTER,
+            SPELL_TELEPORT_PROJECTILE,
+            SPELL_TELEPORT_PROJECTILE_SHORT,
 
             // Modifier
             SPELL_MANA_REDUCE,
