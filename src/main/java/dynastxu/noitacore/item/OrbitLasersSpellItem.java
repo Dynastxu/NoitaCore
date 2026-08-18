@@ -38,6 +38,7 @@ public class OrbitLasersSpellItem extends SpellItem.Modifier {
                 laser.setDeltaMovement(direction.scale(0.001));
                 laser.setBreakBlocks(false);
                 laser.setFriendlyFire(true);
+                laser.setUpdateDirection(false);
                 laser.setRemainingLifeTick(3);
                 level.addFreshEntity(laser);
             }
