@@ -41,6 +41,9 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addSpell(Items.SPELL_MANA_REDUCE, "Add Mana", "Immediately adds 30 mana to the wand");
         addSpell(Items.SPELL_CRITICAL_HIT, "Critical Plus", "Gives a projectile +15% chance of a critical hit");
         addSpell(Items.SPELL_ORBIT_LASERS, "Plasma Beam Orbit", "Makes six plasma beams rotate around a projectile");
+        addSpell(Items.SPELL_SPEED, "Speed Up", "Increases the speed at which a projectile flies through the air");
+        addSpell(Items.SPELL_ACCELERATING_SHOT, "Accelerating Shot", "Causes a projectile to accelerate as it flies");
+        addSpell(Items.SPELL_DECELERATING_SHOT, "Decelerating Shot", "Makes a projectile decelerate as it flies");
 
         // Multicast
         addSpell(Items.SPELL_BURST_2, "Double Spell", "Simultaneously casts 2 spells");

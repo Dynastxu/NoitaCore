@@ -201,7 +201,10 @@ public abstract class SpellProjectile extends Projectile {
         modifiers.forEach(mod -> {
             Item item = mod.value();
             if (item instanceof SpellItem.Modifier modifier) {
-                tickManagers.add(modifier.getTickManager(this));
+                TickManager<?> tickManager = modifier.getTickManager(this);
+                if (tickManager != null) {
+                    tickManagers.add(tickManager);
+                }
             }
         });
     }
@@ -309,13 +312,14 @@ public abstract class SpellProjectile extends Projectile {
         var faz = 0d;
         if (isInLiquid()) {
             var fluidHeight = getFluidHeight();
-            fax = -(friction / 10.5) * getDeltaMovement().x * getDeltaMovement().x;
-            fay = -(friction / 10.5) * getDeltaMovement().y * getDeltaMovement().y;
-            faz = -(friction / 10.5) * getDeltaMovement().z * getDeltaMovement().z;
+            fax = -(friction / 10.5) * getDeltaMovement().x * Math.abs(getDeltaMovement().x);
+            fay = -(friction / 10.5) * getDeltaMovement().y * Math.abs(getDeltaMovement().y);
+            faz = -(friction / 10.5) * getDeltaMovement().z * Math.abs(getDeltaMovement().z);
         } else {
-            fax = -(friction / 8400) * getDeltaMovement().x;
-            fay = -(friction / 8400) * getDeltaMovement().y;
-            faz = -(friction / 8400) * getDeltaMovement().z;
+            var airDragFactor = Math.pow(1 - friction / 60.0, 3) - 1;
+            fax = airDragFactor * getDeltaMovement().x;
+            fay = airDragFactor * getDeltaMovement().y;
+            faz = airDragFactor * getDeltaMovement().z;
         }
         setDeltaMovement(
                 getDeltaMovement().x + fax,

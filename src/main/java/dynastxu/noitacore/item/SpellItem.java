@@ -6,6 +6,7 @@ import lombok.Getter;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public abstract class SpellItem extends Item {
     public SpellItem(@NonNull Properties properties) {
@@ -33,7 +34,7 @@ public abstract class SpellItem extends Item {
             super(properties);
         }
 
-        public <T extends SpellProjectile> TickManager<T> getTickManager(T projectile) {
+        public @Nullable <T extends SpellProjectile> TickManager<T> getTickManager(T projectile) {
             return null;
         }
     }

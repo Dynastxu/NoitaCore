@@ -38,6 +38,9 @@ public final class CreativeTabs {
                         output.accept(Items.SPELL_MANA_REDUCE.get());
                         output.accept(Items.SPELL_CRITICAL_HIT.get());
                         output.accept(Items.SPELL_ORBIT_LASERS.get());
+                        output.accept(Items.SPELL_SPEED.get());
+                        output.accept(Items.SPELL_ACCELERATING_SHOT.get());
+                        output.accept(Items.SPELL_DECELERATING_SHOT.get());
                         // Multicast
                         output.accept(Items.SPELL_BURST_2.get());
                         output.accept(Items.SPELL_BURST_3.get());

@@ -1,5 +1,41 @@
 {
   "values": {
+    "noitacore:spell_accelerating_shot": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Modifier",
+          "cast_delay_tick": 3,
+          "draws": 1,
+          "mana_drain": 20,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "modifications": {
+          "critical_chance": 0.0,
+          "recoil": 10,
+          "speed_multiplier": 0.32,
+          "spread": 0.0
+        },
+        "motion": {
+          "bounces": 0,
+          "die_speed_threshold": 0.0,
+          "friction": -3.0,
+          "gravity": 0,
+          "initial_speed": 0.0,
+          "mass": 0.0,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 190,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        }
+      }
+    },
     "noitacore:spell_black_hole": {
       "replace": true,
       "value": {
@@ -301,6 +337,42 @@
         "time": {
           "can_hit_shooter_after": 0,
           "life_tick": 10
+        }
+      }
+    },
+    "noitacore:spell_decelerating_shot": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Modifier",
+          "cast_delay_tick": -3,
+          "draws": 1,
+          "mana_drain": 10,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "modifications": {
+          "critical_chance": 0.0,
+          "recoil": -10,
+          "speed_multiplier": 1.68,
+          "spread": 0.0
+        },
+        "motion": {
+          "bounces": 0,
+          "die_speed_threshold": 0.0,
+          "friction": 6.0,
+          "gravity": 0,
+          "initial_speed": 0.0,
+          "mass": 0.0,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 80,
+          "digging_power": 0.0,
+          "digging_strength": 0
         }
       }
     },
@@ -808,6 +880,33 @@
         "time": {
           "can_hit_shooter_after": 0,
           "life_tick": 250
+        }
+      }
+    },
+    "noitacore:spell_speed": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Modifier",
+          "cast_delay_tick": 0,
+          "draws": 1,
+          "mana_drain": 3,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "modifications": {
+          "critical_chance": 0.0,
+          "recoil": 0,
+          "speed_multiplier": 2.5,
+          "spread": 0.0
+        },
+        "other": {
+          "base_price": 100,
+          "digging_power": 0.0,
+          "digging_strength": 0
         }
       }
     },
