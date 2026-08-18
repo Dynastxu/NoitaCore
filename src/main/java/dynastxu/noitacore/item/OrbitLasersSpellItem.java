@@ -39,7 +39,7 @@ public class OrbitLasersSpellItem extends SpellItem.Modifier {
                 laser.setBreakBlocks(false);
                 laser.setFriendlyFire(true);
                 laser.setUpdateDirection(false);
-                laser.setRemainingLifeTick(3);
+                laser.setRemainingLifeTick(1);
                 level.addFreshEntity(laser);
             }
             return laser;
@@ -51,7 +51,7 @@ public class OrbitLasersSpellItem extends SpellItem.Modifier {
                 laser = createOrbit(target.level(), center, offset, target.getOwner());
             }
 
-            laser.setRemainingLifeTick(3);
+            laser.setRemainingLifeTick(1);
 
             Vec3 rotatedOffset = rotate(offset, rotAxis, angle);
             Vec3 newPos = center.add(rotatedOffset);
