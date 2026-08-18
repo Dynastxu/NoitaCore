@@ -41,6 +41,9 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");
         addSpell(Items.SPELL_CRITICAL_HIT.get(), "暴击率+", "提高投射物的暴击率");
         addSpell(Items.SPELL_ORBIT_LASERS, "电浆束环绕", "令六道电浆束绕一个投射物旋转");
+        addSpell(Items.SPELL_SPEED, "加速", "增加投射物的初始速度");
+        addSpell(Items.SPELL_ACCELERATING_SHOT, "加速魔弹", "降低投射物初速度，但提高投射物的加速度");
+        addSpell(Items.SPELL_DECELERATING_SHOT, "减速魔弹", "增加投射物的初速度，但也增加飞行时受到的阻力");
 
         // Multicast
         addSpell(Items.SPELL_BURST_2.get(), "二重施法", "同时施放2个法术");

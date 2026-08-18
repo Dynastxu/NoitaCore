@@ -88,6 +88,15 @@ public final class Items {
     public static final DeferredItem<OrbitLasersSpellItem> SPELL_ORBIT_LASERS = ITEMS.registerItem("spell_orbit_lasers", properties -> new OrbitLasersSpellItem(
             properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
 
+    public static final DeferredItem<SpellItem.Modifier> SPELL_SPEED = ITEMS.registerItem("spell_speed", properties -> new SpellItem.Modifier(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
+
+    public static final DeferredItem<SpellItem.Modifier> SPELL_ACCELERATING_SHOT = ITEMS.registerItem("spell_accelerating_shot", properties -> new SpellItem.Modifier(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
+
+    public static final DeferredItem<SpellItem.Modifier> SPELL_DECELERATING_SHOT = ITEMS.registerItem("spell_decelerating_shot", properties -> new SpellItem.Modifier(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
+
     // Multicast
     public static final DeferredItem<SpellItem.Multicast> SPELL_BURST_2 = ITEMS.registerItem("spell_burst_2", properties -> new SpellItem.Multicast(
             properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
@@ -126,6 +135,9 @@ public final class Items {
             SPELL_MANA_REDUCE,
             SPELL_CRITICAL_HIT,
             SPELL_ORBIT_LASERS,
+            SPELL_SPEED,
+            SPELL_ACCELERATING_SHOT,
+            SPELL_DECELERATING_SHOT,
 
             // Multicast
             SPELL_BURST_2,

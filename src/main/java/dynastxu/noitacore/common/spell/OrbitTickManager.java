@@ -60,15 +60,15 @@ public abstract class OrbitTickManager<T extends SpellProjectile, Orbit extends 
 
     @Override
     public void onTick() {
+        if (target == null || !target.isAlive()) {
+            return;
+        }
+
         if (target.level().isClientSide()) {
             return;
         }
 
         if (target.getLivedTick() > maxEffectiveTicks) {
-            return;
-        }
-
-        if (target == null || !target.isAlive()) {
             return;
         }
 

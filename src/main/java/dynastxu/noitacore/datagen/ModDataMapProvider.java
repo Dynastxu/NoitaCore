@@ -428,7 +428,57 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 .basePrice(200).build()).build(),
                 replace
         );
-
+        spellBuilder.add(
+                Items.SPELL_SPEED.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Modifier,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                3, 0, 0, 1
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                2.5f, 0, 0, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(100).build()).build(),
+                replace
+        );
+        spellBuilder.add(
+                Items.SPELL_ACCELERATING_SHOT.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Modifier,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                20, 3, 0, 1
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                0.32f, 10, 0, 0
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                0, 0, 0, -3, 0, 0, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(190).build()).build(),
+                replace
+        );
+        spellBuilder.add(
+                Items.SPELL_DECELERATING_SHOT.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                                SpellType.Modifier,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                10, -3, 0, 1
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1.68f, -10, 0, 0
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                0, 0, 0, 6, 0, 0, 0
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(80).build()).build(),
+                replace
+        );
 
         // Multicast
         spellBuilder.add(Items.SPELL_BURST_2.getKey(), buildMulticast(0, 2, 140), replace);

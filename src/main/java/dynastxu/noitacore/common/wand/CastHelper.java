@@ -37,6 +37,8 @@ public class CastHelper {
     @Getter
     protected float spread;
     @Getter
+    protected float speedModifier;
+    @Getter
     protected float critChance;
     @Getter
     protected WandData wandDataAfterCast;
@@ -58,6 +60,7 @@ public class CastHelper {
         this.spread = statistics.spread();
         this.isUsed = false;
         this.recoil = 0;
+        this.speedModifier = statistics.speedMultiplier();
 
         if (this.drawStack.isEmpty()) {
             this.drawStack = getSpells();
@@ -228,6 +231,7 @@ public class CastHelper {
                     spread += spellAttributes.modifications().spread();
                     critChance += spellAttributes.modifications().criticalChance();
                     recoil += spellAttributes.modifications().recoil();
+                    speedModifier += spellAttributes.modifications().speedMultiplier();
                 }
             }
             if (!spell.isAlwaysCast() || spell.getAttributes().base().manaDrain() < 0) {
