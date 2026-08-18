@@ -3,6 +3,7 @@ package dynastxu.noitacore.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dynastxu.noitacore.client.model.FunkyModel;
+import dynastxu.noitacore.client.renderer.state.RotatableEntityRenderState;
 import dynastxu.noitacore.entity.projectile.Funky;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
