@@ -6,6 +6,7 @@ import dynastxu.noitacore.client.gui.SpellTooltipComponent;
 import dynastxu.noitacore.client.gui.WandClientTooltipComponent;
 import dynastxu.noitacore.client.gui.WandTooltipComponent;
 import dynastxu.noitacore.client.model.FunkyModel;
+import dynastxu.noitacore.client.model.LaserModel;
 import dynastxu.noitacore.client.model.NukeModel;
 import dynastxu.noitacore.client.renderer.*;
 import dynastxu.noitacore.client.screen.WandScreen;
@@ -62,6 +63,7 @@ public final class ClientSetup {
     public static void registerLayerDefinitions(EntityRenderersEvent.@NonNull RegisterLayerDefinitions event) {
         event.registerLayerDefinition(NukeModel.LAYER_LOCATION, NukeModel::createBodyLayer);
         event.registerLayerDefinition(FunkyModel.LAYER_LOCATION, FunkyModel::createBodyLayer);
+        event.registerLayerDefinition(LaserModel.LAYER_LOCATION, LaserModel::createBodyLayer);
     }
 
     @SubscribeEvent
