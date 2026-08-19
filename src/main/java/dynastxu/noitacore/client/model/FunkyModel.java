@@ -1,18 +1,18 @@
 package dynastxu.noitacore.client.model;
 
+import dynastxu.noitacore.client.renderer.state.FunkyRenderState;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.NonNull;
 
 import static dynastxu.noitacore.NoitaCore.MODID;
 
-public class FunkyModel extends EntityModel<EntityRenderState> {
+public class FunkyModel extends EntityModel<FunkyRenderState> {
     public static final ModelLayerLocation LAYER_LOCATION =
             new ModelLayerLocation(Identifier.fromNamespaceAndPath(MODID, "funky"), "main");
 
@@ -31,7 +31,7 @@ public class FunkyModel extends EntityModel<EntityRenderState> {
     }
 
     @Override
-    public void setupAnim(@NonNull EntityRenderState state) {
+    public void setupAnim(@NonNull FunkyRenderState state) {
         root().getAllParts().forEach(ModelPart::resetPose);
     }
 }

@@ -3,9 +3,7 @@ package dynastxu.noitacore.client.renderer.state;
 import lombok.Setter;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
-public class LaserEmitterRenderState extends EntityRenderState implements Rotable {
-    public float length;
-    public float thickness;
+public class NukeRenderState extends EntityRenderState implements Rotable {
     @Setter
     public float xRot;
     @Setter

@@ -3,7 +3,7 @@ package dynastxu.noitacore.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import dynastxu.noitacore.client.model.FunkyModel;
-import dynastxu.noitacore.client.renderer.state.RotatableEntityRenderState;
+import dynastxu.noitacore.client.renderer.state.FunkyRenderState;
 import dynastxu.noitacore.entity.projectile.Funky;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -16,7 +16,7 @@ import org.jspecify.annotations.NonNull;
 
 import static dynastxu.noitacore.NoitaCore.MODID;
 
-public class FunkyRenderer extends EntityRenderer<Funky, RotatableEntityRenderState> {
+public class FunkyRenderer extends EntityRenderer<Funky, FunkyRenderState> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(MODID, "textures/entity/funky.png");
     private final FunkyModel model;
 
@@ -26,18 +26,18 @@ public class FunkyRenderer extends EntityRenderer<Funky, RotatableEntityRenderSt
     }
 
     @Override
-    public @NonNull RotatableEntityRenderState createRenderState() {
-        return new RotatableEntityRenderState();
+    public @NonNull FunkyRenderState createRenderState() {
+        return new FunkyRenderState();
     }
 
     @Override
-    public void extractRenderState(@NonNull Funky entity, @NonNull RotatableEntityRenderState state, float partialTicks) {
+    public void extractRenderState(@NonNull Funky entity, @NonNull FunkyRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         state.extractRotFromDeltaMovement(entity, partialTicks);
     }
 
     @Override
-    public void submit(@NonNull RotatableEntityRenderState state, @NonNull PoseStack stack, @NonNull SubmitNodeCollector collector, @NonNull CameraRenderState camera) {
+    public void submit(@NonNull FunkyRenderState state, @NonNull PoseStack stack, @NonNull SubmitNodeCollector collector, @NonNull CameraRenderState camera) {
         stack.pushPose();
         stack.translate(0.0F, 1F/14, 0.0F);
         stack.scale(0.1f, 0.1f, 0.1f);

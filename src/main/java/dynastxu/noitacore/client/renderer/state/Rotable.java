@@ -6,8 +6,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 
 public interface Rotable {
-    float getXRot();
-    float getYRot();
     void setXRot(float xRot);
     void setYRot(float yRot);
 
