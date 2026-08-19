@@ -5,8 +5,46 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.143'
 }
 
-version = mod_version
+def getModVersion() {
+    try {
+        def describe = providers.exec {
+            commandLine('git', 'describe', '--tags', '--long')
+        }.standardOutput.asText.get().trim()
+
+        if (describe.isEmpty()) {
+            println("警告: git describe 没有输出，回退到 0.0.0")
+            return '0.0.0'
+        }
+
+        def raw = describe.startsWith('v') ? describe.substring(1) : describe
+        def matcher = raw =~ /^(.*)-(\d+)-g([a-f0-9]+)$/
+
+        if (matcher.find()) {
+            def base = matcher.group(1)
+            def count = matcher.group(2).toInteger()
+            if (count == 0) {
+                return base
+            }
+            def hash = matcher.group(3)
+            return "${base}+${count}.${hash}"
+        }
+        return raw
+    } catch (Exception e) {
+        println("Error parsing version: ${e.message}")
+        return '0.0.0'
+    }
+}
+
+version = getModVersion()
 group = mod_group_id
+println("当前构建版本: ${version}")
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
 
 repositories {
     mavenLocal()
@@ -137,9 +175,10 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
                              mod_id                 : mod_id,
                              mod_name               : mod_name,
                              mod_license            : mod_license,
-                             mod_version            : mod_version,
+                             mod_version            : project.version,
                              mod_authors            : mod_authors,
-                             mod_description        : mod_description]
+                             mod_description        : mod_description,
+                             version                : project.version]
     inputs.properties replaceProperties
     expand replaceProperties
     from "src/main/templates"
