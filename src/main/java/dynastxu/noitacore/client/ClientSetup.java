@@ -5,6 +5,7 @@ import dynastxu.noitacore.client.gui.SpellClientTooltipComponent;
 import dynastxu.noitacore.client.gui.SpellTooltipComponent;
 import dynastxu.noitacore.client.gui.WandClientTooltipComponent;
 import dynastxu.noitacore.client.gui.WandTooltipComponent;
+import dynastxu.noitacore.client.model.DiscBulletModel;
 import dynastxu.noitacore.client.model.FunkyModel;
 import dynastxu.noitacore.client.model.LaserModel;
 import dynastxu.noitacore.client.model.NukeModel;
@@ -58,6 +59,7 @@ public final class ClientSetup {
         event.registerEntityRenderer(EntityTypes.BUCKSHOT.get(), BuckshotRenderer::new);
         event.registerEntityRenderer(EntityTypes.LASER_EMITTER.get(), LaserEmitterRenderer::new);
         event.registerEntityRenderer(EntityTypes.TELEPORT_PROJECTILE.get(), EmptyRenderer::new);
+        event.registerEntityRenderer(EntityTypes.DISC_BULLET.get(), DiscBulletRenderer::new);
     }
 
     @SubscribeEvent
@@ -65,6 +67,7 @@ public final class ClientSetup {
         event.registerLayerDefinition(NukeModel.LAYER_LOCATION, NukeModel::createBodyLayer);
         event.registerLayerDefinition(FunkyModel.LAYER_LOCATION, FunkyModel::createBodyLayer);
         event.registerLayerDefinition(LaserModel.LAYER_LOCATION, LaserModel::createBodyLayer);
+        event.registerLayerDefinition(DiscBulletModel.LAYER_LOCATION, DiscBulletModel::createBodyLayer);
     }
 
     @SubscribeEvent

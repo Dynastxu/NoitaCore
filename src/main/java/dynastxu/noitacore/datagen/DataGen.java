@@ -31,6 +31,11 @@ public final class DataGen {
                             0f,
                             DamageEffects.HURT,
                             DeathMessageType.DEFAULT));
+                    bootstrap.register(DamageTypes.SPELL_SLICE, new DamageType("spell_slice",
+                            DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER,
+                            0f,
+                            DamageEffects.HURT,
+                            DeathMessageType.DEFAULT));
                 }));
     }
 

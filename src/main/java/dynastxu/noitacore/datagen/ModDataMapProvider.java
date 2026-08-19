@@ -387,6 +387,30 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 .basePrice(130).build()).build(),
                 replace
         );
+        spellBuilder.add(
+                Items.SPELL_DISC_BULLET.getKey(),
+                SpellAttributes.builder()
+                        .base(new SpellAttributes.BaseAttributes(
+                            SpellType.Projectile,
+                                SpellAttributes.Uses.UNRESTRICTED,
+                                20, 3, 0, 0
+                        ))
+                        .modifications(new SpellAttributes.Modifications(
+                                1, 20, 0, 0
+                        ))
+                        .damage(new SpellAttributes.Damage(
+                                4, DamageType.Slice, 0, 0, true, false, false, 1
+                        ))
+                        .time(new SpellAttributes.Time(
+                                250, 2
+                        ))
+                        .motion(new SpellAttributes.Motion(
+                                20f/7, 0, 250, 0.6f, 0.05f, 5f/7, 2
+                        ))
+                        .other(SpellAttributes.Other.builder()
+                                .basePrice(120).build()).build(),
+                replace
+        );
 
         // Modifier
         spellBuilder.add(

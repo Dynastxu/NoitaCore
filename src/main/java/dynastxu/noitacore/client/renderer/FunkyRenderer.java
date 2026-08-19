@@ -33,7 +33,7 @@ public class FunkyRenderer extends EntityRenderer<Funky, RotatableEntityRenderSt
     @Override
     public void extractRenderState(@NonNull Funky entity, @NonNull RotatableEntityRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
-        RotatableEntityRenderState.extractFromVelocity(entity, state, partialTicks);
+        state.extractRotFromDeltaMovement(entity, partialTicks);
     }
 
     @Override

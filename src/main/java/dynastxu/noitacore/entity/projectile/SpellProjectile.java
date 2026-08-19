@@ -533,6 +533,7 @@ public abstract class SpellProjectile extends Projectile {
             if (damage == 0) return;
             var damageSourceKey = switch (type) {
                 case Projectile -> DamageTypes.SPELL_PROJECTILE;
+                case Slice -> DamageTypes.SPELL_SLICE;
                 default -> null;
             };
             if (damageSourceKey != null && damage > 0) {

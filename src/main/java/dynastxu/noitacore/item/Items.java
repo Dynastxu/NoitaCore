@@ -78,6 +78,10 @@ public final class Items {
             properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
             EntityTypes.TELEPORT_PROJECTILE.get()));
 
+    public static final DeferredItem<SpellItem.Projectile> SPELL_DISC_BULLET = ITEMS.registerItem("spell_disc_bullet", properties -> new SpellItem.Projectile(
+            properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build()),
+            EntityTypes.DISC_BULLET.get()));
+
     // Modifier
     public static final DeferredItem<SpellItem.Modifier> SPELL_MANA_REDUCE = ITEMS.registerItem("spell_mana_reduce", properties -> new SpellItem.Modifier(
             properties.component(DataComponents.SPELL_DATA.get(), SpellData.builder().build())));
@@ -130,6 +134,7 @@ public final class Items {
             SPELL_LASER_EMITTER,
             SPELL_TELEPORT_PROJECTILE,
             SPELL_TELEPORT_PROJECTILE_SHORT,
+            SPELL_DISC_BULLET,
 
             // Modifier
             SPELL_MANA_REDUCE,

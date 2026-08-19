@@ -36,6 +36,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addSpell(Items.SPELL_LASER_EMITTER, "电浆束", "一束持续短时间的致命光线");
         addSpell(Items.SPELL_TELEPORT_PROJECTILE, "传送魔弹", "将你传送到其失效时的位置");
         addSpell(Items.SPELL_TELEPORT_PROJECTILE_SHORT, "小传送魔弹", "存在时间更短、速度更快的传送魔弹");
+        addSpell(Items.SPELL_DISC_BULLET, "碟状投射物", "锐利且富有弹性的的锯片");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");
@@ -62,6 +63,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
     @Override
     protected void addDamageTypes() {
         addDamageTypeDefault("spell_projectile", "%1$s死于%2$s的弹射物", "%1$s被弹射物暗杀", "%1$s死于%2$s使用%3$s发射的弹射物");
+        addDamageTypeDefault("spell_slice", "%1$s被%2$s切成了碎片", "%1$s的细胞们有了自己的想法", "%1$s被%2$s使用%3$s切成了碎片");
     }
 
     @Override

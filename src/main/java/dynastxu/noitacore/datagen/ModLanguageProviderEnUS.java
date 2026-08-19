@@ -36,6 +36,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addSpell(Items.SPELL_LASER_EMITTER, "Plasma Beam", "An instantaneous, dangerous beam of light");
         addSpell(Items.SPELL_TELEPORT_PROJECTILE, "Teleport Bolt", "A magical bolt that moves you wherever it ends up flying");
         addSpell(Items.SPELL_TELEPORT_PROJECTILE_SHORT, "Small Teleport Bolt", "A shortlived magical bolt that moves you wherever it ends up flying");
+        addSpell(Items.SPELL_DISC_BULLET, "Disc Projectile", "Summons a sharp disc projectile");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE, "Add Mana", "Immediately adds 30 mana to the wand");
@@ -61,7 +62,8 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
 
     @Override
     protected void addDamageTypes() {
-        addDamageTypeDefault("spell_projectile", "%1$s was killed by %2$s's spell projectiles", "%1$s was assassinated by spell projectile", "%1$s was killed by spell projectiles fired by %3$s from %2$s");
+        addDamageTypeDefault("spell_projectile", "%1$s was killed by %2$s's projectiles", "%1$s was assassinated by projectile", "%1$s was killed by projectiles fired by %3$s from %2$s");
+        addDamageTypeDefault("spell_slice", "%1$s was cut into pieces by %2$s", "%1$s's cells have their own ideas.", "%1$s was cut into pieces by %2$s using %3$s");
     }
 
     @Override

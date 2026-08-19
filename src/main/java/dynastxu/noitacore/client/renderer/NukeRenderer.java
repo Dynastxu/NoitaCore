@@ -32,7 +32,7 @@ public class NukeRenderer extends EntityRenderer<Nuke, RotatableEntityRenderStat
     @Override
     public void extractRenderState(@NonNull Nuke entity, @NonNull RotatableEntityRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
-        RotatableEntityRenderState.extractFromVelocity(entity, state, partialTicks);
+        state.extractRotFromDeltaMovement(entity, partialTicks);
     }
 
     @Override
