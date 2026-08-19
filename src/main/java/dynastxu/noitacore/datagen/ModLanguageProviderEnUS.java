@@ -37,6 +37,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addSpell(Items.SPELL_TELEPORT_PROJECTILE, "Teleport Bolt", "A magical bolt that moves you wherever it ends up flying");
         addSpell(Items.SPELL_TELEPORT_PROJECTILE_SHORT, "Small Teleport Bolt", "A shortlived magical bolt that moves you wherever it ends up flying");
         addSpell(Items.SPELL_DISC_BULLET, "Disc Projectile", "Summons a sharp disc projectile");
+        addSpell(Items.SPELL_DISC_BULLET_BIG, "Giga Disc Projectile", "Summons a large, serrated disc with a curious flight pattern");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE, "Add Mana", "Immediately adds 30 mana to the wand");

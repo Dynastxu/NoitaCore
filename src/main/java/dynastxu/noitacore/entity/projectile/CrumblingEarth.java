@@ -14,13 +14,13 @@ public class CrumblingEarth extends SpellProjectile {
     }
 
     @Override
-    protected void onWillDiscard() {
+    protected boolean onWillDiscard() {
         if (level() instanceof ServerLevel serverLevel) {
             LivingEntity indirectSourceEntity = getOwner() instanceof LivingEntity livingEntity ? livingEntity : null;
             Earthquake earthquake = new Earthquake(serverLevel, this, indirectSourceEntity, position(), 64);
             ExplosionManager.add(serverLevel, earthquake);
         }
 
-        super.onWillDiscard();
+        return super.onWillDiscard();
     }
 }

@@ -39,6 +39,8 @@
   "item.noitacore.spell_decelerating_shot.description": "Makes a projectile decelerate as it flies",
   "item.noitacore.spell_disc_bullet": "Disc Projectile",
   "item.noitacore.spell_disc_bullet.description": "Summons a sharp disc projectile",
+  "item.noitacore.spell_disc_bullet_big": "Giga Disc Projectile",
+  "item.noitacore.spell_disc_bullet_big.description": "Summons a large, serrated disc with a curious flight pattern",
   "item.noitacore.spell_funky": "???",
   "item.noitacore.spell_funky.description": "???",
   "item.noitacore.spell_laser_emitter": "Plasma Beam",

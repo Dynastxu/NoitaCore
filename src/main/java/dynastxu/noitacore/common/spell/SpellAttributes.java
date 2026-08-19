@@ -116,6 +116,7 @@ public record SpellAttributes(
         );
     }
 
+    @Builder
     public record Modifications(
             float speedMultiplier,
             int recoil,
@@ -136,6 +137,14 @@ public record SpellAttributes(
                 ByteBufCodecs.FLOAT, Modifications::criticalChance,
                 Modifications::new
         );
+
+        public static ModificationsBuilder builder() {
+            return new ModificationsBuilder()
+                    .speedMultiplier(1)
+                    .recoil(0)
+                    .spread(0)
+                    .criticalChance(0);
+        }
     }
 
     /**
@@ -143,6 +152,7 @@ public record SpellAttributes(
      * @param piercing 可对同一实体重复伤害
      * @param penetrating 仅对同一实体造成一次伤害
      */
+    @Builder
     public record Damage(
             float damage,
             @NonNull DamageType damageType,
@@ -175,8 +185,21 @@ public record SpellAttributes(
                 ByteBufCodecs.VAR_INT, Damage::projectileCount,
                 Damage::new
         );
+
+        public static DamageBuilder builder() {
+            return new DamageBuilder()
+                    .damage(0)
+                    .damageType(DamageType.Projectile)
+                    .explosion(0)
+                    .explosionRadius(0)
+                    .friendlyFire(false)
+                    .piercing(false)
+                    .penetrating(false)
+                    .projectileCount(1);
+        }
     }
 
+    @Builder
     public record Time(
             int lifeTick,
             int canHitShooterAfter
@@ -191,6 +214,12 @@ public record SpellAttributes(
                 ByteBufCodecs.VAR_INT, Time::canHitShooterAfter,
                 Time::new
         );
+
+        public static TimeBuilder builder() {
+            return new TimeBuilder()
+                    .lifeTick(0)
+                    .canHitShooterAfter(0);
+        }
     }
 
     /**
@@ -198,6 +227,7 @@ public record SpellAttributes(
      * @param initialSpeed 初始化速度（米 / 刻）
      * @see <a href="https://tieba.baidu.com/p/9226674208?share=9105&fr=sharewise&see_lz=0&share_from=post&sfc=qqfriend&client_type=2&client_version=12.78.1.1&st=1785852329&is_video=false&unique=D2D580009B0D306C2D9848EB3725962D&source=12_16_sharecard_a">关于重力修正与 noita 运动学</a>
      */
+    @Builder
     public record Motion(
             float initialSpeed,
             float spread,
@@ -227,6 +257,17 @@ public record SpellAttributes(
                 ByteBufCodecs.VAR_INT, Motion::bounces,
                 Motion::new
         );
+
+        public static MotionBuilder builder() {
+            return new MotionBuilder()
+                    .initialSpeed(0)
+                    .spread(0)
+                    .gravity(0)
+                    .friction(0)
+                    .mass(0)
+                    .dieSpeedThreshold(0)
+                    .bounces(0);
+        }
     }
 
     @Builder
@@ -247,5 +288,12 @@ public record SpellAttributes(
                 ByteBufCodecs.FLOAT, Other::diggingPower,
                 Other::new
         );
+
+        public static OtherBuilder builder() {
+            return new OtherBuilder()
+                    .basePrice(0)
+                    .diggingStrength(0)
+                    .diggingPower(0);
+        }
     }
 }

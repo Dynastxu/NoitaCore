@@ -35,6 +35,7 @@ public final class CreativeTabs {
                         output.accept(Items.SPELL_TELEPORT_PROJECTILE.get());
                         output.accept(Items.SPELL_TELEPORT_PROJECTILE_SHORT.get());
                         output.accept(Items.SPELL_DISC_BULLET.get());
+                        output.accept(Items.SPELL_DISC_BULLET_BIG.get());
                         // Modifier
                         output.accept(Items.SPELL_MANA_REDUCE.get());
                         output.accept(Items.SPELL_CRITICAL_HIT.get());

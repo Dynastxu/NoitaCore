@@ -19,11 +19,11 @@ public class TeleportProjectile extends SpellProjectile {
     }
 
     @Override
-    protected void onWillDiscard() {
-        super.onWillDiscard();
+    protected boolean onWillDiscard() {
         Entity entity = getOwner();
         if (entity != null) {
             entity.teleportTo(position().x, position().y, position().z);
         }
+        return super.onWillDiscard();
     }
 }

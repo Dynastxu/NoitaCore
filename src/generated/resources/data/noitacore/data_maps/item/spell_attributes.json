@@ -426,6 +426,56 @@
         }
       }
     },
+    "noitacore:spell_disc_bullet_big": {
+      "replace": true,
+      "value": {
+        "base": {
+          "type": "Projectile",
+          "cast_delay_tick": 7,
+          "draws": 0,
+          "mana_drain": 38,
+          "recharge_tick": 0,
+          "uses": {
+            "must_consume": false,
+            "uses": 0
+          }
+        },
+        "damage": {
+          "damage": 12.5,
+          "damage_type": "Slice",
+          "explosion": 0.0,
+          "explosion_radius": 0.0,
+          "friendly_fire": true,
+          "penetrating": false,
+          "piercing": false,
+          "projectile_count": 1
+        },
+        "modifications": {
+          "critical_chance": 0.0,
+          "recoil": 20,
+          "speed_multiplier": 1.0,
+          "spread": 3.4
+        },
+        "motion": {
+          "bounces": 2,
+          "die_speed_threshold": 0.0,
+          "friction": 0.0,
+          "gravity": 0,
+          "initial_speed": 1.7857143,
+          "mass": 0.05,
+          "spread": 0.6
+        },
+        "other": {
+          "base_price": 180,
+          "digging_power": 0.0,
+          "digging_strength": 0
+        },
+        "time": {
+          "can_hit_shooter_after": 0,
+          "life_tick": 100
+        }
+      }
+    },
     "noitacore:spell_funky": {
       "replace": true,
       "value": {

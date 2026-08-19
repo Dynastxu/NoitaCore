@@ -37,6 +37,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addSpell(Items.SPELL_TELEPORT_PROJECTILE, "传送魔弹", "将你传送到其失效时的位置");
         addSpell(Items.SPELL_TELEPORT_PROJECTILE_SHORT, "小传送魔弹", "存在时间更短、速度更快的传送魔弹");
         addSpell(Items.SPELL_DISC_BULLET, "碟状投射物", "锐利且富有弹性的的锯片");
+        addSpell(Items.SPELL_DISC_BULLET_BIG, "巨型碟状投射物", "更大号的锯片！而且它好像关于如何飞行有它自己的想法...");
 
         // Modifier
         addSpell(Items.SPELL_MANA_REDUCE.get(), "额外法力", "立即向魔杖注入 30 法力");

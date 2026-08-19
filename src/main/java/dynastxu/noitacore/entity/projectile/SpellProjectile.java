@@ -338,8 +338,9 @@ public abstract class SpellProjectile extends Projectile {
 
         if (dieSpeedThreshold > 0) {
             if (getDeltaMovement().length() <= dieSpeedThreshold) {
-                onWillDiscard();
-                discard();
+                if (onWillDiscard()) {
+                    discard();
+                }
             }
         }
 
@@ -368,12 +369,15 @@ public abstract class SpellProjectile extends Projectile {
             final SpellAttributes spellAttributes = getMainSpellAttributes();
             if (spellAttributes == null) return;
 
+            if (shouldDie()){
+                if (onWillDiscard()) {
+                    discard();
+                }
+            }
+
             int remainingLifeTick = entityData.get(REMAINING_LIFE_TICK);
             if (remainingLifeTick > 0) {
                 entityData.set(REMAINING_LIFE_TICK, remainingLifeTick - 1);
-            } else {
-                onWillDiscard();
-                discard();
             }
 
             int suffixTimer = entityData.get(SUFFIX_TIMER);
@@ -391,6 +395,11 @@ public abstract class SpellProjectile extends Projectile {
                 }
             }
         }
+    }
+
+    protected boolean shouldDie() {
+        int remainingLifeTick = entityData.get(REMAINING_LIFE_TICK);
+        return remainingLifeTick <= 0;
     }
 
     protected Collection<EntityHitResult> findHitEntities(Vec3 from, Vec3 to) {
@@ -499,8 +508,9 @@ public abstract class SpellProjectile extends Projectile {
         }
 
         if (spellAttributes != null && spellAttributes.damage() != null && !spellAttributes.damage().penetrating() && !spellAttributes.damage().piercing()) {
-            onWillDiscard();
-            discard();
+            if (onWillDiscard()) {
+                discard();
+            }
         }
     }
 
@@ -578,8 +588,9 @@ public abstract class SpellProjectile extends Projectile {
             onBounced(hitResult);
         } else {
             bounce(hitResult, 1);
-            onWillDiscard();
-            discard();
+            if (onWillDiscard()) {
+                discard();
+            }
         }
 
         castSuffixes(SuffixType.Trigger);
@@ -600,10 +611,11 @@ public abstract class SpellProjectile extends Projectile {
         }
     }
 
-    protected void onWillDiscard() {
+    protected boolean onWillDiscard() {
         applyExplosion();
 
         castSuffixes(SuffixType.Trigger, SuffixType.Timer, SuffixType.Death);
+        return true;
     }
 
     protected void applyExplosion() {

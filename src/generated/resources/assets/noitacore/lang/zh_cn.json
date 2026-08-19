@@ -39,6 +39,8 @@
   "item.noitacore.spell_decelerating_shot.description": "增加投射物的初速度，但也增加飞行时受到的阻力",
   "item.noitacore.spell_disc_bullet": "碟状投射物",
   "item.noitacore.spell_disc_bullet.description": "锐利且富有弹性的的锯片",
+  "item.noitacore.spell_disc_bullet_big": "巨型碟状投射物",
+  "item.noitacore.spell_disc_bullet_big.description": "更大号的锯片！而且它好像关于如何飞行有它自己的想法...",
   "item.noitacore.spell_funky": "???",
   "item.noitacore.spell_funky.description": "???",
   "item.noitacore.spell_laser_emitter": "电浆束",

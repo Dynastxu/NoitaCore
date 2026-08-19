@@ -2,7 +2,7 @@ package dynastxu.noitacore.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import dynastxu.noitacore.client.model.DiscBulletModel;
+import dynastxu.noitacore.client.model.DiscBulletBigModel;
 import dynastxu.noitacore.client.renderer.state.DiscBulletRenderState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -15,18 +15,18 @@ import org.jspecify.annotations.NonNull;
 
 import static dynastxu.noitacore.NoitaCore.MODID;
 
-public class DiscBulletRenderer extends EntityRenderer<Entity, DiscBulletRenderState> {
-    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(MODID, "textures/entity/disc_bullet.png");
-    private final DiscBulletModel model;
+public class DiscBulletBigRenderer extends EntityRenderer<Entity, DiscBulletRenderState> {
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(MODID, "textures/entity/disc_bullet_big.png");
+    private final DiscBulletBigModel model;
     private final boolean isCorpse;
 
-    public DiscBulletRenderer(EntityRendererProvider.Context context) {
+    public DiscBulletBigRenderer(EntityRendererProvider.Context context) {
         this(context, false);
     }
 
-    public DiscBulletRenderer(EntityRendererProvider.Context context, boolean isCorpse) {
+    public DiscBulletBigRenderer(EntityRendererProvider.Context context, boolean isCorpse) {
         super(context);
-        this.model = new DiscBulletModel(context.bakeLayer(DiscBulletModel.LAYER_LOCATION));
+        this.model = new DiscBulletBigModel(context.bakeLayer(DiscBulletBigModel.LAYER_LOCATION));
         this.isCorpse = isCorpse;
     }
 
@@ -50,8 +50,11 @@ public class DiscBulletRenderer extends EntityRenderer<Entity, DiscBulletRenderS
     public void submit(@NonNull DiscBulletRenderState state, @NonNull PoseStack poseStack, @NonNull SubmitNodeCollector submitNodeCollector, @NonNull CameraRenderState camera) {
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(state.yRot));
-        poseStack.scale(0.25f, 0.25f, 0.25f);
-        poseStack.translate(0, 0.125f, 0);
+        if (!isCorpse) {
+            poseStack.translate(0, 0.5f, 0);
+        } else {
+            poseStack.translate(0, 0.25f, 0);
+        }
         submitNodeCollector.submitModel(
                 this.model, state, poseStack, TEXTURE,
                 state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null
