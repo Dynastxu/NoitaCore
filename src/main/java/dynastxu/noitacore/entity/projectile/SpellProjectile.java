@@ -3,9 +3,13 @@ package dynastxu.noitacore.entity.projectile;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import dynastxu.noitacore.DamageTypes;
-import dynastxu.noitacore.DataMaps;
 import dynastxu.noitacore.DataSerializers;
-import dynastxu.noitacore.common.spell.*;
+import dynastxu.noitacore.common.spell.DamageType;
+import dynastxu.noitacore.common.spell.Suffix;
+import dynastxu.noitacore.common.spell.SuffixType;
+import dynastxu.noitacore.common.spell.TickManager;
+import dynastxu.noitacore.datamap.DataMaps;
+import dynastxu.noitacore.datamap.SpellAttributes;
 import dynastxu.noitacore.item.SpellItem;
 import dynastxu.noitacore.particle.explosion.ExplosionParticleOptions;
 import dynastxu.noitacore.utils.EnumCodecs;
@@ -81,6 +85,7 @@ public abstract class SpellProjectile extends Projectile {
     protected float explosion;
     protected float explosionRadius;
     protected float diggingPower;
+    protected int diggingStrength;
     protected float critChance;
     protected float bounceStrength = 0.5f;
     protected List<TickManager<?>> tickManagers = new ArrayList<>();
@@ -133,6 +138,7 @@ public abstract class SpellProjectile extends Projectile {
             }
             if (spellAttributes.other() != null) {
                 state.diggingPower = spellAttributes.other().diggingPower();
+                state.diggingStrength = spellAttributes.other().diggingStrength();
             }
             if (spellAttributes.modifications() != null) {
                 state.critChance = spellAttributes.modifications().criticalChance();
@@ -164,6 +170,7 @@ public abstract class SpellProjectile extends Projectile {
                 }
                 if (modifierAttributes.other() != null) {
                     state.diggingPower += modifierAttributes.other().diggingPower();
+                    state.diggingStrength += modifierAttributes.other().diggingStrength();
                 }
                 if (modifierAttributes.modifications() != null) {
                     state.critChance += modifierAttributes.modifications().criticalChance();
@@ -186,6 +193,7 @@ public abstract class SpellProjectile extends Projectile {
         this.damageMap = state.damageMap;
         this.dieSpeedThreshold = state.dieSpeedThreshold;
         this.diggingPower = state.diggingPower;
+        this.diggingStrength = state.diggingStrength;
         this.explosion = state.explosion;
         this.explosionRadius = state.explosionRadius;
         this.critChance = state.critChance;
@@ -236,6 +244,7 @@ public abstract class SpellProjectile extends Projectile {
         output.putFloat("Explosion", explosion);
         output.putFloat("ExplosionRadius", explosionRadius);
         output.putFloat("DiggingPower", diggingPower);
+        output.putInt("DiggingStrength", diggingStrength);
         output.putFloat("CritChance", critChance);
         output.putBoolean("IsPenetrating", isPenetrating);
         output.putBoolean("IsPiercing", isPiercing);
@@ -271,6 +280,7 @@ public abstract class SpellProjectile extends Projectile {
         explosion = input.getFloatOr("Explosion", 0);
         explosionRadius = input.getFloatOr("ExplosionRadius", 0);
         diggingPower = input.getFloatOr("DiggingPower", 0);
+        diggingStrength = input.getIntOr("DiggingStrength", 0);
         critChance = input.getFloatOr("CritChance", 0);
         isPenetrating = input.getBooleanOr("IsPenetrating", false);
         isPiercing = input.getBooleanOr("IsPiercing", false);
@@ -623,7 +633,7 @@ public abstract class SpellProjectile extends Projectile {
             if (explosionRadius >= 1 && explosion > 0) {
                 LivingEntity indirectSourceEntity = getOwner() instanceof LivingEntity livingEntity ? livingEntity : null;
                 ExplosionManager.add(serverLevel, new SpellExplosion(
-                        serverLevel,this, indirectSourceEntity, this.position(), explosionRadius, false, diggingPower, explosion, this::canHitEntity
+                        serverLevel,this, indirectSourceEntity, this.position(), explosionRadius, false, diggingPower, diggingStrength, explosion, this::canHitEntity
                 ));
             }
             if (explosionRadius > 0) {
@@ -679,6 +689,7 @@ public abstract class SpellProjectile extends Projectile {
         public float explosion;
         public float explosionRadius;
         public float diggingPower;
+        public int diggingStrength;
         public float critChance;
         public boolean penetrating;
         public boolean piercing;
@@ -691,6 +702,7 @@ public abstract class SpellProjectile extends Projectile {
             dieSpeedThreshold = Math.max(dieSpeedThreshold, 0);
             explosionRadius = Math.max(explosionRadius, 0);
             diggingPower = Math.max(diggingPower, 0);
+            diggingStrength = Math.max(diggingStrength, 0);
             critChance = Math.max(critChance, 0);
         }
     }

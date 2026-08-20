@@ -1,14 +1,17 @@
 package dynastxu.noitacore.datagen;
 
-import dynastxu.noitacore.DataMaps;
 import dynastxu.noitacore.common.spell.DamageType;
-import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.spell.SpellType;
 import dynastxu.noitacore.common.spell.SuffixType;
+import dynastxu.noitacore.datamap.DataMaps;
+import dynastxu.noitacore.datamap.MaterialStats;
+import dynastxu.noitacore.datamap.SpellAttributes;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import org.jspecify.annotations.NonNull;
 
@@ -21,6 +24,25 @@ public final class ModDataMapProvider extends DataMapProvider {
 
     @Override
     protected void gather(HolderLookup.@NonNull Provider provider) {
+        gatherDefaultBlock(provider);
+        gatherSpell(provider);
+    }
+
+    private void gatherDefaultBlock(HolderLookup.@NonNull Provider provider) {
+        Builder<MaterialStats, Block> blockBuilder = builder(DataMaps.MATERIAL_STATS);
+        provider.lookupOrThrow(Registries.BLOCK)
+                .listElements()
+                .filter(blockReference -> blockReference.key().identifier().getNamespace().equals("minecraft"))
+                .forEach(blockReference -> {
+                    Block block = blockReference.value();
+                    MaterialStats stats = MaterialStats.create(block);
+                    if (stats != null) {
+                        blockBuilder.add(blockReference.key(), stats, false);
+                    }
+                });
+    }
+
+    private void gatherSpell(HolderLookup.@NonNull Provider provider) {
         Builder<SpellAttributes, Item> spellBuilder = builder(DataMaps.SPELL_ATTRIBUTES);
         boolean replace = true;
 

@@ -1,0 +1,2164 @@
+{
+  "values": {
+    "minecraft:acacia_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:activator_rail": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:air": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:allium": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:attached_melon_stem": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:attached_pumpkin_stem": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:azalea": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:azure_bluet": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:barrier": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:bedrock": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:beetroots": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:birch_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:blackstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:blackstone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:blackstone_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:blackstone_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:blue_orchid": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:brain_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:brain_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:brain_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:brown_mushroom": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:bubble_column": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:bubble_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:bubble_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:bubble_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:bush": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:cactus_flower": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:carrots": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:cave_air": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:cave_vines": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:cave_vines_plant": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:chain_command_block": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:cherry_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:chiseled_deepslate": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:chiseled_nether_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:chiseled_polished_blackstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:chiseled_red_sandstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:chiseled_resin_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:chiseled_sandstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:chiseled_stone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:chiseled_tuff_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:cinnabar_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:cinnabar_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:cinnabar_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:cinnabar_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:closed_eyeblossom": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:cobbled_deepslate": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cobbled_deepslate_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cobbled_deepslate_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cobbled_deepslate_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cobblestone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cobblestone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cobblestone_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cobblestone_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:command_block": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:comparator": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:copper_torch": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:copper_wall_torch": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:cornflower": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:cracked_deepslate_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:cracked_deepslate_tiles": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cracked_nether_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:cracked_polished_blackstone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:cracked_stone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:crimson_fungus": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:crimson_roots": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:cut_red_sandstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cut_red_sandstone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cut_sandstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:cut_sandstone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:dandelion": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dark_oak_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_brain_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_brain_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_brain_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_bubble_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_bubble_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_bubble_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_bush": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_fire_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_fire_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_fire_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_horn_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_horn_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_horn_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_tube_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_tube_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dead_tube_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:decorated_pot": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:deepslate": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:deepslate_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:deepslate_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:deepslate_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:deepslate_coal_ore": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_copper_ore": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_diamond_ore": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_emerald_ore": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_gold_ore": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_iron_ore": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_lapis_ore": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_redstone_ore": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_tile_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_tile_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_tile_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:deepslate_tiles": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:detector_rail": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:diamond_block": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:dried_ghast": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:dripstone_block": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:emerald_block": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:end_gateway": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:end_portal": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:end_portal_frame": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:end_rod": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:end_stone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:end_stone_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:end_stone_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:end_stone_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:end_stone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:fern": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:fire": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:fire_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:fire_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:fire_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:firefly_bush": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:flower_pot": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:flowering_azalea": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:frogspawn": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:gilded_blackstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:glowstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:gold_block": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:golden_dandelion": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:grindstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:hanging_roots": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:honey_block": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:hopper": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:horn_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:horn_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:horn_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:infested_chiseled_stone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:infested_cobblestone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:infested_cracked_stone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:infested_deepslate": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:infested_mossy_stone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:infested_stone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:infested_stone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:jigsaw": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:jungle_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:kelp": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:kelp_plant": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:large_fern": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:leaf_litter": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:light": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:light_weighted_pressure_plate": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:lilac": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:lily_of_the_valley": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:lily_pad": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:lodestone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:mangrove_propagule": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:melon_stem": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:mossy_cobblestone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:mossy_cobblestone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:mossy_cobblestone_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:mossy_cobblestone_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:mossy_stone_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:mossy_stone_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:mossy_stone_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:mossy_stone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:moving_piston": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:mud_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:mud_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:mud_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:mud_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:nether_brick_fence": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:nether_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:nether_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:nether_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:nether_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:nether_portal": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:nether_sprouts": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:nether_wart": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:oak_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:open_eyeblossom": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:orange_tulip": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:oxeye_daisy": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:pale_hanging_moss": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:pale_oak_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:peony": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:pink_petals": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:pink_tulip": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:pitcher_crop": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:pitcher_plant": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:pointed_dripstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_blackstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_blackstone_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:polished_blackstone_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:polished_blackstone_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:polished_blackstone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:polished_blackstone_button": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_blackstone_pressure_plate": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_blackstone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_blackstone_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_blackstone_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_deepslate": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_deepslate_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_deepslate_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:polished_deepslate_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:poppy": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potatoes": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_acacia_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_allium": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_azalea_bush": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_azure_bluet": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_bamboo": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_birch_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_blue_orchid": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_brown_mushroom": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_cactus": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_cherry_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_closed_eyeblossom": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_cornflower": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_crimson_fungus": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_crimson_roots": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_dandelion": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_dark_oak_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_dead_bush": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_fern": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_flowering_azalea_bush": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_golden_dandelion": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_jungle_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_lily_of_the_valley": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_mangrove_propagule": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_oak_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_open_eyeblossom": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_orange_tulip": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_oxeye_daisy": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_pale_oak_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_pink_tulip": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_poppy": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_red_mushroom": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_red_tulip": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_spruce_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_torchflower": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_warped_fungus": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_warped_roots": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_white_tulip": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:potted_wither_rose": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:powered_rail": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:prismarine_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:prismarine_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:prismarine_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:pumpkin_stem": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:quartz_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:rail": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:red_mushroom": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:red_nether_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:red_nether_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:red_nether_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:red_nether_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:red_sandstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:red_sandstone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:red_sandstone_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:red_sandstone_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:red_tulip": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:redstone_block": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:redstone_lamp": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:redstone_ore": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:redstone_torch": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:redstone_wall_torch": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:redstone_wire": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:reinforced_deepslate": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:repeater": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:repeating_command_block": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:resin_block": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:resin_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:resin_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:resin_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:resin_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:resin_clump": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:rose_bush": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:sandstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:sandstone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:sandstone_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:sandstone_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:scaffolding": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:sea_pickle": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:seagrass": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:short_dry_grass": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:short_grass": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:slime_block": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:small_dripleaf": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:smooth_red_sandstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:smooth_red_sandstone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:smooth_red_sandstone_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:smooth_sandstone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:smooth_sandstone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:smooth_sandstone_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:smooth_stone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:smooth_stone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:sniffer_egg": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:soul_fire": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:soul_torch": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:soul_wall_torch": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:spore_blossom": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:spruce_sapling": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:stone": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:stone_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:stone_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:stone_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:stone_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:stone_button": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:stone_pressure_plate": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:stone_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:stone_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:stonecutter": {
+      "conductive": false,
+      "density": 10,
+      "durability": 10,
+      "hardness": 20.0
+    },
+    "minecraft:structure_block": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:structure_void": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:sugar_cane": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:sulfur_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:sulfur_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:sulfur_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:sulfur_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:sunflower": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:sweet_berry_bush": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:tall_dry_grass": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:tall_grass": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:tall_seagrass": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:test_block": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:test_instance_block": {
+      "conductive": false,
+      "density": -1,
+      "durability": -1,
+      "hardness": -1.0
+    },
+    "minecraft:tnt": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:torch": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:torchflower": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:torchflower_crop": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:tripwire": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:tripwire_hook": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:tube_coral": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:tube_coral_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:tube_coral_wall_fan": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:tuff_brick_slab": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:tuff_brick_stairs": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:tuff_brick_wall": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:tuff_bricks": {
+      "conductive": false,
+      "density": 10,
+      "durability": 14,
+      "hardness": 100.0
+    },
+    "minecraft:turtle_egg": {
+      "conductive": true,
+      "density": 10,
+      "durability": 12,
+      "hardness": 13.0
+    },
+    "minecraft:twisting_vines": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:twisting_vines_plant": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:void_air": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:wall_torch": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:warped_fungus": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:warped_roots": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:weeping_vines": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:weeping_vines_plant": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:wheat": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:white_tulip": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:wildflowers": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    },
+    "minecraft:wither_rose": {
+      "conductive": false,
+      "density": 0,
+      "durability": 0,
+      "hardness": 0.0
+    }
+  }
+}

@@ -1,6 +1,8 @@
 package dynastxu.noitacore.world.level.explosion;
 
 import com.mojang.logging.LogUtils;
+import dynastxu.noitacore.datamap.DataMaps;
+import dynastxu.noitacore.datamap.MaterialStats;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -63,17 +65,18 @@ public class SpellExplosion extends ServerExplosion {
     DamageSource damageSource;
     boolean fire;
     private int ticks = 0;
+    protected int strength;
 
-    public SpellExplosion(@NonNull ServerLevel level, Entity source, LivingEntity indirectSource, Vec3 center, float radius, boolean fire, float energy, float damage, Predicate<Entity> canHurt) {
+    public SpellExplosion(@NonNull ServerLevel level, Entity source, LivingEntity indirectSource, Vec3 center, float radius, boolean fire, float energy, int strength, float damage, Predicate<Entity> canHurt) {
         DamageSource damageSource = level.damageSources().source(
                 DamageTypes.EXPLOSION,
                 source,
                 indirectSource
         );
-        this(level, source, indirectSource, damageSource, center, radius, fire, energy, damage, canHurt);
+        this(level, source, indirectSource, damageSource, center, radius, fire, energy, strength, damage, canHurt);
     }
 
-    private SpellExplosion(@NonNull ServerLevel level, Entity source, LivingEntity indirectSource, DamageSource damageSource, Vec3 center, float radius, boolean fire, float energy, float damage, Predicate<Entity> canHurt) {
+    private SpellExplosion(@NonNull ServerLevel level, Entity source, LivingEntity indirectSource, DamageSource damageSource, Vec3 center, float radius, boolean fire, float energy, int strength, float damage, Predicate<Entity> canHurt) {
         super(level, source, damageSource, null, center, radius, fire, BLOCK_INTERACTION);
 
         this.level = level;
@@ -86,6 +89,7 @@ public class SpellExplosion extends ServerExplosion {
         this.canHurt = canHurt;
         this.indirectSource = indirectSource;
         this.source = source;
+        this.strength = strength;
 
         initRays();
     }
@@ -319,10 +323,19 @@ public class SpellExplosion extends ServerExplosion {
             }
             lastPos = pos;
 
-            BlockState state = level.getBlockState(pos);
-            float explosionResistance = state.getExplosionResistance(level, pos, explosion);
+            BlockState blockState = level.getBlockState(pos);
+            MaterialStats materialStats = blockState.getData(DataMaps.MATERIAL_STATS);
+            float explosionResistance;
+            float durability;
+            if (materialStats == null) {
+                explosionResistance = blockState.getExplosionResistance(level, pos, explosion);
+                durability = 4;
+            } else {
+                explosionResistance = materialStats.hardness();
+                durability = materialStats.durability();
+            }
 
-            if (energy < explosionResistance) {
+            if (explosionResistance == -1 || strength < durability || energy < explosionResistance) {
                 dead = true;
                 return;
             }

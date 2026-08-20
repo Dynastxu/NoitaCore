@@ -87,6 +87,10 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addTooltip("spread", "Spread");
         addTooltip("explosion", "Explosion");
         addTooltip("always_casts", "Always Cast");
+        addTooltip("durability", "Durability");
+        addTooltip("density", "Density");
+        addTooltip("hardness", "Hardness");
+        addTooltip("conductive", "Conductive");
     }
 
     @Override

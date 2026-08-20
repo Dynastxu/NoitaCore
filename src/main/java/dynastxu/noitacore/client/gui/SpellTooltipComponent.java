@@ -1,7 +1,7 @@
 package dynastxu.noitacore.client.gui;
 
-import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.components.SpellData;
+import dynastxu.noitacore.datamap.SpellAttributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import org.jspecify.annotations.Nullable;

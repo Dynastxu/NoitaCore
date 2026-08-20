@@ -1,17 +1,14 @@
 package dynastxu.noitacore.client;
 
-import dynastxu.noitacore.DataMaps;
-import dynastxu.noitacore.client.gui.SpellClientTooltipComponent;
-import dynastxu.noitacore.client.gui.SpellTooltipComponent;
-import dynastxu.noitacore.client.gui.WandClientTooltipComponent;
-import dynastxu.noitacore.client.gui.WandTooltipComponent;
+import dynastxu.noitacore.client.gui.*;
 import dynastxu.noitacore.client.model.*;
 import dynastxu.noitacore.client.renderer.*;
 import dynastxu.noitacore.client.screen.WandScreen;
-import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.wand.Caster;
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.components.SpellData;
+import dynastxu.noitacore.datamap.DataMaps;
+import dynastxu.noitacore.datamap.SpellAttributes;
 import dynastxu.noitacore.entity.EntityTypes;
 import dynastxu.noitacore.item.Items;
 import dynastxu.noitacore.item.SpellItem;
@@ -81,6 +78,7 @@ public final class ClientSetup {
     public static void registerTooltipFactories(@NonNull RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(WandTooltipComponent.class, WandClientTooltipComponent::new);
         event.register(SpellTooltipComponent.class, SpellClientTooltipComponent::new);
+        event.register(MaterialStatsTooltipComponent.class, MaterialStatsClientTooltipComponent::new);
     }
 
     @SubscribeEvent

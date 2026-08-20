@@ -1,7 +1,10 @@
-package dynastxu.noitacore.common.spell;
+package dynastxu.noitacore.datamap;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dynastxu.noitacore.common.spell.DamageType;
+import dynastxu.noitacore.common.spell.SpellType;
+import dynastxu.noitacore.common.spell.SuffixType;
 import dynastxu.noitacore.utils.EnumCodecs;
 import io.netty.buffer.ByteBuf;
 import lombok.Builder;

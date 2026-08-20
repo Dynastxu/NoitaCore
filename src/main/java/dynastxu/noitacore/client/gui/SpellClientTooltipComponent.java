@@ -2,9 +2,9 @@ package dynastxu.noitacore.client.gui;
 
 import dynastxu.noitacore.client.font.Font;
 import dynastxu.noitacore.common.spell.DamageType;
-import dynastxu.noitacore.common.spell.SpellAttributes;
 import dynastxu.noitacore.common.wand.Caster;
 import dynastxu.noitacore.components.SpellData;
+import dynastxu.noitacore.datamap.SpellAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;

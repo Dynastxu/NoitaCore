@@ -1,6 +1,6 @@
 package dynastxu.noitacore.common.wand;
 
-import dynastxu.noitacore.common.spell.SpellAttributes;
+import dynastxu.noitacore.datamap.SpellAttributes;
 import net.minecraft.world.entity.player.Player;
 
 public record Caster<T>(

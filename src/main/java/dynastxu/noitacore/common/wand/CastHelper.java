@@ -1,9 +1,13 @@
 package dynastxu.noitacore.common.wand;
 
 import com.mojang.logging.LogUtils;
-import dynastxu.noitacore.common.spell.*;
+import dynastxu.noitacore.common.spell.Spell;
+import dynastxu.noitacore.common.spell.Suffix;
+import dynastxu.noitacore.common.spell.SuffixType;
+import dynastxu.noitacore.common.spell.UnitSpellChain;
 import dynastxu.noitacore.components.SpellData;
 import dynastxu.noitacore.components.WandData;
+import dynastxu.noitacore.datamap.SpellAttributes;
 import dynastxu.noitacore.utils.Utils;
 import lombok.Getter;
 import net.minecraft.core.Holder;

@@ -87,6 +87,10 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addTooltip("spread", "散射");
         addTooltip("explosion", "爆炸伤害");
         addTooltip("always_casts", "始终施放");
+        addTooltip("durability", "破坏等级");
+        addTooltip("density", "密度");
+        addTooltip("hardness", "材料血量");
+        addTooltip("conductive", "导电性");
     }
 
     @Override
