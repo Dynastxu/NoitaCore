@@ -2,37 +2,16 @@ package dynastxu.noitacore.client.gui;
 
 import dynastxu.noitacore.datamap.MaterialStats;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaterialStatsClientTooltipComponent implements ClientTooltipComponent {
-    private static final int LABEL_VALUE_GAP = 8;
-
-    private record StatLine(Component label, Component value) {}
-
-    private final List<StatLine> statLines;
-    private final int maxLabelWidth;
-    private final int maxValueWidth;
+public class MaterialStatsClientTooltipComponent extends AbstractStatClientTooltipComponent {
 
     public MaterialStatsClientTooltipComponent(@NonNull MaterialStatsTooltipComponent component) {
-        MaterialStats stats = component.stats();
-        Minecraft mc = Minecraft.getInstance();
-        this.statLines = buildStatLines(stats);
-
-        this.maxLabelWidth = statLines.stream()
-                .mapToInt(sl -> mc.font.width(sl.label))
-                .max()
-                .orElse(0);
-        this.maxValueWidth = statLines.stream()
-                .mapToInt(sl -> mc.font.width(sl.value))
-                .max()
-                .orElse(0);
+        super(buildStatLines(component.stats()));
     }
 
     private static @NonNull List<StatLine> buildStatLines(@NonNull MaterialStats stats) {
@@ -55,26 +34,5 @@ public class MaterialStatsClientTooltipComponent implements ClientTooltipCompone
                 Component.translatable(stats.conductive() ? "gui.yes" : "gui.no").withStyle(ChatFormatting.GRAY)));
 
         return lines;
-    }
-
-    @Override
-    public int getHeight(net.minecraft.client.gui.@NonNull Font font) {
-        return statLines.size() * (font.lineHeight + 1);
-    }
-
-    @Override
-    public int getWidth(net.minecraft.client.gui.@NonNull Font font) {
-        return maxLabelWidth + LABEL_VALUE_GAP + maxValueWidth;
-    }
-
-    @Override
-    public void extractText(@NonNull GuiGraphicsExtractor graphics, net.minecraft.client.gui.@NonNull Font font, int x, int y) {
-        int lineHeight = font.lineHeight + 1;
-        int valueX = x + maxLabelWidth + LABEL_VALUE_GAP;
-        for (StatLine sl : statLines) {
-            graphics.text(font, sl.label, x, y, 0xFFFFFFFF);
-            graphics.text(font, sl.value, valueX, y, 0xFFFFFFFF);
-            y += lineHeight;
-        }
     }
 }

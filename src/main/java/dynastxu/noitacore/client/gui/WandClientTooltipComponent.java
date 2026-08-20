@@ -2,9 +2,7 @@ package dynastxu.noitacore.client.gui;
 
 import dynastxu.noitacore.client.font.Font;
 import dynastxu.noitacore.common.wand.WandStatistics;
-import dynastxu.noitacore.components.WandData;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -14,46 +12,30 @@ import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WandClientTooltipComponent implements ClientTooltipComponent {
+public class WandClientTooltipComponent extends AbstractStatClientTooltipComponent {
     private static final int ICON_SIZE = 16;
     private static final int ICON_GAP = 2;
     private static final int MAX_PER_ROW = 8;
     private static final int GAP = 2;
-    private static final int LABEL_VALUE_GAP = 8;
-
-    private record StatLine(Component label, Component value) {}
 
     private final Component label;
     private final int labelWidth;
-    private final List<StatLine> statLines;
     private final List<ItemStack> alwaysCasts;
-    private final int maxLabelWidth;
-    private final int maxValueWidth;
     private final int gridWidth;
     private final int gridHeight;
 
     public WandClientTooltipComponent(@NonNull WandTooltipComponent component) {
-        WandData wandData = component.wandData();
-        WandStatistics stats = wandData.statistics();
+        super(buildStatLines(component.wandData().statistics()));
 
+        WandStatistics stats = component.wandData().statistics();
         this.alwaysCasts = new ArrayList<>();
         for (Holder<Item> holder : stats.alwaysCasts()) {
             this.alwaysCasts.add(holder.value().getDefaultInstance());
         }
 
-        this.statLines = buildStatLines(stats);
-
         net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
         this.label = Component.translatable("tooltip.noitacore.always_casts");
         this.labelWidth = alwaysCasts.isEmpty() ? 0 : mc.font.width(label);
-        this.maxLabelWidth = statLines.stream()
-                .mapToInt(sl -> mc.font.width(sl.label))
-                .max()
-                .orElse(0);
-        this.maxValueWidth = statLines.stream()
-                .mapToInt(sl -> mc.font.width(sl.value))
-                .max()
-                .orElse(0);
 
         int cols = Math.min(alwaysCasts.size(), MAX_PER_ROW);
         this.gridWidth = alwaysCasts.isEmpty() ? 0 : cols * ICON_SIZE + (cols - 1) * ICON_GAP;
@@ -115,7 +97,7 @@ public class WandClientTooltipComponent implements ClientTooltipComponent {
 
     @Override
     public int getHeight(net.minecraft.client.gui.@NonNull Font font) {
-        int textHeight = statLines.size() * (font.lineHeight + 1);
+        int textHeight = super.getHeight(font);
         if (alwaysCasts.isEmpty()) {
             return textHeight;
         }
@@ -124,23 +106,17 @@ public class WandClientTooltipComponent implements ClientTooltipComponent {
 
     @Override
     public int getWidth(net.minecraft.client.gui.@NonNull Font font) {
-        int statsWidth = maxLabelWidth + LABEL_VALUE_GAP + maxValueWidth;
+        int statsWidth = super.getWidth(font);
         return Math.max(Math.max(labelWidth, gridWidth), statsWidth);
     }
 
     @Override
     public void extractText(@NonNull GuiGraphicsExtractor graphics, net.minecraft.client.gui.@NonNull Font font, int x, int y) {
-        int lineHeight = font.lineHeight + 1;
         if (!alwaysCasts.isEmpty()) {
             graphics.text(font, label, x, y, 0xFFFFFFFF);
-            y += lineHeight + gridHeight + GAP;
+            y += font.lineHeight + 1 + gridHeight + GAP;
         }
-        int valueX = x + maxLabelWidth + LABEL_VALUE_GAP;
-        for (StatLine sl : statLines) {
-            graphics.text(font, sl.label, x, y, 0xFFFFFFFF);
-            graphics.text(font, sl.value, valueX, y, 0xFFFFFFFF);
-            y += lineHeight;
-        }
+        renderStatLines(graphics, font, x, y);
     }
 
     @Override
