@@ -201,7 +201,7 @@ public final class ModDataMapProvider extends DataMapProvider {
                                 15f/7, 0.6f, 120, 0.00001f, 0.2f, 0, 0
                         ))
                         .other(SpellAttributes.Other.builder()
-                                .basePrice(400).diggingStrength(8).diggingPower(670).build()
+                                .basePrice(400).diggingStrength(12).diggingPower(670).build()
                         ).build(),
                 replace
         );

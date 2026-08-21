@@ -854,7 +854,7 @@
         "other": {
           "base_price": 400,
           "digging_power": 670.0,
-          "digging_strength": 8
+          "digging_strength": 12
         },
         "time": {
           "can_hit_shooter_after": 0,
