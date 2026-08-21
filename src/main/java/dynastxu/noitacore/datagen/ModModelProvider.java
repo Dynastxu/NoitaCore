@@ -31,36 +31,7 @@ public final class ModModelProvider extends ModelProvider {
     protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
         Register r = new Register(blockModels, itemModels);
 
-        r.registerProjectile(Items.SPELL_RUBBER_BALL);
-        r.registerProjectile(Items.SPELL_LIGHT_BULLET);
-        r.registerProjectile(Items.SPELL_LIGHT_BULLET_TRIGGER);
-        r.registerProjectile(Items.SPELL_LIGHT_BULLET_TRIGGER_2);
-        r.registerProjectile(Items.SPELL_LIGHT_BULLET_TIMER);
-        r.registerProjectile(Items.SPELL_NUKE);
-        r.registerProjectile(Items.SPELL_NUKE_GIGA);
-        r.registerProjectile(Items.SPELL_CRUMBLING_EARTH);
-        r.registerProjectile(Items.SPELL_FUNKY);
-        r.registerProjectile(Items.SPELL_BLACK_HOLE);
-        r.registerProjectile(Items.SPELL_BLACK_HOLE_DEATH_TRIGGER);
-        r.registerProjectile(Items.SPELL_BUCKSHOT);
-        r.registerProjectile(Items.SPELL_LASER_EMITTER);
-        r.registerProjectile(Items.SPELL_TELEPORT_PROJECTILE);
-        r.registerProjectile(Items.SPELL_TELEPORT_PROJECTILE_SHORT);
-        r.registerProjectile(Items.SPELL_DISC_BULLET);
-        r.registerProjectile(Items.SPELL_DISC_BULLET_BIG);
-
-        r.registerModifier(Items.SPELL_MANA_REDUCE);
-        r.registerModifier(Items.SPELL_CRITICAL_HIT);
-        r.registerModifier(Items.SPELL_ORBIT_LASERS);
-        r.registerModifier(Items.SPELL_SPEED);
-        r.registerModifier(Items.SPELL_ACCELERATING_SHOT);
-        r.registerModifier(Items.SPELL_DECELERATING_SHOT);
-
-        r.registerMulticast(Items.SPELL_BURST_2);
-        r.registerMulticast(Items.SPELL_BURST_3);
-        r.registerMulticast(Items.SPELL_BURST_4);
-        r.registerMulticast(Items.SPELL_BURST_8);
-        r.registerMulticast(Items.SPELL_BURST_X);
+        Items.SPELL_ITEMS.forEach(r::registerSpell);
 
         r.registerWand(Items.WAND_SMC_SC_NS);
         r.registerWand(Items.WAND_LC_SC_S);
@@ -71,7 +42,7 @@ public final class ModModelProvider extends ModelProvider {
     }
 
     private record Register(BlockModelGenerators blockModel, ItemModelGenerators itemModel) {
-        private void registerSpell(Item item, @NonNull ItemModelGenerators itemModels, @NonNull SpellType spellType) {
+        private void registerSpell(Item item, @NonNull SpellType spellType) {
             String layerPath = switch (spellType) {
                 case Projectile -> "spell_layer_projectile";
                 case Static -> "spell_layer_static";
@@ -88,10 +59,10 @@ public final class ModModelProvider extends ModelProvider {
             Material layer1 = TextureMapping.getItemTexture(item);
 
             // 生成模型 JSON 并获取其标识符
-            Identifier modelId = itemModels.generateLayeredItem(item, layer0, layer1);
+            Identifier modelId = itemModel.generateLayeredItem(item, layer0, layer1);
 
             // 输出客户端物品定义（items/<item_id>.json）
-            itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelId));
+            itemModel.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelId));
         }
 
         private void registerWand(Item item, @NonNull ItemModelGenerators itemModels) {
@@ -102,16 +73,8 @@ public final class ModModelProvider extends ModelProvider {
             registerWand(item.get(), this.itemModel);
         }
 
-        public void registerProjectile(@NonNull DeferredItem<? extends SpellItem.Projectile> item) {
-            registerSpell(item.get(), this.itemModel, SpellType.Projectile);
-        }
-
-        public void registerModifier(@NonNull DeferredItem<? extends SpellItem.Modifier> item) {
-            registerSpell(item.get(), this.itemModel, SpellType.Modifier);
-        }
-
-        public void registerMulticast(@NonNull DeferredItem<? extends SpellItem.Multicast> item) {
-            registerSpell(item.get(), this.itemModel, SpellType.Multicast);
+        public <I extends SpellItem> void registerSpell(@NonNull DeferredItem<I> item) {
+            registerSpell(item.get(), item.get().spellType);
         }
 
         void registerTrivialCube(@NonNull DeferredBlock<?> block, String name) {
