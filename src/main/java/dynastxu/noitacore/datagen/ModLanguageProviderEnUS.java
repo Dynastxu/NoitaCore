@@ -1,7 +1,7 @@
 package dynastxu.noitacore.datagen;
 
+import dynastxu.noitacore.block.Blocks;
 import dynastxu.noitacore.common.spell.SpellType;
-import dynastxu.noitacore.item.CreativeTabs;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.data.PackOutput;
 
@@ -14,8 +14,8 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
 
     @Override
     protected void addCreativeTabs() {
-        add(CreativeTabs.NOITA_SPELL_TAB, "Noita Spells");
-        add(CreativeTabs.NOITA_WAND_TAB, "Noita Wands");
+        addCreativeModeTab("noita_spells", "Noita Spells");
+        addCreativeModeTab("noita_blocks", "Noita Blocks");
     }
 
     @Override
@@ -59,6 +59,11 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         add(Items.WAND_LC_SC_S.get(), "Wand - Large Capacity - Single Cast - Shuffle");
         add(Items.WAND_MLC_3C_S.get(), "Wand - Med/Large Capacity - 3 Cast - Shuffle");
         add(Items.WAND_OF_DESTRUCTION.get(), "WAND OF DESTRUCTION");
+    }
+
+    @Override
+    protected void addBlocks() {
+        add(Blocks.BRICKWORK.get(), "Brickwork");
     }
 
     @Override

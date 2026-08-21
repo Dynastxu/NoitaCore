@@ -1,10 +1,12 @@
 package dynastxu.noitacore.item;
 
+import dynastxu.noitacore.block.Blocks;
 import dynastxu.noitacore.common.wand.WandStatistics;
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.components.SpellData;
 import dynastxu.noitacore.components.WandData;
 import dynastxu.noitacore.entity.EntityTypes;
+import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -179,4 +181,6 @@ public final class Items {
                     SPELL_NUKE
             ), 1
             )))));
+
+    public static final DeferredItem<BlockItem> BRICKWORK = ITEMS.registerItem("brickwork", properties -> new BlockItem(Blocks.BRICKWORK.get(), properties));
 }

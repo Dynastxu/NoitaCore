@@ -2159,6 +2159,15 @@
       "density": 0,
       "durability": 0,
       "hardness": 0.0
+    },
+    "noitacore:brickwork": {
+      "replace": true,
+      "value": {
+        "conductive": false,
+        "density": 10,
+        "durability": 14,
+        "hardness": 100.0
+      }
     }
   }
 }

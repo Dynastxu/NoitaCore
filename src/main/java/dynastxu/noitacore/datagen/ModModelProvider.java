@@ -1,5 +1,6 @@
 package dynastxu.noitacore.datagen;
 
+import dynastxu.noitacore.block.Blocks;
 import dynastxu.noitacore.common.spell.SpellType;
 import dynastxu.noitacore.item.Items;
 import dynastxu.noitacore.item.SpellItem;
@@ -14,6 +15,7 @@ import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jspecify.annotations.NonNull;
 
@@ -64,9 +66,11 @@ public final class ModModelProvider extends ModelProvider {
         r.registerWand(Items.WAND_LC_SC_S);
         r.registerWand(Items.WAND_MLC_3C_S);
         r.registerWand(Items.WAND_OF_DESTRUCTION);
+
+        r.registerTrivialCube(Blocks.BRICKWORK, "brickwork");
     }
 
-    private record Register(BlockModelGenerators block, ItemModelGenerators item) {
+    private record Register(BlockModelGenerators blockModel, ItemModelGenerators itemModel) {
         private void registerSpell(Item item, @NonNull ItemModelGenerators itemModels, @NonNull SpellType spellType) {
             String layerPath = switch (spellType) {
                 case Projectile -> "spell_layer_projectile";
@@ -95,19 +99,28 @@ public final class ModModelProvider extends ModelProvider {
         }
 
         public void registerWand(@NonNull DeferredItem<WandItem> item) {
-            registerWand(item.get(), this.item);
+            registerWand(item.get(), this.itemModel);
         }
 
         public void registerProjectile(@NonNull DeferredItem<? extends SpellItem.Projectile> item) {
-            registerSpell(item.get(), this.item, SpellType.Projectile);
+            registerSpell(item.get(), this.itemModel, SpellType.Projectile);
         }
 
         public void registerModifier(@NonNull DeferredItem<? extends SpellItem.Modifier> item) {
-            registerSpell(item.get(), this.item, SpellType.Modifier);
+            registerSpell(item.get(), this.itemModel, SpellType.Modifier);
         }
 
         public void registerMulticast(@NonNull DeferredItem<? extends SpellItem.Multicast> item) {
-            registerSpell(item.get(), this.item, SpellType.Multicast);
+            registerSpell(item.get(), this.itemModel, SpellType.Multicast);
+        }
+
+        void registerTrivialCube(@NonNull DeferredBlock<?> block, String name) {
+            registerTrivialCube(block, Identifier.fromNamespaceAndPath(MODID, "block/" + name));
+        }
+
+        public void registerTrivialCube(@NonNull DeferredBlock<?> block, Identifier id) {
+            this.blockModel.createTrivialCube(block.get());
+            this.itemModel.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(id));
         }
     }
 }

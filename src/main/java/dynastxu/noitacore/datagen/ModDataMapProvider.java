@@ -1,5 +1,6 @@
 package dynastxu.noitacore.datagen;
 
+import dynastxu.noitacore.block.Blocks;
 import dynastxu.noitacore.common.spell.DamageType;
 import dynastxu.noitacore.common.spell.SpellType;
 import dynastxu.noitacore.common.spell.SuffixType;
@@ -24,11 +25,12 @@ public final class ModDataMapProvider extends DataMapProvider {
 
     @Override
     protected void gather(HolderLookup.@NonNull Provider provider) {
-        gatherDefaultBlock(provider);
-        gatherSpell(provider);
+        gatherVanillaBlocks(provider);
+        gatherModBlocks(provider);
+        gatherSpells(provider);
     }
 
-    private void gatherDefaultBlock(HolderLookup.@NonNull Provider provider) {
+    private void gatherVanillaBlocks(HolderLookup.@NonNull Provider provider) {
         Builder<MaterialStats, Block> blockBuilder = builder(DataMaps.MATERIAL_STATS);
         provider.lookupOrThrow(Registries.BLOCK)
                 .listElements()
@@ -42,7 +44,19 @@ public final class ModDataMapProvider extends DataMapProvider {
                 });
     }
 
-    private void gatherSpell(HolderLookup.@NonNull Provider provider) {
+    private void gatherModBlocks(HolderLookup.@NonNull Provider provider) {
+        Builder<MaterialStats, Block> blockBuilder = builder(DataMaps.MATERIAL_STATS);
+        boolean replace = true;
+
+        blockBuilder.add(
+                Blocks.BRICKWORK.getKey(),
+                MaterialStats.builder()
+                        .durability(14).density(10).hardness(100).build(),
+                replace
+        );
+    }
+
+    private void gatherSpells(HolderLookup.@NonNull Provider provider) {
         Builder<SpellAttributes, Item> spellBuilder = builder(DataMaps.SPELL_ATTRIBUTES);
         boolean replace = true;
 

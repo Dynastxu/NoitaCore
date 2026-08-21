@@ -2,11 +2,8 @@ package dynastxu.noitacore.datagen;
 
 import dynastxu.noitacore.item.SpellItem;
 import net.minecraft.data.PackOutput;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jspecify.annotations.NonNull;
 
@@ -26,12 +23,8 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
         addEnums();
     }
 
-    public static @NonNull Component getTranslatable(String path) {
-        return Component.translatable("itemGroup." + MODID + "." + path);
-    }
-
-    protected void add(@NonNull DeferredHolder<CreativeModeTab, CreativeModeTab> tab, String value) {
-        add("itemGroup." + MODID + "." + tab.getId().getPath(), value);
+    protected void addCreativeModeTab(String tab, String value) {
+        add("itemGroup." + MODID + "." + tab, value);
     }
 
     protected void addDamageTypeDefault(String msgId, String msg, String msgByPlayer, String msgByItem) {
@@ -60,6 +53,8 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
     protected abstract void addCreativeTabs();
 
     protected abstract void addItems();
+
+    protected abstract void addBlocks();
 
     protected abstract void addDamageTypes();
 

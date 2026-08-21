@@ -2,6 +2,7 @@ package dynastxu.noitacore.datamap;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import lombok.Builder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
@@ -9,12 +10,21 @@ import net.minecraft.world.level.block.SoundType;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+@Builder
 public record MaterialStats(
     int durability,
     int density,
     float hardness,
     boolean conductive
 ) {
+    public static @NonNull MaterialStatsBuilder builder() {
+        return new MaterialStatsBuilder()
+                .durability(0)
+                .density(0)
+                .hardness(0)
+                .conductive(false);
+    }
+
     public static final Codec<MaterialStats> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("durability").forGetter(MaterialStats::durability),
             Codec.INT.fieldOf("density").forGetter(MaterialStats::density),

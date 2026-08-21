@@ -1,7 +1,7 @@
 package dynastxu.noitacore.datagen;
 
+import dynastxu.noitacore.block.Blocks;
 import dynastxu.noitacore.common.spell.SpellType;
-import dynastxu.noitacore.item.CreativeTabs;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.data.PackOutput;
 
@@ -14,8 +14,8 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
 
     @Override
     protected void addCreativeTabs() {
-        add(CreativeTabs.NOITA_SPELL_TAB, "女巫：法术");
-        add(CreativeTabs.NOITA_WAND_TAB, "女巫：法杖");
+        addCreativeModeTab("noita_spells", "女巫：法术");
+        addCreativeModeTab("noita_blocks", "女巫：方块");
     }
 
     @Override
@@ -59,6 +59,11 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         add(Items.WAND_LC_SC_S.get(), "法杖 - 大容量 - 单施法 - 无序");
         add(Items.WAND_MLC_3C_S.get(), "法杖 - 中/大容量 - 3 施法 - 无序");
         add(Items.WAND_OF_DESTRUCTION.get(), "毁灭之杖");
+    }
+
+    @Override
+    protected void addBlocks() {
+        add(Blocks.BRICKWORK.get(), "砖块");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package dynastxu.noitacore;
 
+import dynastxu.noitacore.block.Blocks;
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.entity.EntityTypes;
 import dynastxu.noitacore.item.CreativeTabs;
@@ -16,6 +17,7 @@ public final class NoitaCore {
 
     public NoitaCore(IEventBus modEventBus, ModContainer modContainer) {
         Items.ITEMS.register(modEventBus);
+        Blocks.BLOCKS.register(modEventBus);
         DataComponents.COMPONENT_TYPES.register(modEventBus);
         CreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         MenuTypes.MENU_TYPES.register(modEventBus);
