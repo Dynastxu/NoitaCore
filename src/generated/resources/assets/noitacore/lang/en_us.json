@@ -1,4 +1,7 @@
 {
+  "block.noitacore.brickwork": "Brickwork",
+  "block.noitacore.brickwork_slab": "Brickwork Slab",
+  "block.noitacore.brickwork_stair": "Brickwork Stair",
   "death.attack.spell_projectile": "%1$s was killed by %2$s's projectiles",
   "death.attack.spell_projectile.item": "%1$s was killed by projectiles fired by %3$s from %2$s",
   "death.attack.spell_projectile.player": "%1$s was assassinated by projectile",

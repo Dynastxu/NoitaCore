@@ -8,12 +8,16 @@ import dynastxu.noitacore.item.WandItem;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.renderer.block.dispatch.Variant;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -38,7 +42,7 @@ public final class ModModelProvider extends ModelProvider {
         r.registerWand(Items.WAND_MLC_3C_S);
         r.registerWand(Items.WAND_OF_DESTRUCTION);
 
-        r.registerTrivialCube(Blocks.BRICKWORK, "brickwork");
+        r.registerWithSlabAndStair(Blocks.BRICKWORK, Blocks.BRICKWORK_SLAB, Blocks.BRICKWORK_STAIR, "brickwork");
     }
 
     private record Register(BlockModelGenerators blockModel, ItemModelGenerators itemModel) {
@@ -82,8 +86,82 @@ public final class ModModelProvider extends ModelProvider {
         }
 
         public void registerTrivialCube(@NonNull DeferredBlock<?> block, Identifier id) {
+            DataGen.requireNonAir(block.asItem());
+
             this.blockModel.createTrivialCube(block.get());
             this.itemModel.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(id));
+        }
+
+        public void registerSlab(@NonNull DeferredBlock<?> slabBlock, @NonNull DeferredBlock<?> baseBlock, String name) {
+            DataGen.requireNonAir(baseBlock.asItem());
+            DataGen.requireNonAir(slabBlock.asItem());
+
+            var texture = TextureMapping.getBlockTexture(baseBlock.get());
+            var textureMapping = new TextureMapping()
+                    .put(TextureSlot.SIDE, texture)
+                    .put(TextureSlot.BOTTOM, texture)
+                    .put(TextureSlot.TOP, texture);
+
+            var slabBottomId = Identifier.fromNamespaceAndPath(MODID, "block/" + name + "_slab");
+            var slabTopId = Identifier.fromNamespaceAndPath(MODID, "block/" + name + "_slab_top");
+            var slabFullId = Identifier.fromNamespaceAndPath(MODID, "block/" + name + "_slab_full");
+
+            var slabBottom = ModelTemplates.SLAB_BOTTOM.create(slabBottomId, textureMapping, this.blockModel.modelOutput);
+            var slabTop = ModelTemplates.SLAB_TOP.create(slabTopId, textureMapping, this.blockModel.modelOutput);
+            var full = ModelTemplates.CUBE_BOTTOM_TOP.create(slabFullId, textureMapping, this.blockModel.modelOutput);
+
+            this.blockModel.blockStateOutput.accept(
+                    BlockModelGenerators.createSlab(
+                            slabBlock.get(),
+                            new MultiVariant(WeightedList.of(new Variant(slabBottom))),
+                            new MultiVariant(WeightedList.of(new Variant(slabTop))),
+                            new MultiVariant(WeightedList.of(new Variant(full)))
+                    )
+            );
+
+            this.itemModel.itemModelOutput.accept(
+                    slabBlock.asItem(),
+                    ItemModelUtils.plainModel(slabBottomId)
+            );
+        }
+
+        public void registerStair(@NonNull DeferredBlock<?> stairBlock, @NonNull DeferredBlock<?> baseBlock, String name) {
+            DataGen.requireNonAir(baseBlock.asItem());
+            DataGen.requireNonAir(stairBlock.asItem());
+
+            var texture = TextureMapping.getBlockTexture(baseBlock.get());
+            var textureMapping = new TextureMapping()
+                    .put(TextureSlot.SIDE, texture)
+                    .put(TextureSlot.BOTTOM, texture)
+                    .put(TextureSlot.TOP, texture);
+
+            var straightId = Identifier.fromNamespaceAndPath(MODID, "block/" + name + "_stairs");
+            var innerId = Identifier.fromNamespaceAndPath(MODID, "block/" + name + "_stairs_inner");
+            var outerId = Identifier.fromNamespaceAndPath(MODID, "block/" + name + "_stairs_outer");
+
+            var straight = ModelTemplates.STAIRS_STRAIGHT.create(straightId, textureMapping, this.blockModel.modelOutput);
+            var inner = ModelTemplates.STAIRS_INNER.create(innerId, textureMapping, this.blockModel.modelOutput);
+            var outer = ModelTemplates.STAIRS_OUTER.create(outerId, textureMapping, this.blockModel.modelOutput);
+
+            this.blockModel.blockStateOutput.accept(
+                    BlockModelGenerators.createStairs(
+                            stairBlock.get(),
+                            new MultiVariant(WeightedList.of(new Variant(inner))),
+                            new MultiVariant(WeightedList.of(new Variant(straight))),
+                            new MultiVariant(WeightedList.of(new Variant(outer)))
+                    )
+            );
+
+            this.itemModel.itemModelOutput.accept(
+                    stairBlock.asItem(),
+                    ItemModelUtils.plainModel(straightId)
+            );
+        }
+
+        public void registerWithSlabAndStair(@NonNull DeferredBlock<?> baseBlock, DeferredBlock<?> slabBlock, DeferredBlock<?> stairBlock, String name) {
+            registerTrivialCube(baseBlock, name);
+            registerSlab(slabBlock, baseBlock, name);
+            registerStair(stairBlock, baseBlock, name);
         }
     }
 }

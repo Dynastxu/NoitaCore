@@ -11,6 +11,7 @@ import dynastxu.noitacore.item.Items;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.DataMapProvider;
@@ -48,12 +49,22 @@ public final class ModDataMapProvider extends DataMapProvider {
         Builder<MaterialStats, Block> blockBuilder = builder(DataMaps.MATERIAL_STATS);
         boolean replace = true;
 
-        blockBuilder.add(
-                Blocks.BRICKWORK.getKey(),
+        gather(
+                blockBuilder,
                 MaterialStats.builder()
                         .durability(14).density(10).hardness(100).build(),
-                replace
+                replace,
+                Blocks.BRICKWORK.getKey(),
+                Blocks.BRICKWORK_SLAB.getKey(),
+                Blocks.BRICKWORK_STAIR.getKey()
         );
+    }
+
+    @SafeVarargs
+    private <T, R> void gather(Builder<T, R> builder, T value, boolean replace, ResourceKey<R> @NonNull ... blocks) {
+        for (ResourceKey<R> block: blocks) {
+            builder.add(block, value, replace);
+        }
     }
 
     private void gatherSpells(HolderLookup.@NonNull Provider provider) {

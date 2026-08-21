@@ -1,4 +1,7 @@
 {
+  "block.noitacore.brickwork": "砖块",
+  "block.noitacore.brickwork_slab": "砖块台阶",
+  "block.noitacore.brickwork_stair": "砖块楼梯",
   "death.attack.spell_projectile": "%1$s死于%2$s的弹射物",
   "death.attack.spell_projectile.item": "%1$s死于%2$s使用%3$s发射的弹射物",
   "death.attack.spell_projectile.player": "%1$s被弹射物暗杀",

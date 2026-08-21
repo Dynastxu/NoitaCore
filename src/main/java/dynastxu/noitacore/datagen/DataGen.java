@@ -7,6 +7,8 @@ import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DeathMessageType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -42,5 +44,11 @@ public final class DataGen {
     @SubscribeEvent
     public static void onGatherServerData(GatherDataEvent.@NonNull Server event) {
         event.createProvider(ModDataMapProvider::new);
+    }
+
+    public static void requireNonAir(@NonNull Item item) {
+        if (item.equals(Items.AIR)) {
+            throw new IllegalArgumentException("item cannot be air");
+        }
     }
 }

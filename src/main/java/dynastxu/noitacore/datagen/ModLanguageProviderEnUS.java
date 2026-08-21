@@ -4,6 +4,8 @@ import dynastxu.noitacore.block.Blocks;
 import dynastxu.noitacore.common.spell.SpellType;
 import dynastxu.noitacore.item.Items;
 import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Arrays;
 
@@ -63,7 +65,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
 
     @Override
     protected void addBlocks() {
-        add(Blocks.BRICKWORK.get(), "Brickwork");
+        addWithSlabAndStair(Blocks.BRICKWORK, Blocks.BRICKWORK_SLAB, Blocks.BRICKWORK_STAIR, "Brickwork");
     }
 
     @Override
@@ -112,5 +114,9 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
                 case Other -> add(value.getTranslationKey(), "Other");
             }
         });
+    }
+
+    private void addWithSlabAndStair(@NonNull DeferredBlock<?> baseBlock, DeferredBlock<?> slabBlock, DeferredBlock<?> stairBlock, String name) {
+        addWithSlabAndStair(baseBlock, slabBlock, stairBlock, name, " Slab", " Stair");
     }
 }

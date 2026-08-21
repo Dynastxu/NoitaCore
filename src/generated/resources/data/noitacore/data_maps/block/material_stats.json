@@ -2168,6 +2168,24 @@
         "durability": 14,
         "hardness": 100.0
       }
+    },
+    "noitacore:brickwork_slab": {
+      "replace": true,
+      "value": {
+        "conductive": false,
+        "density": 10,
+        "durability": 14,
+        "hardness": 100.0
+      }
+    },
+    "noitacore:brickwork_stair": {
+      "replace": true,
+      "value": {
+        "conductive": false,
+        "density": 10,
+        "durability": 14,
+        "hardness": 100.0
+      }
     }
   }
 }

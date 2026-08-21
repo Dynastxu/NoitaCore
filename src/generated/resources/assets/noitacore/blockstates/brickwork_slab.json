@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "noitacore:block/brickwork_slab"
+    },
+    "type=double": {
+      "model": "noitacore:block/brickwork_slab_full"
+    },
+    "type=top": {
+      "model": "noitacore:block/brickwork_slab_top"
+    }
+  }
+}

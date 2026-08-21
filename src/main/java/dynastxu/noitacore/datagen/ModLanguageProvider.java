@@ -4,6 +4,7 @@ import dynastxu.noitacore.item.SpellItem;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jspecify.annotations.NonNull;
 
@@ -18,6 +19,7 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
     protected void addTranslations() {
         addCreativeTabs();
         addItems();
+        addBlocks();
         addToolTips();
         addDamageTypes();
         addEnums();
@@ -42,12 +44,14 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
         add(item.getDescriptionId() + ".description", description);
     }
 
-    protected void addTooltip(String key, String value) {
-        add("tooltip." + MODID + "." + key, value);
+    protected void addWithSlabAndStair(@NonNull DeferredBlock<?> baseBlock, DeferredBlock<?> slabBlock, DeferredBlock<?> stairBlock, String name, String slab, String stair) {
+        add(baseBlock.get(), name);
+        add(slabBlock.get(), name + slab);
+        add(stairBlock.get(), name + stair);
     }
 
-    protected void addEnum(@NonNull ITranslatableEnum enumValue, String value) {
-        add(enumValue.getTranslationKey(), value);
+    protected void addTooltip(String key, String value) {
+        add("tooltip." + MODID + "." + key, value);
     }
 
     protected abstract void addCreativeTabs();

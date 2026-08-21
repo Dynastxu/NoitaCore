@@ -66,6 +66,8 @@ public final class CreativeTabs {
                     .icon(() -> new ItemStack(Blocks.BRICKWORK.get()))
                     .displayItems((_, output) -> {
                         output.accept(Blocks.BRICKWORK.get());
+                        output.accept(Blocks.BRICKWORK_SLAB.get());
+                        output.accept(Blocks.BRICKWORK_STAIR.get());
                     })
                     .build()
             );
