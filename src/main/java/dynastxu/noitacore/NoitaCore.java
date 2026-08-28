@@ -1,5 +1,6 @@
 package dynastxu.noitacore;
 
+import dynastxu.noitacore.attachment.Attachments;
 import dynastxu.noitacore.block.Blocks;
 import dynastxu.noitacore.components.DataComponents;
 import dynastxu.noitacore.entity.EntityTypes;

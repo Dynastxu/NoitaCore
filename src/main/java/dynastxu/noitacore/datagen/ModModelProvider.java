@@ -43,6 +43,8 @@ public final class ModModelProvider extends ModelProvider {
         r.registerWand(Items.WAND_OF_DESTRUCTION);
 
         r.registerWithSlabAndStair(Blocks.BRICKWORK, Blocks.BRICKWORK_SLAB, Blocks.BRICKWORK_STAIR, "brickwork");
+
+        itemModels.generateFlatItem(Items.NOITA_BOOK.get(), ModelTemplates.FLAT_ITEM);
     }
 
     private record Register(BlockModelGenerators blockModel, ItemModelGenerators itemModel) {

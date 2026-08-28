@@ -157,6 +157,8 @@ public final class Items {
             ), 1
             )))));
 
+    public static final DeferredItem<NoitaBook> NOITA_BOOK = ITEMS.registerItem("noita_book", NoitaBook::new);
+
     public static final DeferredItem<BlockItem> BRICKWORK = ITEMS.registerSimpleBlockItem("brickwork", Blocks.BRICKWORK);
     public static final DeferredItem<BlockItem> BRICKWORK_SLAB = ITEMS.registerSimpleBlockItem("brickwork_slab", Blocks.BRICKWORK_SLAB);
     public static final DeferredItem<BlockItem> BRICKWORK_STAIR = ITEMS.registerSimpleBlockItem("brickwork_stair", Blocks.BRICKWORK_STAIR);

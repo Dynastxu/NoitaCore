@@ -61,6 +61,8 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         add(Items.WAND_LC_SC_S.get(), "法杖 - 大容量 - 单施法 - 无序");
         add(Items.WAND_MLC_3C_S.get(), "法杖 - 中/大容量 - 3 施法 - 无序");
         add(Items.WAND_OF_DESTRUCTION.get(), "毁灭之杖");
+
+        add(Items.NOITA_BOOK.get(), "女巫之书");
     }
 
     @Override
@@ -114,6 +116,12 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
                 case Other -> add(type.getTranslationKey(), "其他");
             }
         });
+    }
+
+    @Override
+    protected void addBookContents() {
+        addBookContent("overview", "概览");
+        addBookContent("contents_table", "目录");
     }
 
     private void addWithSlabAndStair(@NonNull DeferredBlock<?> baseBlock, DeferredBlock<?> slabBlock, DeferredBlock<?> stairBlock, String name) {

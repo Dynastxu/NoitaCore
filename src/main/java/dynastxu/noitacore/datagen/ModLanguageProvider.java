@@ -23,6 +23,7 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
         addToolTips();
         addDamageTypes();
         addEnums();
+        addBookContents();
     }
 
     protected void addCreativeModeTab(String tab, String value) {
@@ -50,6 +51,10 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
         add(stairBlock.get(), name + stair);
     }
 
+    protected void addBookContent(String key, String value) {
+        add("book." + MODID + "." + key, value);
+    }
+
     protected void addTooltip(String key, String value) {
         add("tooltip." + MODID + "." + key, value);
     }
@@ -65,4 +70,6 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
     protected abstract void addToolTips();
 
     protected abstract void addEnums();
+
+    protected abstract void addBookContents();
 }

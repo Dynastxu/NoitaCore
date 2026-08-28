@@ -1,6 +1,6 @@
 package dynastxu.noitacore.world.level.explosion;
 
-import dynastxu.noitacore.Attachments;
+import dynastxu.noitacore.attachment.Attachments;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

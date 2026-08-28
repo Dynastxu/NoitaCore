@@ -1,4 +1,4 @@
-package dynastxu.noitacore;
+package dynastxu.noitacore.attachment;
 
 import dynastxu.noitacore.world.level.explosion.ExplosionManager;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -15,4 +15,7 @@ public final class Attachments {
 
     public static final Supplier<AttachmentType<ExplosionManager>> EXPLOSION_MANAGER =
             ATTACHMENT_TYPES.register("explosion_manager", () -> AttachmentType.builder(ExplosionManager::new).build());
+
+    public static final Supplier<AttachmentType<UnclockedSpells>> UNLOCKED_SPELLS =
+            ATTACHMENT_TYPES.register("unclocked_spells", () -> AttachmentType.builder(() -> new UnclockedSpells()).build());
 }

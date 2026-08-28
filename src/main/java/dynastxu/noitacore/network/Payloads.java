@@ -18,5 +18,10 @@ public final class Payloads {
                 WandGuiOpenPayload.STREAM_CODEC,
                 WandGuiOpenPayload::handle
         );
+        registrar.playToClient(
+                NoitaBookOpenPayload.TYPE,
+                NoitaBookOpenPayload.STREAM_CODEC,
+                NoitaBookOpenPayload::handle
+        );
     }
 }
