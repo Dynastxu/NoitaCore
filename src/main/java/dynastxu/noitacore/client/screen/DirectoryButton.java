@@ -1,6 +1,7 @@
 package dynastxu.noitacore.client.screen;
 
-import net.minecraft.client.gui.ActiveTextCollector;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -37,15 +38,8 @@ public class DirectoryButton extends Button {
             );
         }
 
-        int textRight = this.getX() + this.getWidth() - 2;
-        int centerX = textLeft;
-
-        ActiveTextCollector output = graphics.textRendererForWidget(
-                this, GuiGraphicsExtractor.HoveredTextEffects.NONE
-        );
-        output.acceptScrolling(
-                this.getMessage(), centerX, textLeft, textRight,
-                this.getY(), this.getY() + this.getHeight()
-        );
+        Font font = Minecraft.getInstance().font;
+        int textY = this.getY() + (this.getHeight() - font.lineHeight) / 2;
+        graphics.text(font, this.getMessage(), textLeft, textY, 0xFF000000, false);
     }
 }

@@ -121,7 +121,18 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
     @Override
     protected void addBookContents() {
         addBookContent("overview", "概览");
+        addBookContent("overview.spells_unlocked", "法术解锁进度");
         addBookContent("contents_table", "目录");
+        addBookContent("spells", "法术");
+    }
+
+    @Override
+    protected void addCommands() {
+        addCommand("argument_invalid", "参数无效");
+        addCommand("spell_unlocked", "已解锁法术");
+        addCommand("spell_unlock_all", "已解锁所有法术");
+        addCommand("spell_locked", "已锁定法术");
+        addCommand("spell_lock_all", "已锁定所有法术");
     }
 
     private void addWithSlabAndStair(@NonNull DeferredBlock<?> baseBlock, DeferredBlock<?> slabBlock, DeferredBlock<?> stairBlock, String name) {

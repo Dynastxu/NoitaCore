@@ -121,7 +121,18 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
     @Override
     protected void addBookContents() {
         addBookContent("overview", "Overview");
+        addBookContent("overview.spells_unlocked", "Spells Unlocked Progress");
         addBookContent("contents_table", "Contents");
+        addBookContent("spells", "Spells");
+    }
+
+    @Override
+    protected void addCommands() {
+        addCommand("argument_invalid", "Argument invalid");
+        addCommand("spell_unlocked", "Unlocked spell");
+        addCommand("spell_unlock_all", "Unlock all spells");
+        addCommand("spell_locked", "Locked spell");
+        addCommand("spell_lock_all", "Lock all spells");
     }
 
     private void addWithSlabAndStair(@NonNull DeferredBlock<?> baseBlock, DeferredBlock<?> slabBlock, DeferredBlock<?> stairBlock, String name) {

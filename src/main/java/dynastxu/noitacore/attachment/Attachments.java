@@ -16,6 +16,8 @@ public final class Attachments {
     public static final Supplier<AttachmentType<ExplosionManager>> EXPLOSION_MANAGER =
             ATTACHMENT_TYPES.register("explosion_manager", () -> AttachmentType.builder(ExplosionManager::new).build());
 
-    public static final Supplier<AttachmentType<UnclockedSpells>> UNLOCKED_SPELLS =
-            ATTACHMENT_TYPES.register("unclocked_spells", () -> AttachmentType.builder(() -> new UnclockedSpells()).build());
+    public static final Supplier<AttachmentType<UnlockedSpells>> UNLOCKED_SPELLS =
+            ATTACHMENT_TYPES.register("unclocked_spells", () -> AttachmentType.builder(() -> new UnlockedSpells())
+                    .serialize(UnlockedSpells.CODEC)
+                    .sync(UnlockedSpells.STREAM_CODEC).build());
 }

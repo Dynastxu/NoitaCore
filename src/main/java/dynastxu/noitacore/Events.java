@@ -1,6 +1,6 @@
 package dynastxu.noitacore;
 
-import dynastxu.noitacore.attachment.UnclockedSpells;
+import dynastxu.noitacore.attachment.UnlockedSpells;
 import dynastxu.noitacore.item.SpellItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.player.Player;
@@ -14,15 +14,15 @@ import org.jspecify.annotations.NonNull;
 import static dynastxu.noitacore.NoitaCore.MODID;
 
 @EventBusSubscriber(modid = MODID)
-public class Events {
+public final class Events {
     @SubscribeEvent
-    public static void onItemPickup(ItemEntityPickupEvent.@NonNull Post event) {
+    public static void onItemPickup(ItemEntityPickupEvent.@NonNull Pre event) {
         Player player = event.getPlayer();
         ItemStack itemStack = event.getItemEntity().getItem();
         Item item = itemStack.getItem();
 
         if (item instanceof SpellItem) {
-            UnclockedSpells.unlock(player, BuiltInRegistries.ITEM.wrapAsHolder(item));
+            UnlockedSpells.unlock(player, BuiltInRegistries.ITEM.wrapAsHolder(item));
         }
     }
 }

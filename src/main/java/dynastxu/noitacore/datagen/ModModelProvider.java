@@ -49,16 +49,7 @@ public final class ModModelProvider extends ModelProvider {
 
     private record Register(BlockModelGenerators blockModel, ItemModelGenerators itemModel) {
         private void registerSpell(Item item, @NonNull SpellType spellType) {
-            String layerPath = switch (spellType) {
-                case Projectile -> "spell_layer_projectile";
-                case Static -> "spell_layer_static";
-                case Passive -> "spell_layer_passive";
-                case Utility -> "spell_layer_utility";
-                case Modifier -> "spell_layer_modifier";
-                case Material -> "spell_layer_material";
-                case Multicast -> "spell_layer_multicast";
-                case Other -> "spell_layer_other";
-            };
+            String layerPath = spellType.layerPath;
 
             // 构建两个材质：layer0 是法术类型固定纹理，layer1 是物品自身纹理
             Material layer0 = new Material(Identifier.fromNamespaceAndPath(MODID, "item/" + layerPath));

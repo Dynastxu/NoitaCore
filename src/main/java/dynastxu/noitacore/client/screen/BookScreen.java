@@ -6,6 +6,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -28,6 +29,8 @@ public abstract class BookScreen extends Screen {
     private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(MODID, "textures/gui/book_2.png");
     private int leftPos;
     private int topPos;
+    private PageButton forwardButton;
+    private PageButton backButton;
     protected final Contents contents;
     private int currentPage = 1;
 
@@ -53,6 +56,12 @@ public abstract class BookScreen extends Screen {
         this.topPos = (this.height - BACKGROUND_HEIGHT) / 2;
         int left = leftPos + 20;
         int top = topPos + 85;
+        this.forwardButton = addRenderableWidget(
+                new PageButton(left + DISTANCE_BETWEEN_PAGES + PAGE_WIDTH - 23, top + PAGE_HEIGHT, true, _ -> nextPage(), true)
+        );
+        this.backButton = addRenderableWidget(
+                new PageButton(left, top + PAGE_HEIGHT, false, _ -> previousPage(), true)
+        );
         contents.createButtons(left, top, this);
         onPageChanged(1);
     }
@@ -85,7 +94,17 @@ public abstract class BookScreen extends Screen {
         if (currentPage % 2 == 0) {
             currentPage--;
         }
+        updateButtonVisibility();
         contents.onPageChanged(page);
+    }
+
+    private void updateButtonVisibility() {
+        if (forwardButton != null) {
+            forwardButton.visible = currentPage + 2 <= contents.pages.size();
+        }
+        if (backButton != null) {
+            backButton.visible = currentPage > 1;
+        }
     }
 
     @Override
@@ -138,8 +157,8 @@ public abstract class BookScreen extends Screen {
         protected final Identifier icon;
         protected final List<Page> pages;
 
-        protected Content(Component title, Identifier icon, Page page) {
-            this(title, icon, List.of(page));
+        protected Content(Component title, Identifier icon, Page... pages) {
+            this(title, icon, List.of(pages));
         }
 
         protected Content(Component title, Identifier icon, List<Page> pages) {

@@ -1,7 +1,7 @@
 package dynastxu.noitacore.item;
 
 import dynastxu.noitacore.attachment.Attachments;
-import dynastxu.noitacore.attachment.UnclockedSpells;
+import dynastxu.noitacore.attachment.UnlockedSpells;
 import dynastxu.noitacore.network.NoitaBookOpenPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -25,8 +25,8 @@ public class NoitaBook extends Item {
 
     private void openGui(Player player) {
         if (player instanceof ServerPlayer serverPlayer) {
-            UnclockedSpells unclockedSpells = serverPlayer.getData(Attachments.UNLOCKED_SPELLS);
-            PacketDistributor.sendToPlayer(serverPlayer, new NoitaBookOpenPayload(unclockedSpells));
+            UnlockedSpells unlockedSpells = serverPlayer.getData(Attachments.UNLOCKED_SPELLS);
+            PacketDistributor.sendToPlayer(serverPlayer, new NoitaBookOpenPayload(unlockedSpells));
         }
     }
 }

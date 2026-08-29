@@ -24,6 +24,7 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
         addDamageTypes();
         addEnums();
         addBookContents();
+        addCommands();
     }
 
     protected void addCreativeModeTab(String tab, String value) {
@@ -59,6 +60,10 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
         add("tooltip." + MODID + "." + key, value);
     }
 
+    protected void addCommand(String key, String value) {
+        add("command." + MODID + "." + key, value);
+    }
+
     protected abstract void addCreativeTabs();
 
     protected abstract void addItems();
@@ -72,4 +77,6 @@ public sealed abstract class ModLanguageProvider extends LanguageProvider permit
     protected abstract void addEnums();
 
     protected abstract void addBookContents();
+
+    protected abstract void addCommands();
 }
