@@ -7,6 +7,9 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import org.jspecify.annotations.Nullable;
 
 public record SpellTooltipComponent(
-        SpellAttributes attributes, @Nullable SpellData spellData, Player player
+        SpellAttributes attributes, @Nullable SpellData spellData, Player player, boolean unlocked
 ) implements TooltipComponent {
+    public SpellTooltipComponent(SpellAttributes attributes, @Nullable SpellData spellData, Player player) {
+        this(attributes, spellData, player, true);
+    }
 }

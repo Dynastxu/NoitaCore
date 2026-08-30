@@ -1,6 +1,7 @@
 package dynastxu.noitacore.client;
 
 import dynastxu.noitacore.client.gui.*;
+import dynastxu.noitacore.client.language.EnglishTranslationCache;
 import dynastxu.noitacore.client.model.*;
 import dynastxu.noitacore.client.renderer.*;
 import dynastxu.noitacore.client.screen.WandScreen;
@@ -18,14 +19,18 @@ import dynastxu.noitacore.particle.ParticleTypes;
 import dynastxu.noitacore.particle.explosion.ExplosionParticleProvider;
 import dynastxu.noitacore.particle.pixel.PixelParticleProvider;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.IItemDecorator;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.jspecify.annotations.NonNull;
+
+import java.util.concurrent.CompletableFuture;
 
 import static dynastxu.noitacore.NoitaCore.MODID;
 
@@ -117,5 +122,20 @@ public final class ClientSetup {
         for (DeferredItem<? extends SpellItem> spellItem : Items.SPELL_ITEMS) {
             event.register(spellItem.get(), spellDecorator);
         }
+    }
+
+    @SubscribeEvent
+    public static void onFMLClientSetup(@NonNull FMLClientSetupEvent event) {
+        event.enqueueWork(() -> EnglishTranslationCache.load(MODID));
+    }
+
+    @SubscribeEvent
+    public static void AddClientReloadListeners(@NonNull AddClientReloadListenersEvent event) {
+        event.addListener(
+                Identifier.fromNamespaceAndPath(MODID, "english_cache"),
+                (_, taskExecutor, preparationBarrier, _) ->
+                        CompletableFuture.runAsync(EnglishTranslationCache::reload, taskExecutor)
+                                .thenCompose(preparationBarrier::wait)
+        );
     }
 }

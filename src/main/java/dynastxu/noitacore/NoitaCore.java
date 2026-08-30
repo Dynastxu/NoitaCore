@@ -8,6 +8,8 @@ import dynastxu.noitacore.item.CreativeTabs;
 import dynastxu.noitacore.item.Items;
 import dynastxu.noitacore.menu.MenuTypes;
 import dynastxu.noitacore.particle.ParticleTypes;
+import net.minecraft.network.chat.FontDescription;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -15,6 +17,7 @@ import net.neoforged.fml.common.Mod;
 @Mod(NoitaCore.MODID)
 public final class NoitaCore {
     public static final String MODID = "noitacore";
+    public static final FontDescription ALT_FONT = new FontDescription.Resource(Identifier.fromNamespaceAndPath(MODID, "alt"));
 
     public NoitaCore(IEventBus modEventBus, ModContainer modContainer) {
         Items.ITEMS.register(modEventBus);

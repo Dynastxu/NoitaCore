@@ -109,5 +109,6 @@
   "tooltip.noitacore.spells_per_cast": "法术数/施放",
   "tooltip.noitacore.spread": "散射",
   "tooltip.noitacore.spread_modification": "散射角度",
+  "tooltip.noitacore.unknown": "未知",
   "tooltip.noitacore.uses": "使用次数"
 }

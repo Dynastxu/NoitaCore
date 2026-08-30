@@ -58,7 +58,7 @@ public record UnlockedSpells(
         player.setData(Attachments.UNLOCKED_SPELLS, new UnlockedSpells());
     }
 
-    private boolean isUnlocked(Holder<Item> spell) {
+    public boolean isUnlocked(Holder<Item> spell) {
         return spells.contains(spell);
     }
 

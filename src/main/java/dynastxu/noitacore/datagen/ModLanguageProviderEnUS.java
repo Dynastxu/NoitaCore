@@ -100,6 +100,7 @@ public final class ModLanguageProviderEnUS extends ModLanguageProvider {
         addTooltip("density", "Density");
         addTooltip("hardness", "Hardness");
         addTooltip("conductive", "Conductive");
+        addTooltip("unknown", "Unknown");
     }
 
     @Override

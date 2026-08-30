@@ -287,8 +287,8 @@ public abstract class BookScreen extends Screen {
     }
 
     protected static class Contents {
-        protected final List<Content> contents;
-        protected final List<Page> pages;
+        private final List<Content> contents;
+        private final List<Page> pages;
 
         protected Contents(Content... contents) {
             this(new ArrayList<>(Arrays.asList(contents)));

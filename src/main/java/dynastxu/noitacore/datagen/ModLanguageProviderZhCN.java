@@ -100,6 +100,7 @@ public final class ModLanguageProviderZhCN extends ModLanguageProvider {
         addTooltip("density", "密度");
         addTooltip("hardness", "材料血量");
         addTooltip("conductive", "导电性");
+        addTooltip("unknown", "未知");
     }
 
     @Override
